@@ -10,6 +10,7 @@
 const Koa = require('koa');
 const router = require('koa-router')();
 const bodyparser = require('koa-bodyparser');
+const models = require('./models');
 const app = new Koa();
 
 const fs = require('fs');
