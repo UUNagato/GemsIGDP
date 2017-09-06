@@ -31,6 +31,13 @@ for(var f of js_files) {
     db[model.name] = model;
 }
 
+// build association.
+Object.keys(db).forEach(function(modelName) {
+    if('associate' in db[modelName]) {
+        db[modelName].associate(db);
+    }
+});
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
