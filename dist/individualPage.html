@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link href="css/individualPage-style.css" rel="stylesheet">
+    <link href="css/indivPageNav-style.css" rel="stylesheet">
+    <script type="text/javascript" src="js/idPage.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="narbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarul">
+          <ul class="nav navbar-nav">
+            <li><a href="#">关于</a></li>
+            <li><a href="#">文章</a></li>
+            <li><a href="#">展示窗</a></li>
+          </ul>
+          <div class="button">
+            <div class="button-1"><a class="btn btn-success">登录</a></div>
+            <div class="button-2"><a class="btn btn-success">注册</a></div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="title">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="head"></div>
+            </div>
+            <div class="col-xs-4">
+              <div class="title-info">
+                <h1>xxx的个人主页</h1><a>xxx的github</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-main">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="left">
+              <ul class="time-vertical">
+                <li><b></b><a href="javascript:void(0);" onclick="changeDiv_1()">个人资料</a></li>
+                <li><b></b><a href="javascript:void(0);" onclick="changeDiv_2()">履历</a></li>
+                <li><b></b><a href="javascript:void(0);" onclick="changeDiv_3()">展示窗</a></li>
+                <li><b></b><a href="javascript:void(0);" onclick="changeDiv_4()">文章</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div class="right">
+              <div class="right-1">
+                <div class="id-info">
+                  <p id="name">昵称:</p>
+                  <p id="sex">性别:</p>
+                  <p id="birthday">生日：</p>
+                  <p id="qq">QQ：</p>
+                  <p id="phone">电话：</p>
+                  <div class="info-s">
+                    <div class="infoLink-title">
+                      <p id="githubLink">GitHub主页：</p>
+                    </div><a class="info-link">这是GitHub链接</a>
+                  </div>
+                  <div class="info-s">
+                    <div class="infoLink-title">
+                      <p id="personalWeb">个人博客：</p>
+                    </div><a class="info-link">这是个人博客链接</a>
+                  </div>
+                  <div class="info-s">
+                    <div class="infoLink-title">
+                      <p id="pixiv">pixiv主页：</p>
+                    </div><a class="info-link">这是pixiv链接</a>
+                  </div>
+                  <div class="info-s">
+                    <div class="infoLink-title">
+                      <p id="patreon">patreon主页：</p>
+                    </div><a class="info-link">这是patreon链接</a>
+                  </div>
+                  <div class="info-s">
+                    <p id="sign">个性签名：hello，it's my gg page.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="right-2">
+                <div class="id-info">
+                  <h1>个人履历</h1>
+                </div>
+              </div>
+              <div class="right-3">
+                <div class="id-info">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-5 col-md-push-1">
+                        <div class="show">
+                          <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
+                          <div class="show-info">
+                            <div class="show-name"> <a>作品名称</a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5 col-md-push-1">
+                        <div class="show">
+                          <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
+                          <div class="show-info">
+                            <div class="show-name"> <a>作品名称</a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-5 col-md-push-1">
+                        <div class="show">
+                          <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
+                          <div class="show-info">
+                            <div class="show-name"> <a>作品名称</a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5 col-md-push-1">
+                        <div class="show">
+                          <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
+                          <div class="show-info">
+                            <div class="show-name"> <a>作品名称</a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="right-4">
+                <div class="article"><a>我的第一篇文章</a>
+                  <div class="detail">
+                    <p>
+                      为什么要编写这个教程？因为我在学习Git的过程中，买过书，也在网上Google了一堆Git相关的文章和教程，但令人失望的是，这些教程不是难得令人发指，就是简单得一笔带过，或者，只支离破碎地介绍Git的某几个命令，还有直接从Git手册粘贴帮助文档的，总之，初学者很难找到一个由浅入深，学完后能立刻上手的Git教程。
+                      
+                      既然号称史上最浅显易懂的Git教程，那这个教程有什么让你怦然心动的特点呢？
+                      
+                      首先，本教程绝对面向初学者，没有接触过版本控制概念的读者也可以轻松入门，不必担心起步难度；
+                      
+                      其次，本教程实用性超强，边学边练，一点也不觉得枯燥。而且，你所学的Git命令是“充分且必要”的，掌握了这些东西，你就可以通过Git轻松地完成你的工作。
+                    </p>
+                  </div>
+                </div>
+                <div class="article"><a>我的第二篇文章</a>
+                  <div class="detail">
+                    <p>
+                      为什么要编写这个教程？因为我在学习Git的过程中，买过书，也在网上Google了一堆Git相关的文章和教程，但令人失望的是，这些教程不是难得令人发指，就是简单得一笔带过，或者，只支离破碎地介绍Git的某几个命令，还有直接从Git手册粘贴帮助文档的，总之，初学者很难找到一个由浅入深，学完后能立刻上手的Git教程。
+                      
+                      既然号称史上最浅显易懂的Git教程，那这个教程有什么让你怦然心动的特点呢？
+                    </p>
+                  </div>
+                </div>
+                <div class="article"><a>我的第三篇文章</a>
+                  <div class="detail">
+                    <p>为什么要编写这个教程？因为我在学习Git的过程中，买过书，也在网上Google了一堆Git相关的文章和教程，但令人失望的是，这些教程不是难得令人发指，就是简单得一笔带过，或者，只支离破碎地介绍Git的某几个命令，还有直接从Git手册粘贴帮助文档的，总之，初学者很难找到一个由浅入深，学完后能立刻上手的Git教程。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
