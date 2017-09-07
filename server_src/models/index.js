@@ -25,7 +25,7 @@ var js_files = files.filter((f) => {
 });
 
 for(var f of js_files) {
-    console.log('Model file' + f + ' has been found.');
+    console.log('Model file ' + f + ' has been found.');
     var model = sequelize.import(path.join(__dirname, f));
     console.log('Model ' + model.name + ' has been added.');
     db[model.name] = model;

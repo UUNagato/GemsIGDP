@@ -11,6 +11,7 @@ const Koa = require('koa');
 const router = require('koa-router')();
 const bodyparser = require('koa-bodyparser');
 const models = require('./models');
+const users = require('./controllers/users.js');
 const app = new Koa();
 
 const fs = require('fs');
@@ -50,6 +51,9 @@ for(var f of js_files) {
         }
     }
 }
+
+// user token check
+app.use(users.middleware);
 
 app.use(router.routes());
 
