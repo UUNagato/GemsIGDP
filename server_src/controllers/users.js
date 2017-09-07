@@ -17,6 +17,22 @@ const jwtstr = require('../configs/jwtconfig.js');
 
 var currentUser = null;
 
+
+//check if the user_name is repeat in the login_info table or not
+//if repeat return true
+var userNameCheckfunc = async function(username) {
+    var loginfo = await models.login.findOne({
+        where:{
+            user_name : username,
+        }
+    });
+
+    if(loginfo === null)
+        return false;
+    else
+        return true;
+}
+
 // 
 // check if the user's login data is correct.
 //
@@ -195,6 +211,7 @@ var getCurrentUserfunc = async function() {
 }
 
 module.exports = {
+    userCheck : userNameCheckfunc,
     loginCheck : loginCheckfunc,
     userExist : userExistfunc,
     registerAUser : registerAUserfunc,
