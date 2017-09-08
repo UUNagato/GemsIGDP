@@ -23,14 +23,17 @@ var currentUser = null;
 var userNameCheckfunc = async function(username) {
     var loginfo = await models.login.findOne({
         where:{
-            user_name : username,
+            user_name : username
         }
     });
 
     if(loginfo === null)
         return false;
     else
+    {
+        console.log('the user is already exist.');
         return true;
+    }
 }
 
 // 
@@ -110,6 +113,7 @@ var generateUserTokenfunc = async function(userid, username) {
 // param: userinfo
 // userinfo.username : username
 // userinfo.nickname : nickname
+// {username:xxx}
 // return: true is already exist, false for not
 var userExistfunc = async function(userinfo) {
     let ret = false;
