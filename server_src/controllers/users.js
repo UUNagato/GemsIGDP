@@ -186,18 +186,14 @@ var userTokenMiddleware = async function(ctx, next) {
 
     if(token) {
         // token exists
-        jwt.verify(token, jwtstr,function(err, decoded) {
-            if(err) {
-                console.log('no token access.');
-            } else {
-                // save the user info
-                console.log('logged in');
-                currentUser = decoded;
-            }
-        });
+        try {
+            var decoded = jwt.verify(token, jwtstr);
+            currentUser = decoded;
+            console.log('log in!');
+        } catch(err) {
+            return null;
+        }
     }
-
-    console.log('not log in');
 
     // next middleware
     await next();
@@ -210,9 +206,39 @@ var userTokenMiddleware = async function(ctx, next) {
 // user_id,
 // user_name
 // }
-var getCurrentUserfunc = async function() {
+var getCurrentUserfunc = function() {
     return currentUser;
 }
+
+//
+// Active Email
+// param: id - user id
+// return: void for succeed or throw an error.
+var activeUserEmailfunc = async function(email, user_id) {
+    // first find this user
+    var user = await models.user.findOne({
+        attributes: ['id','email','authority'],
+        where: {
+            id: user_id,
+            authority: 0
+        }
+    });
+
+    if(user === null)
+        throw 'No such unactived user.';
+    
+    if(user.email !== email)
+        throw 'incorrect email';
+    
+    try{
+        await user.update({
+            authority: 1
+        });
+    } catch(err) {
+        throw 'failed to update data';
+    }
+}
+
 
 module.exports = {
     userCheck : userNameCheckfunc,
