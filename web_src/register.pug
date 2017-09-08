@@ -23,30 +23,31 @@ html
                                             div.info-s
                                                 p.title-2 *用户名：
                                                 div.info
-                                                    input.name(type="text", name="name", onclick="showMess(this)",onchange="userid(this)")
-                                                p.title-3 请输入英文或数字
+                                                    input.name(type="text", id="name", onclick="showMess(this)",onchange="userid(this)")
+                                                p.title-3 英文,数字或下划线
                                                 p.glyphicon.glyphicon-ok
-                                                p.alert 用户名已存在
+                                                p.alert#alert-1 用户名已存在
+                                                p.alert#alert-2 输入不符合规范
                                             div.info-s
                                                 p.title-2 *邮箱：
                                                 div.info
-                                                    input.name(type="email", name="email", onclick="showMess(this)",onblur="email(this)")
+                                                    input.name(type="email", id="email", onclick="showMess(this)",onchange="email(this)")
                                                 p.title-3 请输入有效邮箱
                                                 p.glyphicon.glyphicon-ok
                                                 p.alert 邮箱格式不正确
                                             div.info-s
                                                 p.title-2 *密码：
                                                 div.info
-                                                    input.name(type="password", name="password", onclick="showMess(this)",onblur="password(this)",oninput="passLen(this)")
+                                                    input.name(type="password", id="password", onclick="showMess(this)",oninput="passLen(this)")
                                                 p.title-3 请输入6-16位密码
                                                 p.glyphicon.glyphicon-ok
                                                 p.alert 密码长度不符
                                             div.info-s
                                                 p.title-2 *确认密码：                                                    
                                                 div.info
-                                                    input.name(type="password", name="re-password", onclick="showMess(this)",onblur="passwordRe(this)")
+                                                    input.name(type="password", id="re-password", onclick="showMess(this)",onchange="passwordRe(this)")
                                                 p.title-3 请确认密码
                                                 p.glyphicon.glyphicon-ok
                                                 p.alert 密码与之前输入不符        
                                             div.col-md-6.col-md-push-3
-                                            a.btn.btn-success 注册
+                                            a.btn.btn-success(onclick="upRegInfo()") 注册

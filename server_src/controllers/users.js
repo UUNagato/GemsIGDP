@@ -34,7 +34,18 @@ var userNameCheckfunc = async function(username) {
         console.log('the user is already exist.');
         return true;
     }
-}
+};
+
+//to get user_id, param:username
+var getUserIdfunc = async function(username) {
+    models.login.findOne({
+        where: {
+            user_name : username
+        }
+        }).then(user =>{
+            return user.user_id;
+    });
+};
 
 // 
 // check if the user's login data is correct.
@@ -242,6 +253,7 @@ var activeUserEmailfunc = async function(email, user_id) {
 
 module.exports = {
     userCheck : userNameCheckfunc,
+    getUserId : getUserIdfunc,
     loginCheck : loginCheckfunc,
     userExist : userExistfunc,
     registerAUser : registerAUserfunc,
