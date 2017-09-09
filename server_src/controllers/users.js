@@ -162,7 +162,7 @@ var registerAUserfunc = async function(username, pwd, eml) {
 // return: user_id or null
 var findUserIdByUserNamefunc = async function(username) {
     var refuser = await models.login.findOne({
-        attributes:{ user_id },
+        attributes:['user_id'],
         where:{
             user_name: username
         }
