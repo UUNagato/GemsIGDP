@@ -6,6 +6,7 @@
     password using MD5 and log in use JWT
 
     2017/9/6 created by UUNagato
+    2017/9/9 modify register return value, add findIdbyUsername method.
  */
 'use strict'
 
@@ -124,7 +125,7 @@ var userExistfunc = async function(userinfo) {
 // add a basic user to database
 // there may be collision
 // param:
-// return: true for succeed, false for fail
+// return: user_id or null
 var registerAUserfunc = async function(username, pwd, eml) {
     // try to insert
     try {
@@ -146,13 +147,32 @@ var registerAUserfunc = async function(username, pwd, eml) {
             password:cryptopwd
         });
 
+        return userrel.id;
+
         // succeed!
     } catch(err) {
-        console.log('Add new user - ' + username + ' failed.');
-        console.log('Error:' + err);
-        return false;
+        console.log(err);
+        return null;
     }
-    return true;
+}
+
+//
+// find user id by user name
+// param:username
+// return: user_id or null
+var findUserIdByUserNamefunc = async function(username) {
+    var refuser = await models.login.findOne({
+        attributes:{ user_id },
+        where:{
+            user_name: username
+        }
+    });
+
+    if(refuser !== null) {
+        return refuser.user_id;
+    }
+
+    return null;
 }
 
 //
@@ -226,6 +246,7 @@ module.exports = {
     registerAUser : registerAUserfunc,
     tryLogin : tryLoginfunc,
     getCurrentUser : getCurrentUserfunc,
+    findUserIdByUserName : findUserIdByUserNamefunc,
 
     middleware: userTokenMiddleware
 };
