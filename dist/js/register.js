@@ -146,14 +146,14 @@ function upRegInfo(){
 
     if(right === true)
     {
-        console.log('register ing......');
         let name = $('#name').val();
         let email = $('#email').val();
         let password = $('#password').val();
 
         $.post('/register/upInfo', {username : name, email : email, password : password},
-            function(data){
-                alert('register success!');
+            function(url){
+                //console.log('register success, url is '+url);
+                window.open(url,'_blank');
         });
 
     }else{
