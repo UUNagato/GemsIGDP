@@ -12,8 +12,15 @@ function showMess(event)
     //div.find('.title-3').show();
 
     //when info of alert or ok is hidden, the title-3 info will show
-    if(div.find('.alert').is(':hidden') && div.find('.glyphicon-ok').is(':hidden')&& div.find('#alert-2').is(':hidden')&& div.find('#alert-1').is(':hidden'))
-        div.find('.title-3').show();
+    if($input.attr('id') === 'name')
+    {
+        if(div.find('.alert').is(':hidden') && div.find('.glyphicon-ok').is(':hidden')&& div.find('#alert-2').is(':hidden')&& div.find('#alert-1').is(':hidden'))
+            div.find('.title-3').show();
+    }
+    else{
+        if(div.find('.alert').is(':hidden') && div.find('.glyphicon-ok').is(':hidden'))
+            div.find('.title-3').show();
+    }
     
     //$('.glyphicon-ok').hide();
     // $input.parent().parent().find('.title-3').show();

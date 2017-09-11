@@ -38,7 +38,7 @@ var userNameCheckfunc = async function(username) {
 };
 
 //to get user_id, param:username
-var getUserIdfunc = async function(username) {
+/*var getUserIdfunc = async function(username) {
     models.login.findOne({
         where: {
             user_name : username
@@ -46,7 +46,7 @@ var getUserIdfunc = async function(username) {
         }).then(user =>{
             return user.user_id;
     });
-};
+};*/
 
 // 
 // check if the user's login data is correct.
@@ -248,17 +248,24 @@ var getCurrentUserfunc = function() {
 var activeUserEmailfunc = async function(email, user_id) {
     // first find this user
     var user = await models.user.findOne({
-        attributes: ['id','email','authority'],
+        attributes: ['id','authority'],
         where: {
             id: user_id,
             authority: 0
         }
     });
 
+    var loginInfo = await models.login.findOne({
+        attributes: ['email'],
+        where: {
+            id: user_id
+        }
+    });
+
     if(user === null)
         throw 'No such unactived user.';
     
-    if(user.email !== email)
+    if(loginInfo.email !== email)
         throw 'incorrect email';
     
     try{
@@ -273,13 +280,12 @@ var activeUserEmailfunc = async function(email, user_id) {
 
 module.exports = {
     userCheck : userNameCheckfunc,
-    getUserId : getUserIdfunc,
     loginCheck : loginCheckfunc,
     userExist : userExistfunc,
     registerAUser : registerAUserfunc,
     tryLogin : tryLoginfunc,
     getCurrentUser : getCurrentUserfunc,
     findUserIdByUserName : findUserIdByUserNamefunc,
-
+    activeUserEmail : activeUserEmailfunc,
     middleware: userTokenMiddleware
 };
