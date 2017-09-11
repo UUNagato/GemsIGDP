@@ -1,0 +1,125 @@
+doctype html
+html
+    head 
+        include ../web_src/templates_pug/default-head.pug
+        title articleUI
+        link(rel="stylesheet", href="css/basic.css",tyoe="text/css")
+    body
+        div.container-fluid.navigationbar
+            include ../web_src/templates_pug/navbar-container.pug
+        div.container.articlearea           
+            div.row
+                div.col-md-8
+                    h1.articletitle {{article.title}}
+                    //-h1.articletitle 这货是文章标题
+                div.col-md-4.withleftborder
+                    div.row
+                        img.img-circle.userimg(src="{{user.imgsrc}}")
+                        //-img.img-circle.userimg(src="img/index-back.jpg")
+                    div.row.username
+                        a(href="{{user.homepage}}") {{user.name}}
+                        //-a(href="#") xiang
+                    div.row
+                        button.btn.btn-lg 关注
+            div.row.note
+                div.col-md-3
+                    p 已分享:{{fenxiang}}
+                    //-p 已分享：
+                div.col-md-3
+                    p 已阅读：{{yuedu}}
+                div.col-md-6
+                    p {{releasetime}}
+            div.fengexian
+            
+            div.article 
+                p {{article.content}}
+                //-p 
+                    |傲来城是日月联邦东海岸的一座滨海小城，毗邻大海。
+                    |今天城里分外热闹，一年一度的觉醒日到了。
+                    |斗罗大陆上的人们，都拥有一种叫做武魂的存在。武魂是他们身体的一部分，可以是任何动物、植物或者是器物。六岁的时候，通过觉醒仪式，就能唤醒自身武魂。一年一度的觉醒日，就是唤醒武魂的日子。
+                    |如果武魂是一把锄头，那么，这个人耕田的能力就会比别人强一些。如果武魂是一种动物，说不定这个人就能够拥有这种动物的一些简单能力。因此，武魂早已成为了改变人们生活的重要存在。
+                    |更重要的是，人们更期待着有魂力出现，魂力是滋养和提升武魂的一种能量，每个人都拥有武魂，但就算是一千人中，也未必有一个人能够伴随着武魂而出现魂力。栢镀意下嘿眼哥关看嘴心章节
+                    |魂力等同于未来，等同于强大，当武魂伴生有魂力出现的时候，就可以通过修炼魂力提升自身武魂，从而成为千百年来斗罗大陆上一直都拥有的高贵职业，魂师。
+                    |所以，哪怕是出身再普通的民众，也期待着自己的孩子能够在六岁觉醒日到来的这一天武魂觉醒的同时出现魂力，那很可能会改变孩子的一生，甚至让整个家庭受益。
+                    |山学院前的街道，今天一大早就已经是拥挤不堪，到处都是带着孩子前来参加觉醒的家长。
+                    |“爸爸，你说我的武魂会是什么”刚满六岁的小男孩儿有些雀跃的看着自己的父亲，他最爱听的，就是爸爸给自己讲的那些关于魂师的故事。一双漂亮的大眼睛里满是憧憬。
+                    |小男孩儿有着一头色短发，身材比同龄的孩子要略微高一点，最引人瞩目的是他那一双眼眸，大眼睛白分明，长长的睫毛连许多女孩子都有所不及。衣着虽然普通，但出众的相貌还是很容易被人注意。
+                    |父亲是一名相貌普通的中年人，个子中等、身材中等，一切看上去都是那么的普通。
+                    |“爸爸也不知道，这要看运气了。”父亲心中暗叹，觉醒日其实也是一个分割日，分割人生的日子。是否拥有魂力，无疑将决定着一个人的人生轨迹。幸好，现在这个时代，就算是不能成为魂师，也依旧有可能拥有不错的未来。
+                    |“我一定会有魂力的对不对”漂亮的小男孩儿眼中满是希冀。
+                    |父亲摸摸他的头，微笑道：“无论你有没有魂力，爸爸都爱你。”
+                    |学院内，不断有家长带着孩子走出来，绝大多数，都是颓然或者是喟叹的样子。偶尔有一个欢欣雀跃的，不用问，那一定是他的武魂伴生有魂力出现了，也立刻会吸引周围所有人的目光，带着羡慕和嫉妒的目光。
+                    |随着时间的推移，阳光也变得越来越强烈，漂亮小男孩儿兴奋的劲头也随之降低了许多。
+                    |“唐舞麟”红山学院内走出一名老师，看着手中的表格叫出一个名字。
+                    |“我在这儿”漂亮的小男孩儿一下就瞪大了眼睛，雀跃着跳了起来。
+                    |唐孜然也是精神一振，看着兴奋的儿子，拉着他的小手走过去。
+                    |“跟我来吧。”或许是觉醒日工作太多，老师显得有些淡漠，转身走在前面。唐孜然带着唐舞麟赶忙跟上。
+                    |走在学院的小路上，唐舞麟兴奋地看着周围的一切，对于他来说，一切都是那么新奇。红山学院是一所可以容纳两千名学员的初等综合学院，学院内建筑风格古朴，白过。那是传灵塔第一任塔主”
+                    |传灵师打断他道：“凝神静气，我要开始了。”
+            div.fengexian
+            div.row.zanline
+                div.col-md-2.yizan
+                    p 已赞：{{dianzan}}
+                    //-p 已赞：
+                div.col-md-2.col-md-offset-6
+                    button.btn.btn-lg.dianzan
+                div.col-md-2
+                    button.btn.btn-lg.dianzan
+        div.container.commentarea
+
+            p {% for comment in comments %}
+                div.row(style="margin-top:30px;margin-left:30px;margin-right:30px;margin-bottom:30px")
+                    div.col-md-2
+                        img.commentuserimg.img-circle(src="{{comment.user.imgsrc}}")
+                    div.col-md-10.commentingarea
+                        div.comment
+                            p {{comment.comment}}
+                            //-p 评论ing
+                        div.row.username
+                            div.col-md-2
+                                a(href="{{comment.user.homepage}}") {{comment.user.name}}
+                                //-a(href="#") 笑笑笑笑小怪兽
+                            div.col-md-1.col-md-offset-8
+                                button.btn.btn-primary.btn-sm(data-toggle="modal" data-target="#commentmodal") 回复
+                            div.col-md-1
+                                p.commenttime {{comment.commenttime}}
+                                //-p.commenttime 时间
+                        div.fengexian
+                        
+                        p {% for citecomment in citecomments %}
+                            div.row
+                                div.col-md-2
+                                    img.incommentuserimg.img-circle(src="{{citecoment.user.imgsrc}}")
+                                div.col-md-10.commentingarea
+                                    div.comment
+                                        p {{citecomment.comment}}
+                                    div.row.username
+                                        div.col-md-3
+                                            a(href="{{citecomment.user.homepage}}") {{citecoment.user.name}}}
+                                        div.col-md-2.col-md-offset-5
+                                            button.btn.btn-primary.btn-sm(data-toggle="modal" data-target="#commentmodal") 回复
+                                        div.col-md-2
+                                            p.commenttime {{citecoment.commenttime}}
+                        p {% endfor %}
+
+            p {% endfor %}
+        div.fengexian
+        div.container(style="padding:0px;background-color:#ebebeb;")
+            div.writecomment
+                textarea.writing(id="comment", cols="30", rows="10")
+                div.row(style="text-align:center")
+                    div.col-md-2.col-md-offset-8
+                        button.btn.btn-lg.commentbtn 评论
+
+
+        div.modal.fade(id="commentmodal",tabindex="-1",role="dialog",aria-labelledby="myModalLabel" aria-hidden="true")
+            div.modal-dialog
+                div.modal-content
+                    div.modal-header
+                        button.close(type="button",data-dismiss="modal",aria-hidden="true") ×
+                        h4.modal-title(id="myModalLabel") 回复
+                    div.modal-body
+                        textarea(id="recomment", cols="30", rows="10",style="resize:none;")
+                    div.modal-footer
+                        button.btn.btn-default(type="button",data-dismiss="modal") 关闭
+                        button.btn.btn-primary(type="button") 回复
