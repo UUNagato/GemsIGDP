@@ -20,6 +20,36 @@ const csrfstr = require('../configs/csrfconfig.js');
 
 var currentUser = null;
 
+
+//check if the user_name is repeat in the login_info table or not
+//if repeat return true
+var userNameCheckfunc = async function(username) {
+    var loginfo = await models.login.findOne({
+        where:{
+            user_name : username
+        }
+    });
+
+    if(loginfo === null)
+        return false;
+    else
+    {
+        console.log('the user is already exist.');
+        return true;
+    }
+};
+
+//to get user_id, param:username
+/*var getUserIdfunc = async function(username) {
+    models.login.findOne({
+        where: {
+            user_name : username
+        }
+        }).then(user =>{
+            return user.user_id;
+    });
+};*/
+
 // 
 // check if the user's login data is correct.
 //
@@ -100,6 +130,7 @@ var generateUserTokenfunc = function(userid, username) {
 // param: userinfo
 // userinfo.username : username
 // userinfo.nickname : nickname
+// {username:xxx}
 // return: true is already exist, false for not
 var userExistfunc = async function(userinfo) {
     let ret = false;
@@ -230,18 +261,18 @@ var activeUserEmailfunc = async function(email, user_id) {
         }
     });
 
+    var loginInfo = await models.login.findOne({
+        attributes: ['email'],
+        where: {
+            id: user_id
+        }
+    });
+
     if(user === null)
         throw 'No such unactived user.';
-    
-    var emailcheck = await models.login.findOne({
-        attributes:['user_id','email'],
-        where: {
-            email: email
-        }
-    })
 
-    if(emailcheck === null)
-        throw 'No such an email';
+    if(loginInfo.email !== email)
+        throw 'incorrect email';
     
     try{
         await user.update({
@@ -273,13 +304,18 @@ var generateCSRFtokenfunc = function(userid) {
 }
 
 module.exports = {
+    userCheck : userNameCheckfunc,
     loginCheck : loginCheckfunc,
     userExist : userExistfunc,
     registerAUser : registerAUserfunc,
     tryLogin : tryLoginfunc,
     getCurrentUser : getCurrentUserfunc,
     findUserIdByUserName : findUserIdByUserNamefunc,
+<<<<<<< HEAD
     generateCSRFtoken : generateCSRFtokenfunc,
 
+=======
+    activeUserEmail : activeUserEmailfunc,
+>>>>>>> aa12327ab452c54e844c857e1d5ce71ecfdfcdd6
     middleware: userTokenMiddleware
 };

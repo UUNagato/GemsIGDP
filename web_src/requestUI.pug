@@ -1,0 +1,26 @@
+doctype html
+html
+    head 
+        include ../web_src/templates_pug/default-head.pug
+        title articleUI
+        link(rel="stylesheet", href="css/basic.css",tyoe="text/css")
+    body
+        div.container-fluid.navigationbar
+            include ../web_src/templates_pug/navbar-container.pug
+        div.container.articlearea           
+            div.row
+                h1.articletitle {{request.title}}
+            div.row(style="text-align:center;")
+                img.img-circle.userimg(src="{{request.user.imgsrc}}")
+            div.row.username
+                a(href="{{request.user.homepage}}") {{request.user.name}}
+            div.row.note
+                p 已阅读:{{yuedu}}
+            div.row.note
+                p {{releasetime}}
+            div.fengexian
+            p.request {{request}}
+            div.row
+                div.col-md-4.col-md-offset-8
+                    p 联系方式：{{request.connection}}
+            div.fengexian

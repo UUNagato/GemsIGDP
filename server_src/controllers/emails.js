@@ -65,6 +65,7 @@ var validateEmailTokenfunc = function(token) {
         var decoded = jwt.verify(token, emailjwtstr);
         return decoded.user_id;
     } catch(err) {
+        console.log(err);
         return null;
     }
 }

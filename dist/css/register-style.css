@@ -46,6 +46,7 @@ p.title-2{
 p.title-3{
     font-size: 13px;
     float:left;
+    display:none;
 }
 
 hr{
