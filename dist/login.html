@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <title>登录 - Gems</title>
+    <link href="css/index-style.css" rel="stylesheet">
+    <link href="css/login-style.css" rel="stylesheet">
+    <script type="text/javascript" src="js/login-page.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="narbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarul">
+          <ul class="nav navbar-nav">
+            <li><a href="#">关于</a></li>
+            <li><a href="#">文章</a></li>
+            <li><a href="#">展示窗</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="showwindow">
+      <div class="container margin-top-large">
+        <div class="row">
+          <div class="col-md-4 col-md-push-8 login-window">
+            <form id="login-form" method="POST">
+              <div class="alert alert-danger" id="alertdiv" style="display:none;"></div>
+              <div class="form-group" id="groupname">
+                <label class="control-label" for="fmusername">用户名</label>
+                <input class="form-control" id="fmusername" type="text" name="username" placeholder="用户名或邮箱">
+              </div>
+              <div class="form-group" id="grouppass">
+                <label class="control-label" for="fmpassword">密码</label>
+                <input class="form-control" id="fmpassword" type="password" name="password" placeholder="密码">
+              </div><span class="minitext-right"><a class="tint-text" href="#">忘记用户名或密码？</a></span>
+            </form>
+            <div class="container-fluid"><span class="minitext-right">
+                <p class="tint-text">没有帐号？</p></span>
+              <div class="row">
+                <div class="col-md-6"><a class="btn btn-success fullbutton" id="loginbtn" href="#">登录</a></div>
+                <div class="col-md-6"><a class="btn btn-primary fullbutton" href="#">注册</a></div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 margin-small-top">
+                  <p class="grey-tint">其他登录方式</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <ul class="list-inline margin-small-bottom">
+                    <li>m1</li>
+                    <li>m2</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
