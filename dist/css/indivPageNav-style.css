@@ -1,0 +1,57 @@
+div.button{
+    float: right;
+    width: 20%;
+}
+div.button-1{
+    float: right;
+    width:45%;
+}
+div.button-2{
+    width:45%;
+}
+
+a.btn{
+    font-size: 14px;
+    font-weight: bold;
+    width: 80%;
+    margin-top: 10px;
+}
+@media screen and (max-width: 750px){
+    a.btn{
+        font-size:12px;
+        font-weight:bold;
+        width: 100%;
+        margin-top:10px;
+    }
+    div.button{
+        float: right;
+        width: 40%;
+    }
+    div.button-1{
+        float: right;
+        width:45%;
+    }
+    div.button-2{
+        width:45%;
+    }
+}
+
+@media screen and (max-width: 345px){
+    a.btn{
+        font-size:12px;
+        font-weight:bold;
+        width: 100%;
+        margin-top:10px;
+    }
+    div.button{
+        float: right;
+        width: 100%;
+    }
+    div.button-1{
+        float: right;
+        width:45%;
+    }
+    div.button-2{
+        width:45%;
+    }
+}

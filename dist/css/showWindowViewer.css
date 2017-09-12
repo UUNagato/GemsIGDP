@@ -1,0 +1,53 @@
+div.showWindowPicViewer {
+    position:relative;
+    width: 100%;
+    height: 400px;
+}
+
+div.showWindowPicViewer h1.left-btn {
+    display: block;
+    width:30px;
+    height:100%;
+    position: relative;
+    text-align: center;
+    background-color: #cdcdcd;
+    float:left;
+}
+
+div.showWindowPicViewer h1.right-btn {
+    display: block;
+    width:30px;
+    height:100%;
+    position: relative;
+    text-align: center;
+    background-color: #cdcdcd;
+    float:right;
+}
+
+div.showWindowPicViewer h1.left-btn:hover {
+    background-color: #333333;
+}
+
+div.showWindowPicViewer h1.right-btn:hover {
+    background-color: #333333;
+}
+
+
+div.showWindowPicViewer div.imgwindow {
+    width: auto;
+    height: 50%;
+    position: absolute;
+    text-align: center;
+    bottom: 20%;
+}
+
+div.showWindowPicViewer .btn-delete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background-image: url("../img/img-icon-delete.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}

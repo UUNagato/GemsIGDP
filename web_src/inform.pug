@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        include ./templates_pug/default-head.pug
+        link(href="css/inform-style.css",rel="stylesheet")
+        title Gems - 注册成功
+        //- Javascript for this page
+        script(type="text/javascript",src="js/register.js")
+    body
+        nav.navbar.navbar-inverse.navbar-fixed-top
+            include ./templates_pug/navbar-container.pug
+        div.showwindow
+            div.container
+                div.row
+                    div.col-md-10.col-md-push-1
+                        div.informWindow
+                            p.inform 验证邮件已发送，请前往邮箱进行验证。
+                            div.container-fluid
+                                div.row
+                                    div.col-md-4.col-md-push-4
+                                        div.button
+                                            a.btn.btn-success 返回首页             

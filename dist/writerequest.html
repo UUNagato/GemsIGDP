@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <title>需求编辑</title>
+    <link rel="stylesheet" href="css/writearticle.css" type="text/css">
+    <script type="text/javascript" src="js/writearticle.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid navigationbar">
+      <nav class="navbar navbar-inverse navigationbar">
+        <div class="container">
+          <div class="narbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarul">
+            <ul class="nav navbar-nav">
+              <li><a href="#">关于</a></li>
+              <li><a href="#">文章</a></li>
+              <li><a href="#">展示</a></li>
+            </ul>
+            <ul class="nav navbar-nav buttonnav withleftborder">
+              <li>
+                <button class="btn navigationbutton btn-lg">登录</button>
+              </li>
+              <li>
+                <button class="btn navigationbutton btn-lg">注册</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="row" style="background-color:#737373;">
+      <h1 class="articlelisttitle">发布一次需求</h1>
+    </div>
+    <div class="container articlewriting">
+      <p class="writelabel">标题：</p>
+      <p class="title" id="title"></p>
+      <p class="writelabel">正文：</p>
+      <p id="toolbar"><span>字号：</span>
+        <select id="size">
+          <option value="3">Tiny</option>
+          <option value="4">Small</option>
+          <option value="5">Normal</option>
+          <option value="6">Big</option>
+          <option value="7">Large</option>
+        </select><span>颜色：</span>
+        <select id="color">
+          <option value="black" style="color:black;">Black</option>
+          <option value="gray" style="color:gray;">Gray</option>
+          <option value="brown" style="color:brown;">Brown</option>
+          <option value="red" style="color:red;">Red</option>
+          <option value="pink" style="color:pink;">Pink</option>
+          <option value="yellow" style="color:yellow;">Yellow</option>
+          <option value="orange" style="color:orange;">Orange</option>
+          <option value="blue" style="color:blue;">Blue</option>
+          <option value="green" style="color:green;">Green</option>
+        </select><span>字体：</span>
+        <select id="fontfamily">
+          <option value="'微软雅黑'" style="font-family:'微软雅黑';">微软雅黑</option>
+          <option value="宋体" style="font-family:'宋体';">宋体</option>
+          <option value="arial" style="font-family:'arial';">arial</option>
+        </select>
+        <button type="button" id="bold"><strong>B</strong></button>
+        <button type="button" id="italic"><i>I</i></button>
+        <button type="button" id="underline" style="text-decoration:underline;">U</button>
+      </p>
+      <p class="editable" id="editor"></p>
+      <button class="btn-lg" type="button" style="float:right;width:200px;">提交</button>
+    </div>
+  </body>
+</html>

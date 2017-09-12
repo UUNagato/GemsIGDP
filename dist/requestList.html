@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <title>需求列表</title>
+    <link rel="stylesheet" href="css/basic.css" tyoe="text/css">
+  </head>
+  <body></body>
+  <div class="container-fluid navigationbar">
+    <nav class="navbar navbar-inverse navigationbar">
+      <div class="container">
+        <div class="narbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarul">
+          <ul class="nav navbar-nav">
+            <li><a href="#">关于</a></li>
+            <li><a href="#">文章</a></li>
+            <li><a href="#">展示</a></li>
+          </ul>
+          <ul class="nav navbar-nav buttonnav withleftborder">
+            <li>
+              <button class="btn navigationbutton btn-lg">登录</button>
+            </li>
+            <li>
+              <button class="btn navigationbutton btn-lg">注册</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="container" style="background-color:#a1a1a1;height:750px;text-align:center;">
+    <div class="row" style="background-color:#737373;">
+      <h1 class="articlelisttitle">需求列表</h1>
+    </div>
+    <div class="row">
+      <div class="row articlelistlabelrow"><a class="articlelistlabel" href="{{label.src}}">{{label.name}}</a></div>
+    </div>
+    <div class="fengexian"></div>
+    <ul>
+      <li style=" list-style: none;">
+        <div class="row articlelist"><a href="{{request.src}}">{{request.title}}</a>
+          <p class="articlelistauthor">{{request.author}} {{request.releasetime}}  </p>
+        </div>
+      </li>
+    </ul>
+    <div class="row pagerrow"><a class="articlelistlabel" href="#">←</a><a href="page_i.src">i</a><a class="articlelistlabel" href="#">→</a></div>
+  </div>
+</html>
