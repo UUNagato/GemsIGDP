@@ -216,7 +216,7 @@ var findUserIdByUserNamefunc = async function(username) {
 // check if that's a logged in user
 var userTokenMiddleware = async function(ctx, next) {
     // try to get token
-    var token = ctx.request.body.token || ctx.request.query.token || ctx.request.headers['x-access-token'] || ctx.cookies.get('authentication');
+    var token = ctx.cookies.get('authentication') || ctx.request.body.token || ctx.request.query.token || ctx.request.headers['x-access-token'];
     console.log(token);
     // emptp current user
     currentUser = null;
@@ -303,6 +303,38 @@ var generateCSRFtokenfunc = function(userid) {
     return jwt.sign(payload, csrfstr);
 }
 
+//
+// Validate CSRF token
+// context.request
+// return true for succeed, false for not
+//
+var validateCSRFtokenfunc = function(req) {
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if(token) {
+        try{
+            jwt.verify(token, csrfstr);
+            return true;
+        } catch(err) {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+//
+// Get the userinfo after login and CSRF validation
+// param request
+// 
+var getValidatedUserfunc = function(req) {
+    if(currentUser !== null && validateCSRFtokenfunc(req)) {
+        return currentUser;
+    } else {
+        return null;
+    }
+}
+
 module.exports = {
     userCheck : userNameCheckfunc,
     loginCheck : loginCheckfunc,
@@ -312,7 +344,9 @@ module.exports = {
     getCurrentUser : getCurrentUserfunc,
     findUserIdByUserName : findUserIdByUserNamefunc,
     generateCSRFtoken : generateCSRFtokenfunc,
+    validateCSRFtoken : validateCSRFtokenfunc,
     activeUserEmail : activeUserEmailfunc,
+    getValidatedUser : getValidatedUserfunc,
 
     middleware: userTokenMiddleware
 };
