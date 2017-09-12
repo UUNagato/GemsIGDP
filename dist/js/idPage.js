@@ -30,6 +30,49 @@ function changeDiv_4()
     $('.right-4').attr("style","display:block;");//显示div
 }
 
+function showWindow(w,h)
+{
+    var popUp = document.getElementById("changeHead"); 
+    popUp.style.top = "250px"; 
+    popUp.style.left = "180px"; 
+    popUp.style.width = w + "px"; 
+    popUp.style.height = h + "px"; 
+    //if (baseText == null) baseText = popUp.innerHTML; 
+    //popUp.innerHTML = baseText + "<div id=\"statusbar\"><button onclick=\"hidePopup();\">Close window</button></div>"; 
+    //var sbar = document.getElementById("statusbar"); 
+    //sbar.style.marginTop = (parseInt(h)-40) + "px"; 
+    popUp.style.visibility = "visible"; 
+}
+
+function showInfoChange(h)
+{
+    var popUp = document.getElementById("changeInfo"); 
+    popUp.style.width = "100%"; 
+    popUp.style.height = h + "px"; 
+    //if (baseText == null) baseText = popUp.innerHTML; 
+    //popUp.innerHTML = baseText + "<div id=\"statusbar\"><button onclick=\"hidePopup();\">Close window</button></div>"; 
+    //var sbar = document.getElementById("statusbar"); 
+    //sbar.style.marginTop = (parseInt(h)-40) + "px"; 
+    popUp.style.visibility = "visible";
+}
+function headClose()
+{
+    var popUp = document.getElementById("changeHead");
+    popUp.style.visibility = "hidden";
+}
+function infoClose()
+{
+    var popUp = document.getElementById("changeInfo");
+    popUp.style.visibility = "hidden";
+}
+function headPreview()
+{
+    var img = document.getElementById("headImag").value;
+    var head = document.getElementById("headPre");
+    console.log('the file url:'+img);
+    head.style.backgroundImage = "url("+img+')';
+    
+}
 function like(event)
 {
     if(event.colortype === 0)
@@ -56,3 +99,82 @@ $(function(){
             $(this).css('color','#2A2A2A');
     });
 });
+
+var url = '';
+function getFullPath(obj) {
+    if (obj) {
+        //Internet Explorer 
+        var preview = document.getElementById('headPre');
+        if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
+            obj.select();
+            return document.selection.createRange().text;
+        } 
+        //Firefox
+        else if (window.navigator.userAgent.indexOf("Firefox") >= 1) { 
+            if (obj.files) {
+                console.log('firefox');
+                url = window.URL.createObjectURL(obj.files.item(0));
+                preview.style.backgroundImage = 'url('+window.URL.createObjectURL(obj.files.item(0))+')';
+                return;
+            }
+        } 
+    } 
+}
+
+function change(){
+    var preview = document.getElementById('realHead');
+    if (window.navigator.userAgent.indexOf("Firefox") >= 1) { 
+        preview.style.backgroundImage = 'url('+url+')';
+    }
+    var div = document.getElementById('changeHead');
+    div.style.visibility = "hidden";
+} 
+
+
+$(function(){
+    $('.form_date').datetimepicker({
+        language:  'ch',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+});
+
+});
+
+function changeInfo(){
+    let name = $('#userName').val();
+    let sex = $("input[name='sex']:checked").val();
+    let birthday = $('.form-control').val();
+    let qq = $('#qqNum').val();
+    let phone = $('#phoneNum').val();
+    let github = $('#githubLin').val();
+    let personalWeb = $('#personalWebLin').val();
+    let sign = $('#perSign').val();
+
+    $.ajax({
+        url: '',
+        type:'POST',
+        cache:false,
+        data:{
+            name : name,
+            sex :sex,
+            birthday : birthday,
+            qq : qq,
+            phone : phone,
+            githubLink : github,
+            personalWeb : personalWeb,
+            sign : sign
+        },
+        processData:false,
+        contentType:false,
+        success:function(){
+            console.log('success!');
+        }
+    })
+    var popUp = document.getElementById("changeInfo");
+    popUp.style.visibility = "hidden";
+}
