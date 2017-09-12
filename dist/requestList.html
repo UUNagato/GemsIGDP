@@ -7,7 +7,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <title>文章列表</title>
+    <title>需求列表</title>
     <link rel="stylesheet" href="css/basic.css" tyoe="text/css">
   </head>
   <body></body>
@@ -37,31 +37,19 @@
   </div>
   <div class="container" style="background-color:#a1a1a1;height:750px;text-align:center;">
     <div class="row" style="background-color:#737373;">
-      <h1 class="articlelisttitle">文章列表</h1>
+      <h1 class="articlelisttitle">需求列表</h1>
     </div>
     <div class="row">
-      <div class="row articlelistlabelrow">
-        {% for label in labels %}
-        <a class="articlelistlabel" href="{{label.src}}">{{label.name}}</a>
-        {% endfor %}
-      </div>
+      <div class="row articlelistlabelrow"><a class="articlelistlabel" href="{{label.src}}">{{label.name}}</a></div>
     </div>
     <div class="fengexian"></div>
     <ul>
-      {% for article in articles %}
       <li style=" list-style: none;">
-        <div class="row articlelist"><a href="{{article.src}}">{{article.title}}</a>
-          <p class="articlelistauthor">{{article.author}} {{article.releasetime}}  </p>
+        <div class="row articlelist"><a href="{{request.src}}">{{request.title}}</a>
+          <p class="articlelistauthor">{{request.author}} {{request.releasetime}}  </p>
         </div>
       </li>
-      {% endfor %}
     </ul>
-    <div class="row pagerrow">
-      <a class="articlelistlabel" href="#">←</a>
-      {% page in pages%}
-      <a href="page.src">page.count</a>
-      {% endfor %}
-      <a class="articlelistlabel" href="#">→</a>
-      </div>
+    <div class="row pagerrow"><a class="articlelistlabel" href="#">←</a><a href="page_i.src">i</a><a class="articlelistlabel" href="#">→</a></div>
   </div>
 </html>

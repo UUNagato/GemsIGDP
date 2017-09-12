@@ -7,6 +7,7 @@
 
     2017/9/6 created by UUNagato
     2017/9/9 modify register return value, add findIdbyUsername method.
+    2017/9/12 add some CSRF defense method.
  */
 'use strict'
 
@@ -15,6 +16,7 @@ var models = require('../models');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 const jwtstr = require('../configs/jwtconfig.js');
+const csrfstr = require('../configs/csrfconfig.js');
 
 var currentUser = null;
 
@@ -97,7 +99,10 @@ var tryLoginfunc = async function(userinfo, pwd) {
     let encryptedPwd = md5.digest('hex');
     if(loginInfo.password === encryptedPwd) {
         // true user, generate token.
-        return generateUserTokenfunc(loginInfo.user_id, loginInfo.user_name);
+        return ({
+            token:generateUserTokenfunc(loginInfo.user_id,loginInfo.user_name),
+            csrf:generateCSRFtokenfunc(loginInfo.user_id)
+        })
     }
 
     return null;
@@ -109,14 +114,14 @@ var tryLoginfunc = async function(userinfo, pwd) {
 // userid: id of user
 // username: name of user
 // return: the token
-var generateUserTokenfunc = async function(userid, username) {
+var generateUserTokenfunc = function(userid, username) {
     var payload = {
         generate_time : Date.now(),
         user_id: userid,
         user_name: username
     };
 
-    var jwtresult = jwt.sign(payload, jwtstr,{expiresIn: '2 days'});
+    var jwtresult = jwt.sign(payload, jwtstr,{expiresIn: '15 days'});
     return jwtresult;
 }
 
@@ -211,7 +216,8 @@ var findUserIdByUserNamefunc = async function(username) {
 // check if that's a logged in user
 var userTokenMiddleware = async function(ctx, next) {
     // try to get token
-    var token = ctx.request.body.token || ctx.request.query.token || ctx.request.headers['x-access-token'];
+    var token = ctx.cookies.get('authentication') || ctx.request.body.token || ctx.request.query.token || ctx.request.headers['x-access-token'];
+    console.log(token);
     // emptp current user
     currentUser = null;
 
@@ -238,6 +244,9 @@ var userTokenMiddleware = async function(ctx, next) {
 // user_name
 // }
 var getCurrentUserfunc = function() {
+    //for test  idPage !!!!!!!!!!!!!!!
+    currentUser = await models.user.findById(12);
+    
     return currentUser;
 }
 
@@ -264,7 +273,7 @@ var activeUserEmailfunc = async function(email, user_id) {
 
     if(user === null)
         throw 'No such unactived user.';
-    
+
     if(loginInfo.email !== email)
         throw 'incorrect email';
     
@@ -277,6 +286,57 @@ var activeUserEmailfunc = async function(email, user_id) {
     }
 }
 
+//
+// Generate CSRF token
+// this token only passed to get some authentication operation.
+// this will pass in the header
+// param: user_id
+// 
+var generateCSRFtokenfunc = function(userid) {
+    var date = new Date();
+    var iatime = Math.floor(date.getTime() / 1000);
+
+    var payload = {
+        iss:'GemsIndividualGameMakersPlatform',
+        iat:iatime,
+        exp:iatime + 15 * 24 * 3600,
+        user_id:userid
+    };
+
+    return jwt.sign(payload, csrfstr);
+}
+
+//
+// Validate CSRF token
+// context.request
+// return true for succeed, false for not
+//
+var validateCSRFtokenfunc = function(req) {
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if(token) {
+        try{
+            jwt.verify(token, csrfstr);
+            return true;
+        } catch(err) {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+//
+// Get the userinfo after login and CSRF validation
+// param request
+// 
+var getValidatedUserfunc = function(req) {
+    if(currentUser !== null && validateCSRFtokenfunc(req)) {
+        return currentUser;
+    } else {
+        return null;
+    }
+}
 
 //get the userinfo by id
 var getUserByIdfunc = async function(id) {
@@ -297,18 +357,9 @@ var getUserByIdfunc = async function(id) {
 //return true for update success or false for not
 var modifyUserInfofunc = async function(user) {
     try{
-        await models.user.update({
-            nickname : user.nickname,
-            telephone : user.telephone,
-            qq : user.qq,
-            birthday : user.birthday,
-            profile : user.profile,
-            age : user.age,
-            sex : user.sex,
-            github : user.github,
-            personal_web : user.personal_web},
+        await models.user.update(user,
             {where:{
-                id : user.id
+                id : getCurrentUser()
             }
         });
     }catch(error){
@@ -316,6 +367,7 @@ var modifyUserInfofunc = async function(user) {
         return false;
     }
 
+    console.log('update user_info success!!!');//!!!!!!!!test!!!!!!!!!!!!!
     return true;
 }
 
@@ -327,8 +379,12 @@ module.exports = {
     tryLogin : tryLoginfunc,
     getCurrentUser : getCurrentUserfunc,
     findUserIdByUserName : findUserIdByUserNamefunc,
+    generateCSRFtoken : generateCSRFtokenfunc,
+    validateCSRFtoken : validateCSRFtokenfunc,
     activeUserEmail : activeUserEmailfunc,
-    middleware: userTokenMiddleware,
     getUserById : getUserByIdfunc,
-    modifyUserInfo : modifyUserInfofunc
+    modifyUserInfo : modifyUserInfofunc,
+    getValidatedUser : getValidatedUserfunc,
+
+    middleware: userTokenMiddleware
 };
