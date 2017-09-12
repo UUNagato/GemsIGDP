@@ -39,16 +39,16 @@
       <div class="row">
         <h1 class="articletitle">{{request.title}}</h1>
       </div>
-      <div class="row" style="text-align:center;"><img class="img-circle userimg" src="{{request.user.imgsrc}}"></div>
-      <div class="row username"><a href="{{request.user.homepage}}">{{request.user.name}}</a></div>
+      <div class="row" style="text-align:center;"><img class="img-circle userimg" src="{{user.imgsrc}}"></div>
+      <div class="row username"><a href="{{user.homepage}}">{{user.name}}</a></div>
       <div class="row note">
-        <p>已阅读:{{yuedu}}</p>
+        <p>已阅读:{{request.yuedu}}</p>
       </div>
       <div class="row note">
-        <p>{{releasetime}}</p>
+        <p>{{request.releasetime}}</p>
       </div>
       <div class="fengexian"></div>
-      <p class="request">{{request}}</p>
+      <p class="request">{{request.content}}</p>
       <div class="row">
         <div class="col-md-4 col-md-offset-8">
           <p>联系方式：{{request.connection}}</p>
