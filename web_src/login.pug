@@ -1,0 +1,42 @@
+//- Login Page, maintained by UUNagato
+doctype html
+html
+    head
+        include ./templates_pug/default-head.pug
+        title 登录 - Gems
+        link(href="css/index-style.css",rel="stylesheet")
+        link(href="css/login-style.css",rel="stylesheet")
+        script(type="text/javascript",src="js/login-page.js")
+    body
+        nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
+            include ./templates_pug/navbar-container.pug
+        div.showwindow
+            div.container.margin-top-large
+                div.row
+                    div.col-md-4.col-md-push-8.login-window
+                        form#login-form(method="POST")
+                            div#alertdiv.alert.alert-danger(style="display:none;")
+                            div#groupname.form-group
+                                label.control-label(for="fmusername") 用户名
+                                input#fmusername.form-control(type="text",name="username",placeholder="用户名或邮箱")
+                            div#grouppass.form-group
+                                label.control-label(for="fmpassword") 密码
+                                input#fmpassword.form-control(type="password",name="password",placeholder="密码")
+                            span.minitext-right
+                                a.tint-text(href="#") 忘记用户名或密码？
+                        div.container-fluid
+                            span.minitext-right
+                                p.tint-text 没有帐号？
+                            div.row
+                                div.col-md-6
+                                    a#loginbtn.btn.btn-success.fullbutton(href="#") 登录
+                                div.col-md-6
+                                    a.btn.btn-primary.fullbutton(href="#") 注册
+                            div.row
+                                div.col-md-12.margin-small-top
+                                    p.grey-tint 其他登录方式
+                            div.row
+                                div.col-md-12
+                                    ul.list-inline.margin-small-bottom
+                                        li m1
+                                        li m2
