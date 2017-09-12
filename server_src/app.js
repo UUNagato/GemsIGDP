@@ -9,7 +9,7 @@
 
 const Koa = require('koa');
 const router = require('koa-router')();
-const bodyparser = require('koa-bodyparser');
+const koabody = require('koa-body');
 const models = require('./models');
 const users = require('./controllers/users.js');
 const app = new Koa();
@@ -23,7 +23,7 @@ app.use(async(ctx, next) => {
 });
 
 // deal with post body
-app.use(bodyparser());
+app.use(koabody({multipart:true}));
 
 // here do router
 // Search all router dealers

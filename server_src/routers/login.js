@@ -2,6 +2,7 @@
     Login Router
     Created by UUNagato 2017/9/11
  */
+'use strict'
 var user = require('../controllers/users.js');
 var fs = require('fs');
 

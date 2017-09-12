@@ -311,11 +311,8 @@ module.exports = {
     tryLogin : tryLoginfunc,
     getCurrentUser : getCurrentUserfunc,
     findUserIdByUserName : findUserIdByUserNamefunc,
-<<<<<<< HEAD
     generateCSRFtoken : generateCSRFtokenfunc,
-
-=======
     activeUserEmail : activeUserEmailfunc,
->>>>>>> aa12327ab452c54e844c857e1d5ce71ecfdfcdd6
+
     middleware: userTokenMiddleware
 };
