@@ -278,6 +278,47 @@ var activeUserEmailfunc = async function(email, user_id) {
 }
 
 
+//get the userinfo by id
+var getUserByIdfunc = async function(id) {
+    var user = await models.user.findOne({
+        attributes: ['nickname', 'profile', 'personal_web'],
+        where:{
+            id : id
+        }
+    });
+
+    return user;
+};
+
+
+//update some user info in the user_info table
+//use for modify the info in the individual page
+//params: the user object
+//return true for update success or false for not
+var modifyUserInfofunc = async function(user) {
+    try{
+        await models.user.update({
+            nickname : user.nickname,
+            telephone : user.telephone,
+            qq : user.qq,
+            birthday : user.birthday,
+            profile : user.profile,
+            age : user.age,
+            sex : user.sex,
+            github : user.github,
+            personal_web : user.personal_web},
+            {where:{
+                id : user.id
+            }
+        });
+    }catch(error){
+        console.log('update user_info, errors happen: '+error);
+        return false;
+    }
+
+    return true;
+}
+
 module.exports = {
     userCheck : userNameCheckfunc,
     loginCheck : loginCheckfunc,
@@ -287,5 +328,7 @@ module.exports = {
     getCurrentUser : getCurrentUserfunc,
     findUserIdByUserName : findUserIdByUserNamefunc,
     activeUserEmail : activeUserEmailfunc,
-    middleware: userTokenMiddleware
+    middleware: userTokenMiddleware,
+    getUserById : getUserByIdfunc,
+    modifyUserInfo : modifyUserInfofunc
 };
