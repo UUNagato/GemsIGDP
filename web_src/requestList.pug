@@ -1,0 +1,35 @@
+doctype html
+html
+    head 
+        include ../web_src/templates_pug/default-head.pug
+        title articleUI
+        link(rel="stylesheet", href="css/basic.css",tyoe="text/css")
+    body
+    div.container-fluid.navigationbar
+            include ../web_src/templates_pug/navbar-container.pug
+    div.container(style="background-color:#a1a1a1;height:750px;text-align:center;")
+        div.row(style="background-color:#737373;")
+            h1.articlelisttitle 需求列表
+        div.row
+
+            div.row.articlelistlabelrow
+                a.articlelistlabel(href="{{label.src}}") {{label.name}}
+
+        div.fengexian
+        ul
+
+               li(style=" list-style: none;")
+                   div.row.articlelist
+                       a(href="{{request.src}}") {{request.title}}
+                       p.articlelistauthor {{request.author}} {{request.releasetime}}  
+
+            
+        div.row.pagerrow
+            a.articlelistlabel(href="#") ←
+            
+            a(href="page_i.src") i
+
+            //-a.articlelistlabel(href="#") 1
+            //-a.articlelistlabel(href="#") 2
+            //-a.articlelistlabel(href="#") 3
+            a.articlelistlabel(href="#") →
