@@ -1,3 +1,4 @@
+'use strict'
 var user_control = require('../controllers/users.js');
 var validate_control = require('../controllers/emails.js');
 var fs = require('fs');
