@@ -216,14 +216,14 @@ a:link, a:visited {
 }
 
 .articlelist{
-    font-size:20px;
+    font-size:30px;
     text-align: left;
     color: #000000;
     margin-left: 10px;
    
-    margin-top: 10px;
+    margin-top: 15px;
     margin-bottom: 10px;
-    margin-right: 10px;
+    
 }
 
 .articlelisttitle{
@@ -255,10 +255,10 @@ a:link, a:visited {
 
 .articlelistauthor{
     font-size: 14px;
-    text-align: center;
+    text-align: left;
     font-weight: bold;
     color: #000000;
-    float: right;
+    margin-top:5px;
 }
 
 .pagerrow{

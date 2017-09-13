@@ -34,7 +34,7 @@ function userid(event)
     var input = $(event);
     var div = input.parent().parent();
     
-    var reg=/^([a-zA-Z0-9_-])+/; 
+    var reg=/^[a-zA-Z0-9_]{6,18}$/; 
     if(!reg.test(id))
     {
         console.log('have illegal char');
@@ -158,9 +158,29 @@ function upRegInfo(){
         let password = $('#password').val();
 
         $.post('/register/upInfo', {username : name, email : email, password : password},
-            function(url){
+            function(info){
                 //console.log('register success, url is '+url);
-                window.open(url,'_blank');
+                
+                if(info.error === 1){
+                    //the username error
+                    alert('the username is illegal, please input again.');
+                }else if(info.error === 2){
+                    //the email error
+                    alert('the email is illegal, please input again.');
+                }
+                else if(info.error === 3){
+                    //the password error
+                    alert('the password is illegal, please input again.');
+                }
+                else if(info.error === 4){
+                    //cannot send email
+                    alert('can not send email, please try again.');
+                }else{
+                    //success
+                    window.open(info,'_blank');
+                }
+                
+                
         });
 
     }else{
