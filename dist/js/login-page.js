@@ -1,8 +1,13 @@
 $().ready(function() {
+    if(window.localStorage === undefined) {
+        setErrorInfo(3);
+    }
+
     $('#loginbtn').click(function(){
         // clear status
         $('div#groupname').removeClass('has-error');
-        $('div#grouppass').removeClass('has-error')
+        $('div#grouppass').removeClass('has-error');
+        $('#alertdiv').hide();
         // check if empty
         var username = $('input#fmusername').val();
         var nameexp = /^[a-zA-Z0-9_]{6,18}$/;
@@ -43,8 +48,6 @@ $().ready(function() {
                     if(data.error) {
                         setErrorInfo(data.error);
                     } else if(data.token) {
-                        console.log('token added:' + data.token)
-                        console.log('csrf token:' + data.csrf);
                         var date = new Date();
                         date.setTime(date.getTime() + 15 * 24 * 3600000);
                         document.cookie = 'authentication=' + data.token + ';expires=' + date;
@@ -71,5 +74,9 @@ function setErrorInfo(index) {
     case 2:
         $('#alertdiv').html('<strong>用户名或密码</strong>错误').show();
         $('div#grouppass').addClass('has-error');
+        break;
+    case 3:
+        $('#alertdiv').html('<strong>您的浏览器</strong>不支持该网站登录,请更换浏览器至最新版本').show();
+        break;
     }
 };
