@@ -97,13 +97,47 @@
 
     </ul>
     <div class="row pagerrow">
-      <a class="articlelistlabel" href="#">←</a>
+      <a class="articlelistlabel" href="/articleList/1">|&lt</a>
 
-      {% for %}
-      <a href="page_i.src">i</a>
-      {% endfor %}
+      {% if currentpage < 5 %}
+        {% for i in range(1,currentpage) %}
+          <a href="/articleList/{{i}}">{{i}}</a>
+        {% endfor %}
+        <a href="/articleList/{{currentpage}}" style="font-family:border;">{{currentpage}}</a>
+        {% for i in range(currentpage,5) %}
+        <a href="/articleList/{{i}}">{{i}}</a>
+        {% endfor %}
+        <p>……</p>
+        {% for i in range(sumpage-3,sumpage+1) %}
+        <a href="/articleList/{{i}}">{{i}}</a>
+        {% endfor %}
+      {% elif currentpage > sumpage-4 %}
+        {% for i in range(1,5) %}
+          <a href="/articleList/{{i}}">{{i}}</a>
+        {% endfor %}
+        <p>……</p>
+        {% for i in range(sumpage-3,currentpage) %}
+        <a href="/articleList/{{i}}">{{i}}</a>
+        {% endfor %}
+        <a href="/articleList/{{currentpage}}" style="font-family:border;">{{currentpage}}</a>
+        {% for i in range(currentpage,sumpage+1) %}
+        <a href="/articleList/{{i}}">{{i}}</a>
+        {% endfor %}
+      {% else %}
+        {% for i in range(1,5) %}
+        <a href="/articleList/{{i}}">{{i}}</a>
+        {% endfor %}
+        <p>…</p>
+        <a href="/articleList/{{currentpage-1}}">currentpage-1</a>
+        <a href="/articleList/{{currentpage}}" style="font-family:border;">{{currentpage}}</a>
+        <a href="/articleList/{{currentpage+1}}">currentpage+1</a>
+        <p>…</p>
+        {% for i in range(sumpage-3,sumpage+1) %}
+        <a href="/articleList/{{i}}">{{i}}</a>
+        {% endfor %}
+      {% endif %}
 
-      <a class="articlelistlabel" href="#">→</a>
+      <a class="articlelistlabel" href="/articleList/{{sumpage}}">&gt|</a>
     </div>
   </div>
 </html>
