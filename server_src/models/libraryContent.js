@@ -1,3 +1,4 @@
+
 //sucaiku neirong
 module.exports = (sequelize, DataTypes) => {
     var theLContent = sequelize.define('libraryContent',{
@@ -17,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     
-    /*theLContent.associate = function(models){
+    theLContent.associate = function(models){
         theLContent.belongsTo(models.library,{foreignKey:'library_id'});
         theLContent.hasMany(models.file,{foreignKey:'file_id'});
-    };*/
+    };
     
     return theLContent;
 };

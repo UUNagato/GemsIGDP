@@ -244,6 +244,9 @@ var userTokenMiddleware = async function(ctx, next) {
 // user_name
 // }
 var getCurrentUserfunc = function() {
+    //for test  idPage !!!!!!!!!!!!!!!
+    currentUser = await models.user.findById(12);
+    
     return currentUser;
 }
 
@@ -335,6 +338,39 @@ var getValidatedUserfunc = function(req) {
     }
 }
 
+//get the userinfo by id
+var getUserByIdfunc = async function(id) {
+    var user = await models.user.findOne({
+        attributes: ['nickname', 'profile', 'personal_web'],
+        where:{
+            id : id
+        }
+    });
+
+    return user;
+};
+
+
+//update some user info in the user_info table
+//use for modify the info in the individual page
+//params: the user object
+//return true for update success or false for not
+var modifyUserInfofunc = async function(user) {
+    try{
+        await models.user.update(user,
+            {where:{
+                id : getCurrentUser()
+            }
+        });
+    }catch(error){
+        console.log('update user_info, errors happen: '+error);
+        return false;
+    }
+
+    console.log('update user_info success!!!');//!!!!!!!!test!!!!!!!!!!!!!
+    return true;
+}
+
 module.exports = {
     userCheck : userNameCheckfunc,
     loginCheck : loginCheckfunc,
@@ -346,6 +382,8 @@ module.exports = {
     generateCSRFtoken : generateCSRFtokenfunc,
     validateCSRFtoken : validateCSRFtokenfunc,
     activeUserEmail : activeUserEmailfunc,
+    getUserById : getUserByIdfunc,
+    modifyUserInfo : modifyUserInfofunc,
     getValidatedUser : getValidatedUserfunc,
 
     middleware: userTokenMiddleware

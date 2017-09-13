@@ -1,0 +1,94 @@
+doctype html
+html
+    head
+        include ./templates_pug/default-head.pug
+        link(href="css/display_detail.css",rel="stylesheet")
+        <html lang="en">
+        //- Javascript for this page
+    body
+        nav.navbar.navbar-inverse.navbar-fixed-top
+            include ./templates_pug/navbar-container.pug
+        div.showwindow
+            div.show_left
+                div.main
+                    div.viewer_wrapper.carousel.slide#myCarousel
+                        ol.carousel-indicators
+                            li.active(data-target="#myCarousel",data-slide-to="0")
+                            li(data-target="#myCarousel",data-slide-to="1")
+                            li(data-target="#myCarousel",data-slide-to="2")
+                            li(data-target="#myCarousel",data-slide-to="3")
+                        div.carousel-inner
+                            div.item.active
+                                img(src="img/head1.jpg", alt="First slide")
+                            div.item
+                                img(src="img/head2.jpg", alt="Second slide")
+                            div.item
+                                img(src="img/head3.jpg", alt="Third slide")
+                            div.item
+                                img(src="img/head4.jpg", alt="Forth slide")
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>                                    <!-- 对应轮播主键的按钮-->
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    div.content_wrapper
+                        div.vieweradditional
+                            div.model_name
+                                span.model_name Ako
+                            div.owner_wrapper
+                                div.owner_left
+                                    div.image_container
+                                        a.card_footer_avatar(href="#")
+                                            img.head(src="img/head1.jpg")
+                                    div.card_footer_name
+                                        p.card_footer_name 
+                                            a.model-name_label(href="#",target="_blank",title="Ryan") Ryan
+                                div.owner_right
+                                    div.eye
+                                        div.icon
+                                            span.glyphicon.glyphicon-eye-open
+                                        div.count     
+                                            span.count 690
+                                    div.comments
+                                        div.icon
+                                            a.comments(href="#" data-toggle="tooltip" data-placement="top" title="Comments")
+                                                span.glyphicon.glyphicon-comment
+                                        div.count
+                                            span.count 12
+                                    div.like
+                                        div.icon
+                                            a.like(href="#" data-toggle="tooltip" data-placement="top" title="Like")
+                                                span.glyphicon.glyphicon-heart
+                                        div.count
+                                            span.count 46
+                                    div.thumbs-up
+                                        div.icon
+                                            span.glyphicon.glyphicon-thumbs-up(onclick="thumbs()")
+                                                
+                                        div.count 
+                                            span.count 888
+
+                            
+                        div.model_informations
+                            div.description_title
+                                span.description_title Description
+                            div.blank
+                            div.description_box
+                                span.description Ako在阿尔克图拉斯森林
+                            div.blank
+                            div.informations_content1
+                                div.informations_timeIcon
+                                    span.glyphicon.glyphicon-time
+                                div.informations_time
+                                    span.imformations_time 上传于一周前 
+                            div.information_content2
+                                div.informations_tags
+                                    span.glyphicon.glyphicon-tags
+                                div.tags
+                                    ul.tags
+                                        li.tags cartoon 
+                                        li.tags people
+                                div.clearfloat

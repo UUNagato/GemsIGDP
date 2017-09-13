@@ -1,3 +1,4 @@
+
 //zhanshichuang mokuai
 module.exports = (sequelize, DataTypes) => {
     var theFile =  sequelize.define('file',{
@@ -16,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'file'
     });
 
-    /*theFile.associate = function(models){
+    theFile.associate = function(models){
         theFile.belongsTo(models.user,{foreignKey:'user_id'});
-    };*/
+    };
     
     return theFile;
 };

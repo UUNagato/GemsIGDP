@@ -133,18 +133,20 @@ function change(){
 
 $(function(){
     $('.form_date').datetimepicker({
-        language:  'ch',
+        language:  'cn',
         weekStart: 1,
         todayBtn:  1,
         autoclose: 1,
         todayHighlight: 1,
         startView: 2,
         minView: 2,
-        forceParse: 0
+        forceParse: 0,
+        format: 'yyyy-mm-dd'
+    });
 });
 
-});
 
+//to change personal info and upload by ajax
 function changeInfo(){
     let name = $('#userName').val();
     let sex = $("input[name='sex']:checked").val();
@@ -155,26 +157,38 @@ function changeInfo(){
     let personalWeb = $('#personalWebLin').val();
     let sign = $('#perSign').val();
 
+    console.log('name:'+name);
+    console.log('sex:'+sex);
+    console.log('birthday:'+birthday);
+    console.log('qq:'+qq);
+    console.log('phone:'+phone);
+    console.log('github:'+github);
+    console.log('personalWeb:'+personalWeb);
+    console.log('sign:'+sign);
+
     $.ajax({
-        url: '',
+        url: '/idPage/modifyInfo',
         type:'POST',
-        cache:false,
+        //cache:false,
         data:{
             name : name,
             sex :sex,
-            birthday : birthday,
+            birthday : birthday,//birthday format: 2017-09-01
             qq : qq,
             phone : phone,
             githubLink : github,
             personalWeb : personalWeb,
             sign : sign
         },
-        processData:false,
-        contentType:false,
-        success:function(){
+        //processData:false,
+        //contentType:false,
+        success:function(data){
             console.log('success!');
         }
     })
     var popUp = document.getElementById("changeInfo");
     popUp.style.visibility = "hidden";
 }
+
+
+
