@@ -1,0 +1,238 @@
+doctype html
+html
+    head
+        include ./templates_pug/default-head.pug
+        link(href="css/individualPage-style.css",rel="stylesheet")
+        link(href="css/indivPageNav-style.css",rel="stylesheet")
+        link(href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen")
+        link(rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css")
+        link(rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css")
+
+        title Gems - 个人主页
+        //- Javascript for this page
+        script(type="text/javascript",src="js/idPage.js")
+        script(src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js")
+        script(src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js")
+        script(type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8")
+        script(type="text/javascript" src="js/components/bootstrap-datetimepicker.fr.js" charset="UTF-8")
+    body
+        nav.navbar.navbar-inverse.navbar-fixed-top
+            include ./templates_pug/indivPage-nav.pug
+        div.container-fluid
+                div.row
+                    div.col-md-4.col-md-push-4
+                        div#changeInfo
+                            div.headClose   
+                                a.glyphicon.glyphicon-remove(href="javascript:void(0);" onclick="infoClose()")
+                            div.id-info-2
+                                div.container-fluid
+                                    div.row
+                                        div.col-md-4
+                                            p.mess#name 昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:
+                                        div.col-md-4.col-md-pull-1
+                                            input#userName(type="text", name="userName")
+                                    div.row
+                                        div.col-md-4
+                                            p#sex 性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:
+                                        div.col-md-2.col-md-pull-1
+                                            input.mess#male(type="radio", name="sex", value="男")
+                                            p &nbsp;男
+                                        div.col-md-2.col-md-pull-2
+                                            input.mess#female(type="radio", name="sex", value="女")
+                                            p &nbsp;女 
+                                    div.row
+                                        div.col-md-4
+                                            p.mess#birthday 生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日:
+                                        div.col-md-7.col-md-pull-1
+                                            div.form-group
+                                                div.input-group.date.form_date.col-md-9(data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd")
+                                                    input.form-control(size="16" type="text")
+                                                    span.input-group-addon
+                                                        span.glyphicon.glyphicon-remove
+                                                    span.input-group-addon
+                                                        span.glyphicon.glyphicon-calendar
+                                                input(type="hidden" id="dtp_input2" value="")
+                                    div.row
+                                        div.col-md-4
+                                            p.mess#qq Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q:
+                                        div.col-md-4.col-md-pull-1
+                                            input#qqNum(type="text", name="qq")
+                                    div.row
+                                        div.col-md-4
+                                            p.mess#phone 电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:
+                                        div.col-md-4.col-md-pull-1
+                                            input#phoneNum(type="text", name="phone")
+                                    div.row
+                                        div.col-md-4
+                                            p.mess#githubLink GitHub:
+                                        div.col-md-4.col-md-pull-1
+                                            input.link#githubLin(type="text", name="github")
+                                    div.row
+                                        div.col-md-4
+                                            p.mess#personalWeb 个人博客:
+                                        div.col-md-4.col-md-pull-1
+                                            input.link#personalWebLin(type="text", name="personalWeb")
+                                    div.row
+                                        div.col-md-4
+                                            p.mess#pixiv pixiv主页:
+                                        div.col-md-4.col-md-pull-1
+                                            input.link#pixiv(type="text", name="pixiv")
+                                    div.row
+                                        div.col-md-4
+                                            p.mess#patreon patreon:
+                                        div.col-md-4.col-md-pull-1
+                                            input.link#patreon(type="text", name="patreon")
+                                    div.row
+                                        div.col-md-4
+                                            p.mess#sign 个性签名:
+                                        div.col-md-4.col-md-pull-1
+                                            textarea#perSign(name="sign", cols="30", rows="2")
+                            div.container-fluid
+                                div.row
+                                    div.col-md-7.col-md-push-3
+                                        a.btn.btn-success(href="javascript:void(0);" onclick="changeInfo()") 更改信息
+        div.container-fluid
+            div.title
+                div.container
+                    div.row
+                        div.col-md-2
+                            div.head#realHead(onclick = "showWindow(300,400)")
+                        div.col-xs-4
+                            div.title-info
+                                h1 {{userID}} 的个人主页
+                                a(herf="{{githubLink}}")  {{userID}} 的github
+        div.info-main
+            div#changeHead
+                div.headClose   
+                    a.glyphicon.glyphicon-remove(href="javascript:void(0);" onclick="headClose()")
+                div.head.headPre#headPre
+                div.container-fluid
+                    div.row
+                        div.col-md-8.col-md-push-1
+                            div.headImage
+                                input#headImag(type="file", name="headImag", onchange="getFullPath(this)")
+                div.container-fluid
+                    div.row
+                        div.col-md-7.col-md-push-3
+                            div.changeButton
+                                a.btn.btn-success(onclick="change()") 更改头像
+            div.container
+                div.row
+                    div.col-md-2
+                        div.left
+                            ul.time-vertical
+                                li
+                                    b
+                                    a(href="javascript:void(0);" onclick="changeDiv_1()") 个人资料
+                                li
+                                    b
+                                    a(href="javascript:void(0);" onclick="changeDiv_2()") 履历
+                                li
+                                    b
+                                    a(href="javascript:void(0);" onclick="changeDiv_3()") 展示窗
+                                li
+                                    b
+                                    a(href="javascript:void(0);" onclick="changeDiv_4()") 文章
+                    
+                    div.col-md-10
+                        div.right
+                            div.right-1
+                                //这里是模板
+                                    p {% if visiable %}
+                                div.id-info
+                                    p#name 昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称: {{name}}
+                                    p#sex 性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别: {{sex}}
+                                    p#birthday 生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日: {{birthday}}
+                                    p#qq Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q: {{qq}}
+                                    p#phone 电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:{{phone}}
+                                    div.info-s
+                                        div.infoLink-title
+                                            p#githubLink GitHub&nbsp;&nbsp;:
+                                        a.info-link(herf="{{ }}") {{githunLink}}
+                                    div.info-s
+                                        div.infoLink-title
+                                            p#personalWeb 个人博客:
+                                        a.info-link(herf="{{ }}") {{personalWeb}}
+                                    div.info-s
+                                        div.infoLink-title
+                                            p#pixiv pixiv主页:
+                                        a.info-link(herf="{{ }}") {{pixivLink}}
+                                    div.info-s
+                                        div.infoLink-title
+                                            p#patreon patreon&nbsp;:
+                                        a.info-link(herf="{{ }}") {{patreonLink}}
+                                    div.info-s
+                                        p#sign 个性签名: {{sign}}
+                                div.button
+                                    a.btn.btn-success(onclick="showInfoChange(540)") 更改个人信息
+                            //这里是模板
+                                p {% else %}
+                                    div.id-info
+                                        p 该用户已设置个人信息不对外展示。
+                            div.right-2
+                                //这里是模板
+                                    p {% if visiable %}
+                                div.id-info
+                                    h1 个人履历
+                            //这里是模板
+                                p {% else %}
+                                    div.id-info
+                                        p 该用户已设置个人履历不对外展示。
+                            div.right-3
+                                div.id-info
+                                    div.container-fluid
+                                        div.row
+                                            div.col-md-5.col-md-push-1
+                                                div.show
+                                                    div.show-pic
+                                                        img.pic(src="img/index-back.jpg")
+                                                    div.show-info
+                                                        div.show-name 
+                                                            a(herf="{{ }}") 作品名称
+                                                        div.show-like
+                                                            a.glyphicon.glyphicon-heart(onclick="like(this)")
+                                                        div.show-like
+                                                            a.glyphicon.glyphicon-star()
+                                            div.col-md-5.col-md-push-1
+                                                div.show
+                                                    div.show-pic
+                                                        img.pic(src="img/index-back.jpg")
+                                                    div.show-info
+                                                        div.show-name 
+                                                            a(herf="{{ }}") 作品名称
+                                                        div.show-like
+                                                            a.glyphicon.glyphicon-heart(onclick="like(this)")
+                                                        div.show-like
+                                                            a.glyphicon.glyphicon-star()
+                                    div.container-fluid
+                                        div.row
+                                            div.col-md-5.col-md-push-1
+                                                div.show
+                                                    div.show-pic
+                                                        img.pic(src="img/index-back.jpg")
+                                                    div.show-info
+                                                        div.show-name 
+                                                            a(herf="{{ }}") 作品名称
+                                                        div.show-like
+                                                            a.glyphicon.glyphicon-heart(onclick="like(this)")
+                                                        div.show-like
+                                                            a.glyphicon.glyphicon-star()
+                                            div.col-md-5.col-md-push-1
+                                                div.show
+                                                    div.show-pic
+                                                        img.pic(src="img/index-back.jpg")
+                                                    div.show-info
+                                                        div.show-name 
+                                                            a(herf="{{ }}") 作品名称
+                                                        div.show-like
+                                                            a.glyphicon.glyphicon-heart(onclick="like(this)")
+                                                        div.show-like
+                                                            a.glyphicon.glyphicon-star()
+                            div.right-4
+                                //这里是模板
+                                    p {% for item in articles %}
+                                div.article
+                                    a {{item.title}}
+                                    div.detail
+                                        p.
+                                            {{item.detail}}

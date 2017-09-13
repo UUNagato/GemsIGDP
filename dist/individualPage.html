@@ -9,7 +9,15 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <link href="css/individualPage-style.css" rel="stylesheet">
     <link href="css/indivPageNav-style.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+    <title>Gems - 个人主页</title>
     <script type="text/javascript" src="js/idPage.js"></script>
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/components/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -31,15 +39,123 @@
       </div>
     </nav>
     <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 col-md-push-4">
+          <div id="changeInfo">
+            <div class="headClose">  <a class="glyphicon glyphicon-remove" href="javascript:void(0);" onclick="infoClose()"></a></div>
+            <div class="id-info-2">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="mess" id="name">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</p>
+                  </div>
+                  <div class="col-md-4 col-md-pull-1">
+                    <input id="userName" type="text" name="userName">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p id="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</p>
+                  </div>
+                  <div class="col-md-2 col-md-pull-1">
+                    <input class="mess" id="male" type="radio" name="sex" value="男">
+                    <p>&nbsp;男</p>
+                  </div>
+                  <div class="col-md-2 col-md-pull-2">
+                    <input class="mess" id="female" type="radio" name="sex" value="女">
+                    <p>&nbsp;女 </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="mess" id="birthday">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日:</p>
+                  </div>
+                  <div class="col-md-7 col-md-pull-1">
+                    <div class="form-group">
+                      <div class="input-group date form_date col-md-9" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" size="16" type="text"><span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                      <input type="hidden" id="dtp_input2" value="">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="mess" id="qq">Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q:</p>
+                  </div>
+                  <div class="col-md-4 col-md-pull-1">
+                    <input id="qqNum" type="text" name="qq">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="mess" id="phone">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:</p>
+                  </div>
+                  <div class="col-md-4 col-md-pull-1">
+                    <input id="phoneNum" type="text" name="phone">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="mess" id="githubLink">GitHub:</p>
+                  </div>
+                  <div class="col-md-4 col-md-pull-1">
+                    <input class="link" id="githubLin" type="text" name="github">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="mess" id="personalWeb">个人博客:</p>
+                  </div>
+                  <div class="col-md-4 col-md-pull-1">
+                    <input class="link" id="personalWebLin" type="text" name="personalWeb">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="mess" id="pixiv">pixiv主页:</p>
+                  </div>
+                  <div class="col-md-4 col-md-pull-1">
+                    <input class="link" id="pixiv" type="text" name="pixiv">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="mess" id="patreon">patreon:</p>
+                  </div>
+                  <div class="col-md-4 col-md-pull-1">
+                    <input class="link" id="patreon" type="text" name="patreon">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <p class="mess" id="sign">个性签名:</p>
+                  </div>
+                  <div class="col-md-4 col-md-pull-1">
+                    <textarea id="perSign" name="sign" cols="30" rows="2"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-7 col-md-push-3"><a class="btn btn-success" href="javascript:void(0);" onclick="changeInfo()">更改信息</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
       <div class="title">
         <div class="container">
           <div class="row">
             <div class="col-md-2">
-              <div class="head"></div>
+              <div class="head" id="realHead" onclick="showWindow(300,400)"></div>
             </div>
             <div class="col-xs-4">
               <div class="title-info">
-                <h1>xxx的个人主页</h1><a>xxx的github</a>
+                <h1>{{userID}} 的个人主页</h1><a herf="{{githubLink}}"> {{userID}} 的github</a>
               </div>
             </div>
           </div>
@@ -47,6 +163,26 @@
       </div>
     </div>
     <div class="info-main">
+      <div id="changeHead">
+        <div class="headClose">  <a class="glyphicon glyphicon-remove" href="javascript:void(0);" onclick="headClose()"></a></div>
+        <div class="head headPre" id="headPre"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8 col-md-push-1">
+              <div class="headImage">
+                <input id="headImag" type="file" name="headImag" onchange="getFullPath(this)">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-7 col-md-push-3">
+              <div class="changeButton"><a class="btn btn-success" onclick="change()">更改头像</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="container">
         <div class="row">
           <div class="col-md-2">
@@ -62,42 +198,57 @@
           <div class="col-md-10">
             <div class="right">
               <div class="right-1">
+                <!--这里是模板p {% if visiable %}
+                -->
                 <div class="id-info">
-                  <p id="name">昵称:</p>
-                  <p id="sex">性别:</p>
-                  <p id="birthday">生日：</p>
-                  <p id="qq">QQ：</p>
-                  <p id="phone">电话：</p>
+                  <p id="name">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称: {{name}}</p>
+                  <p id="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别: {{sex}}</p>
+                  <p id="birthday">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日: {{birthday}}</p>
+                  <p id="qq">Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q: {{qq}}</p>
+                  <p id="phone">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:{{phone}}</p>
                   <div class="info-s">
                     <div class="infoLink-title">
-                      <p id="githubLink">GitHub主页：</p>
-                    </div><a class="info-link">这是GitHub链接</a>
+                      <p id="githubLink">GitHub&nbsp;&nbsp;:</p>
+                    </div><a class="info-link" herf="{{ }}">{{githunLink}}</a>
                   </div>
                   <div class="info-s">
                     <div class="infoLink-title">
-                      <p id="personalWeb">个人博客：</p>
-                    </div><a class="info-link">这是个人博客链接</a>
+                      <p id="personalWeb">个人博客:</p>
+                    </div><a class="info-link" herf="{{ }}">{{personalWeb}}</a>
                   </div>
                   <div class="info-s">
                     <div class="infoLink-title">
-                      <p id="pixiv">pixiv主页：</p>
-                    </div><a class="info-link">这是pixiv链接</a>
+                      <p id="pixiv">pixiv主页:</p>
+                    </div><a class="info-link" herf="{{ }}">{{pixivLink}}</a>
                   </div>
                   <div class="info-s">
                     <div class="infoLink-title">
-                      <p id="patreon">patreon主页：</p>
-                    </div><a class="info-link">这是patreon链接</a>
+                      <p id="patreon">patreon&nbsp;:</p>
+                    </div><a class="info-link" herf="{{ }}">{{patreonLink}}</a>
                   </div>
                   <div class="info-s">
-                    <p id="sign">个性签名：hello，it's my gg page.</p>
+                    <p id="sign">个性签名: {{sign}}</p>
                   </div>
                 </div>
+                <div class="button"><a class="btn btn-success" onclick="showInfoChange(540)">更改个人信息</a></div>
               </div>
+              <!--这里是模板
+              p {% else %}
+                  div.id-info
+                      p 该用户已设置个人信息不对外展示。
+              -->
               <div class="right-2">
+                <!--这里是模板p {% if visiable %}
+                -->
                 <div class="id-info">
                   <h1>个人履历</h1>
                 </div>
               </div>
+              <!--这里是模板
+              p {% else %}
+                  div.id-info
+                      p 该用户已设置个人履历不对外展示。
+              -->
               <div class="right-3">
                 <div class="id-info">
                   <div class="container-fluid">
@@ -106,7 +257,7 @@
                         <div class="show">
                           <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
                           <div class="show-info">
-                            <div class="show-name"> <a>作品名称</a></div>
+                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
                           </div>
@@ -116,7 +267,7 @@
                         <div class="show">
                           <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
                           <div class="show-info">
-                            <div class="show-name"> <a>作品名称</a></div>
+                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
                           </div>
@@ -130,7 +281,7 @@
                         <div class="show">
                           <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
                           <div class="show-info">
-                            <div class="show-name"> <a>作品名称</a></div>
+                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
                           </div>
@@ -140,7 +291,7 @@
                         <div class="show">
                           <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
                           <div class="show-info">
-                            <div class="show-name"> <a>作品名称</a></div>
+                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
                           </div>
@@ -151,31 +302,11 @@
                 </div>
               </div>
               <div class="right-4">
-                <div class="article"><a>我的第一篇文章</a>
+                <!--这里是模板p {% for item in articles %}
+                -->
+                <div class="article"><a>{{item.title}}</a>
                   <div class="detail">
-                    <p>
-                      为什么要编写这个教程？因为我在学习Git的过程中，买过书，也在网上Google了一堆Git相关的文章和教程，但令人失望的是，这些教程不是难得令人发指，就是简单得一笔带过，或者，只支离破碎地介绍Git的某几个命令，还有直接从Git手册粘贴帮助文档的，总之，初学者很难找到一个由浅入深，学完后能立刻上手的Git教程。
-                      
-                      既然号称史上最浅显易懂的Git教程，那这个教程有什么让你怦然心动的特点呢？
-                      
-                      首先，本教程绝对面向初学者，没有接触过版本控制概念的读者也可以轻松入门，不必担心起步难度；
-                      
-                      其次，本教程实用性超强，边学边练，一点也不觉得枯燥。而且，你所学的Git命令是“充分且必要”的，掌握了这些东西，你就可以通过Git轻松地完成你的工作。
-                    </p>
-                  </div>
-                </div>
-                <div class="article"><a>我的第二篇文章</a>
-                  <div class="detail">
-                    <p>
-                      为什么要编写这个教程？因为我在学习Git的过程中，买过书，也在网上Google了一堆Git相关的文章和教程，但令人失望的是，这些教程不是难得令人发指，就是简单得一笔带过，或者，只支离破碎地介绍Git的某几个命令，还有直接从Git手册粘贴帮助文档的，总之，初学者很难找到一个由浅入深，学完后能立刻上手的Git教程。
-                      
-                      既然号称史上最浅显易懂的Git教程，那这个教程有什么让你怦然心动的特点呢？
-                    </p>
-                  </div>
-                </div>
-                <div class="article"><a>我的第三篇文章</a>
-                  <div class="detail">
-                    <p>为什么要编写这个教程？因为我在学习Git的过程中，买过书，也在网上Google了一堆Git相关的文章和教程，但令人失望的是，这些教程不是难得令人发指，就是简单得一笔带过，或者，只支离破碎地介绍Git的某几个命令，还有直接从Git手册粘贴帮助文档的，总之，初学者很难找到一个由浅入深，学完后能立刻上手的Git教程。</p>
+                    <p>{{item.detail}}</p>
                   </div>
                 </div>
               </div>

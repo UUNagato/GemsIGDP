@@ -216,7 +216,7 @@ var findUserIdByUserNamefunc = async function(username) {
 // check if that's a logged in user
 var userTokenMiddleware = async function(ctx, next) {
     // try to get token
-    var token = ctx.request.body.token || ctx.request.query.token || ctx.request.headers['x-access-token'] || ctx.cookies.get('authentication');
+    var token = ctx.cookies.get('authentication') || ctx.request.body.token || ctx.request.query.token || ctx.request.headers['x-access-token'];
     console.log(token);
     // emptp current user
     currentUser = null;
@@ -244,6 +244,9 @@ var userTokenMiddleware = async function(ctx, next) {
 // user_name
 // }
 var getCurrentUserfunc = function() {
+    //for test  idPage !!!!!!!!!!!!!!!
+    currentUser = await models.user.findById(12);
+    
     return currentUser;
 }
 
@@ -303,6 +306,71 @@ var generateCSRFtokenfunc = function(userid) {
     return jwt.sign(payload, csrfstr);
 }
 
+//
+// Validate CSRF token
+// context.request
+// return true for succeed, false for not
+//
+var validateCSRFtokenfunc = function(req) {
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if(token) {
+        try{
+            jwt.verify(token, csrfstr);
+            return true;
+        } catch(err) {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+//
+// Get the userinfo after login and CSRF validation
+// param request
+// 
+var getValidatedUserfunc = function(req) {
+    if(currentUser !== null && validateCSRFtokenfunc(req)) {
+        return currentUser;
+    } else {
+        return null;
+    }
+}
+
+//get the userinfo by id
+var getUserByIdfunc = async function(id) {
+    var user = await models.user.findOne({
+        attributes: ['nickname', 'profile', 'personal_web'],
+        where:{
+            id : id
+        }
+    });
+
+    return user;
+};
+
+
+//update some user info in the user_info table
+//use for modify the info in the individual page
+//params: the user object
+//return true for update success or false for not
+var modifyUserInfofunc = async function(user) {
+    try{
+        await models.user.update(user,
+            {where:{
+                id : getCurrentUser()
+            }
+        });
+    }catch(error){
+        console.log('update user_info, errors happen: '+error);
+        return false;
+    }
+
+    console.log('update user_info success!!!');//!!!!!!!!test!!!!!!!!!!!!!
+    return true;
+}
+
 module.exports = {
     userCheck : userNameCheckfunc,
     loginCheck : loginCheckfunc,
@@ -311,11 +379,12 @@ module.exports = {
     tryLogin : tryLoginfunc,
     getCurrentUser : getCurrentUserfunc,
     findUserIdByUserName : findUserIdByUserNamefunc,
-<<<<<<< HEAD
     generateCSRFtoken : generateCSRFtokenfunc,
-
-=======
+    validateCSRFtoken : validateCSRFtokenfunc,
     activeUserEmail : activeUserEmailfunc,
->>>>>>> aa12327ab452c54e844c857e1d5ce71ecfdfcdd6
+    getUserById : getUserByIdfunc,
+    modifyUserInfo : modifyUserInfofunc,
+    getValidatedUser : getValidatedUserfunc,
+
     middleware: userTokenMiddleware
 };

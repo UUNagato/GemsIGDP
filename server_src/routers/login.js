@@ -2,6 +2,7 @@
     Login Router
     Created by UUNagato 2017/9/11
  */
+'use strict'
 var user = require('../controllers/users.js');
 var fs = require('fs');
 
@@ -20,8 +21,6 @@ var rt_loginpage = async function(ctx, next) {
 };
 
 var rt_loginchecker = async function(ctx, next) {
-    console.log('router in!');
-
     var queryBody = {};
     // should get a post request
     if(ctx.request.body.username) {
@@ -49,11 +48,7 @@ var rt_loginchecker = async function(ctx, next) {
     }
 
     var token = await user.tryLogin(queryBody, ctx.request.body.password);
-    console.log(token);
-    if(token.token !== null && token.csrf !== null) {
-        console.log('prepare to log.');
-        console.log('token:' + token.token);
-        console.log('csrf:' + token.csrf);
+    if(token !== null && token.token !== null && token.csrf !== null) {
         ctx.body = token;
     } else {
         ctx.body = {error:0};

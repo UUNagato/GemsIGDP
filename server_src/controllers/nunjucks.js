@@ -1,6 +1,6 @@
 var nunjucks = require('nunjucks');
 var option = require('../configs/nunjucksconfig.js');
-var file = require('../configs/path.js');
+var file = require('../configs/projectpath.js');
 
 
 /*function createEnv(path, opts) {
