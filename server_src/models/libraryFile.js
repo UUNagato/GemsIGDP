@@ -1,3 +1,4 @@
+
 //sucaiku he sucaikuwenjian duoduiduo guanxibiao
 module.exports = (sequelize, DataTypes) => {
     var theLFile = sequelize.define('libraryFile',{

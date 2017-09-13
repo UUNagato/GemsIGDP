@@ -1,3 +1,4 @@
+
 //zhanshichuang mokuai
 module.exports = (sequelize, DataTypes) => {
     var theEWindow =  sequelize.define('exhibitionWindow',{
@@ -24,10 +25,10 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'exhibition_window'
     });
 
-    /*theEWindow.associate = function(models) {
-        theEWindow.belongsTo(models.user,{foreignKey:'user_id'});
-        theEWindow.hasMany(models.file,{foreignKey:'file_id'});
-    };*/
+    theEWindow.associate = function(models) {
+        theEWindow.belongsTo(models.user,{as:'Author', foreignKey:'user_id'});
+        theEWindow.hasMany(models.file,{as:'Files', foreignKey:'file_id'});
+    };
     
     return theEWindow;
 };

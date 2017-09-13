@@ -1,3 +1,4 @@
+
 //xuqiu mokuai
 module.exports = (sequelize, DataTypes) => {
     var theRequest =  sequelize.define('request',{
@@ -7,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement : true},
         user_id : DataTypes.INTEGER,
         title : DataTypes.STRING(50),
+        yuedu : {
+            type : DataTypes.INTEGER,
+            defaultValue : 0},
         release_time : DataTypes.DATE,
         content : DataTypes.TEXT,
         connection : DataTypes.STRING(20),
@@ -19,9 +23,9 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     
-    /*theRequest.associate = function(models){
-        theRequest.belongsTo(models.user,{foreignKey:'user_id'});
-    };*/
+    theRequest.associate = function(models){
+        theRequest.belongsTo(models.user, {foreignKey:'user_id'});
+    };
     
     return theRequest;
 };

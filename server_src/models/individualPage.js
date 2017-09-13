@@ -1,3 +1,4 @@
+
 //gerenyemian mokuai
 module.exports = (sequelize, DataTypes) => {
     var thePage = sequelize.define('individualPage',{

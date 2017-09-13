@@ -1,3 +1,4 @@
+
 //wenzhang mokuai
 module.exports = (sequelize, DataTypes) => {
     var theArticle =  sequelize.define("article",{
@@ -8,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         user_id : DataTypes.INTEGER,
         title : DataTypes.STRING(50),
         release_time : DataTypes.DATE,
+        label : DataTypes.ENUM('game_design','game_make'),
         content : DataTypes.TEXT,
         dianzan : {
             type : DataTypes.INTEGER,
@@ -25,10 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     
-    /*theArticle.associate = function(models) {
+    theArticle.associate = function(models) {
         theArticle.belongsTo(models.user,{foreignKey:'user_id'});
         theArticle.hasMany(models.commentList,{foreignKey:'comment_id'});
-    };*/
+    };
 
     return theArticle;
 };
