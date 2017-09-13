@@ -15,6 +15,7 @@
         <!--繁体中文-->
         <script src="js/locales/zh-TW.js" type="text/javascript"></script>
         <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="../js/csrfheader.js" type="text/javascript"></script>
     </head>
     <body>
             <div class="htmleaf-container">
@@ -38,7 +39,7 @@
                     <hr>
                     <h3>素材上传</h3>
                     <form enctype="multipart/form-data">
-                        <input id="file-zh" name="file-zh[]" type="file" multiple>
+                        <input id="file-zh" name="file" type="file" multiple>
                         <hr style="border: 2px dotted">
                     </form>
                     <hr>
@@ -49,7 +50,7 @@
 	<script>
     $('#file-zh').fileinput({
         language: 'zh',
-        uploadUrl: '#',
+        uploadUrl: '/uploadimg',
         allowedFileExtensions : ['jpg', 'png','gif','mp3','wav','mp?g','ogg','max','obj','stl','stp','3dx','fbx']
     });
     $('#file-zh-TW').fileinput({
