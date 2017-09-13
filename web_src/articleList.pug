@@ -17,12 +17,41 @@ html
 
         div.fengexian
         ul
-
-               li(style=" list-style: none;")
-                   div.row.articlelist
-                       a(href="{{article.src}}") {{article.title}}
-                       p.articlelistauthor {{article.author}} {{article.releasetime}}  
-
+            
+            li(style=" list-style: none;")
+                div
+                    div.col-md-8.row.articlelist
+                        div.row
+                            a(href="{{article.src}}") {{article.title}}
+                        div.row
+                            p.articlelistauthor {{article.author}} {{article.releasetime}}  
+                    div.col-md-1(style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;")
+                        div.row
+                            span.glyphicon.glyphicon-thumbs-up(style="font-size:42px;")
+                        div.row
+                            p |{% if dianzan > 1000 %}
+                              | {{dianzan/1000}}k
+                              |{% else %}
+                              | {{dianzan}}
+                              |{% endif %}
+                    div.col-md-1.withleftborder(style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;")
+                        div.row
+                            span.glyphicon.glyphicon-eye-open(style="font-size:42px;")
+                        div.row
+                            p |{% if liulan > 1000 %}
+                              | {{liulan/1000}}k
+                              |{% else %}
+                              | {{liulan}}
+                              |{% endif %}
+                    div.col-md-1.withleftborder(style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;")
+                        div.row
+                            span.glyphicon.glyphicon-comment(style="font-size:42px;")
+                        div.row
+                            p |{% if commentcount > 1000 %}
+                              | {{commentcount/1000}}k
+                              |{% else %}
+                              | {{commentcount}}
+                              |{% endif %}
             
         div.row.pagerrow
             a.articlelistlabel(href="#") ←

@@ -7,7 +7,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <title>文章列表</title>
+    <title>articleUI</title>
     <link rel="stylesheet" href="css/basic.css" tyoe="text/css">
   </head>
   <body></body>
@@ -40,28 +40,70 @@
       <h1 class="articlelisttitle">文章列表</h1>
     </div>
     <div class="row">
-      <div class="row articlelistlabelrow">
-        {% for label in labels %}
-        <a class="articlelistlabel" href="{{label.src}}">{{label.name}}</a>
-        {% endfor %}
-      </div>
+
+      {% for label in labels %}
+      <div class="row articlelistlabelrow"><a class="articlelistlabel" href="{{label.src}}">{{label.name}}</a></div>
+      {% endfor %}
+
     </div>
     <div class="fengexian"></div>
     <ul>
+
       {% for article in articles %}
       <li style=" list-style: none;">
-        <div class="row articlelist"><a href="{{article.src}}">{{article.title}}</a>
-          <p class="articlelistauthor">{{article.author}} {{article.releasetime}}  </p>
+        <div>
+          <div class="col-md-8 row articlelist">
+            <div class="row"><a href="{{article.src}}">{{article.title}}</a></div>
+            <div class="row">
+              <p class="articlelistauthor">{{article.author}} {{article.releasetime}}  </p>
+            </div>
+          </div>
+          <div class="col-md-1" style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;">
+            <div class="row"><span class="glyphicon glyphicon-thumbs-up" style="font-size:42px;"></span></div>
+            <div class="row">
+              <p>
+                |{% if dianzan > 1000 %}{{dianzan/1000}}k
+                {% else %}
+                {{dianzan}}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-1 withleftborder" style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;">
+            <div class="row"><span class="glyphicon glyphicon-eye-open" style="font-size:42px;"></span></div>
+            <div class="row">
+              <p>
+                |{% if liulan > 1000 %}{{liulan/1000}}k
+                {% else %}
+                {{liulan}}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-1 withleftborder" style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;">
+            <div class="row"><span class="glyphicon glyphicon-comment" style="font-size:42px;"></span></div>
+            <div class="row">
+              <p>
+                |{% if commentcount > 1000 %}{{commentcount/1000}}k
+                {% else %}
+                {{commentcount}}
+                {% endif %}
+              </p>
+            </div>
+          </div>
         </div>
       </li>
       {% endfor %}
+
     </ul>
     <div class="row pagerrow">
       <a class="articlelistlabel" href="#">←</a>
-      {% page in pages%}
-      <a href="page.src">page.count</a>
+
+      {% for %}
+      <a href="page_i.src">i</a>
       {% endfor %}
+
       <a class="articlelistlabel" href="#">→</a>
-      </div>
+    </div>
   </div>
 </html>
