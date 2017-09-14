@@ -96,61 +96,66 @@
       {% endfor %}
 
     </ul>
-    <div class="row pagerrow">
-        <a class="pager" href="/articleList/1">|&lt</a>
-        <a class="pager" href="/articleList/{{currentpage-1}}">←</a>
+    
+  </div>
+
+  <div class="container" style="text-align:center;">
+    <div class="row pagerow">
+        <a  href="/articleList/1" style="color:white;margin-left:5px;">|&lt</a>
+        <a  href="/articleList/{{currentpage-1}}" style="color:white;margin-left:5px;">←</a>
         
-        {% if sumpage > 10 -%}
+        
+          {% if sumpage > 10 %}
           {% if currentpage < 5 %}
-            {% for i in range(1,currentpage) -%}
-              <a class="pager" href="/articleList/{{i}}">{{i}}</a>
-            {%- endfor %}
-            <a class="pager" href="/articleList/{{currentpage}}" style="font-weight:bold;color:blue;">{{currentpage}}</a>
-            {% for i in range(currentpage+1,5) -%}
-            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
-            {%- endfor %}
-            <p>…</p>
-            {% for i in range(sumpage-3,sumpage+1) -%}
-            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
-            {%- endfor %}
-          {% elif currentpage > sumpage-4 %}
-            {% for i in range(1,5) -%}
-              <a class="pager" href="/articleList/{{i}}">{{i}}</a>
-            {%- endfor %}
-            <p>…</p>
-            {% for i in range(sumpage-3,currentpage) -%}
-            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
-            {%- endfor %}
-            <a class="pager" href="/articleList/{{currentpage}}" style="font-weight:border;color:blue;">{{currentpage}}</a>
-            {% for i in range(currentpage+1,sumpage+1) -%}
-            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
-            {%- endfor %}
+            {% for i in range(1,currentpage) %}
+        <a  href="/articleList/{{i}}"  style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+        <a  href="/articleList/{{currentpage}}" style="font-weight:bold;color:blue;;margin-left:5px;">{{currentpage}}</a>
+           {% for i in range(currentpage+1,5) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+        <a href="" style="color:white;margin-left:5px;">…</a>
+            {% for i in range(sumpage-3,sumpage+1) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+           {% endfor %}
+          {% elif currentpage > (sumpage-4)%}
+            {% for i in range(1,5)%}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+        <a href="" style="color:white;margin-left:5px;">…</a>
+            {% for i in range(sumpage-3,currentpage) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+        <a  href="/articleList/{{currentpage}}" style="font-weight:border;color:blue;;margin-left:5px;">{{currentpage}}</a>
+           {% for i in range(currentpage+1,sumpage+1) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor%}
           {% else %}
-            {% for i in range(1,4) -%}
-            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
-            {%- endfor %}
-            <p>…</p>
-            <a class="pager" href="/articleList/{{currentpage-1}}">{{currentpage-1}}</a>
-            <a class="pager" href="/articleList/{{currentpage}}" style="font-weight:border;color:blue;">{{currentpage}}</a>
-            <a class="pager" href="/articleList/{{currentpage+1}}">{{currentpage+1}}</a>
-            <p>…</p>
-            {% for i in range(sumpage-2,sumpage+1) -%}
-            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
-            {%- endfor %}
+            {% for i in range(1,5) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+        <a href="" style="color:white;margin-left:5px;">…</a>
+        <a  href="/articleList/{{currentpage-1}}" style="color:white;margin-left:5px;">{{currentpage-1}}</a>
+        <a  href="/articleList/{{currentpage}}" style="font-weight:border;color:blue;;margin-left:5px;">{{currentpage}}</a>
+        <a  href="/articleList/{{currentpage+1}}" style="color:white;margin-left:5px;">{{currentpage+1}}</a>
+        <a href="" style="color:white;margin-left:5px;">…</a>
+            {% for i in range(sumpage-3,sumpage+1) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
           {% endif %}
         {% else %}
-          {% for i in range(1,currentpage) -%}
-          <a class="pager" href="/articleList/{{i}}">{{i}}</a>
-          {%- endfor %}
-          <a class="pager" href="/articleList/{{currentpage}}" style="font-weight:bold;color:blue;">{{currentpage}}</a>
-          {% for i in range(currentpage+1,sumpage+1) -%}
-          <a class="pager" href="/articleList/{{i}}">{{i}}</a>
-          {%- endfor %}
-        {%- endif %}
+          {% for i in range(1,currentpage) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+          {% endfor %}
+        <a  href="/articleList/{{currentpage}}" style="font-weight:bold;color:blue;;margin-left:5px;">{{currentpage}}</a>
+          {% for i in range(currentpage+1,sumpage+1) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+          {% endfor %}
 
-        <a class="pager" href="/articleList/{{currentpage+1}}">→</a>
-        <a class="pager" href="/articleList/{{sumpage}}">&gt|</a>
+        <a  href="/articleList/{{currentpage+1}}" style="color:white;margin-left:5px;">→</a>
+        <a  href="/articleList/{{sumpage}}" style="color:white;margin-left:5px;">&gt|</a>
     </div>
   </div>
+
 </body>
 </html>
