@@ -337,7 +337,7 @@ var getValidatedUserfunc = function(req) {
 //get the userinfo by id
 var getUserByIdfunc = async function(id) {
     var user = await models.user.findOne({
-        attributes: ['nickname', 'profile', 'personal_web'],
+        attributes: ['nickname', 'telephone','qq','birthday','profile', 'sex','github','personal_web','signature'],
         where:{
             id : id
         }
@@ -355,7 +355,7 @@ var modifyUserInfofunc = async function(user) {
     try{
         await models.user.update(user,
             {where:{
-                id : getCurrentUser()
+                id : 1 //for test!!!!!!
             }
         });
     }catch(error){
@@ -366,6 +366,24 @@ var modifyUserInfofunc = async function(user) {
     console.log('update user_info success!!!');//!!!!!!!!test!!!!!!!!!!!!!
     return true;
 }
+
+
+//to get user's head picture
+//params : user_id
+//return the path of head picture
+var getHeadPicfunc = async function(user_id){
+    let profile = await models.user.findOne({
+        attributes:['profile'],
+        where : {id : user_id}
+    });
+
+    let path = await models.file.findOne({
+        attributes:['file_path'],
+        where : {id : profile}
+    });
+
+    return path.file_path;
+};
 
 module.exports = {
     userCheck : userNameCheckfunc,
@@ -381,6 +399,7 @@ module.exports = {
     getUserById : getUserByIdfunc,
     modifyUserInfo : modifyUserInfofunc,
     getValidatedUser : getValidatedUserfunc,
+    getHeadPic : getHeadPicfunc,
 
     middleware: userTokenMiddleware
 };

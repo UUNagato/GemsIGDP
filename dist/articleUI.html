@@ -4,11 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <title>文章</title>
+<<<<<<< HEAD
+    <link rel="stylesheet" href="/css/basic.css" tyoe="text/css">
+=======
     <link rel="stylesheet" href="css/basic.css" type="text/css">
+>>>>>>> 52594fbc19029f9cb141bfc9bf0a140ac61d1efc
   </head>
   <body>
     <div class="container-fluid navigationbar">
@@ -42,7 +46,7 @@
         </div>
         <div class="col-md-4 withleftborder">
           <div class="row"><img class="img-circle userimg" src="{{user.imgsrc}}"></div>
-          <div class="row username"><a href="{{user.homepage}}">{{user.name}}</a></div>
+          <div class="row username"><a href="{{user.homepage}}">{{article.author}}</a></div>
           <div class="row">
             <button class="btn btn-lg">关注</button>
           </div>
@@ -50,13 +54,13 @@
       </div>
       <div class="row note">
         <div class="col-md-3">
-          <p>已分享:{{fenxiang}}</p>
+          <p>已分享:{{article.fenxiang}}</p>
         </div>
         <div class="col-md-3">
-          <p>已阅读：{{yuedu}}</p>
+          <p>已阅读：{{article.yuedu}}</p>
         </div>
         <div class="col-md-6">
-          <p>{{releasetime}}</p>
+          <p>{{article.releasetime}}</p>
         </div>
       </div>
       <div class="fengexian"></div>
@@ -66,7 +70,7 @@
       <div class="fengexian"></div>
       <div class="row zanline">
         <div class="col-md-2 yizan">
-          <p>已赞：{{dianzan}}</p>
+          <p>已赞：{{article.dianzan}}</p>
         </div>
         <div class="col-md-2 col-md-offset-6">
           <button class="btn btn-lg dianzan"></button>
@@ -82,10 +86,10 @@
           <div class="col-md-2"><img class="commentuserimg img-circle" src="{{comment.user.imgsrc}}"></div>
           <div class="col-md-10 commentingarea">
             <div class="comment">
-              <p>{{comment.comment}}</p>
+              <p>{{comment.content}}</p>
             </div>
             <div class="row username">
-              <div class="col-md-2"><a href="{{comment.user.homepage}}">{{comment.user.name}}</a></div>
+              <div class="col-md-2"><a href="{{comment.user.homepage}}">{{comment.username}}</a></div>
               <div class="col-md-1 col-md-offset-8">
                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#commentmodal">回复</button>
               </div>

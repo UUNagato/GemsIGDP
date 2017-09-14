@@ -1,12 +1,42 @@
 var user_control = require('../controllers/users.js');
+var nunjucks_control = require('../controllers/nunjucks.js');
+var article_control = require('../controllers/articles.js');
 var fs = require('fs');
 var path = require('path');
 
 
 //init individualPage
 var fn_initPage = async(ctx,next) => {
-    ctx.response.type = 'html';
-    ctx.response.body = fs.createReadStream(path.join(__dirname,'../../dist/individualPage.html')); 
+    let id = parseInt(ctx.params.id);
+    let result = await user_control.getUserById(id);
+    let headPic = await user_control.getHeadPic(id);
+    let aresults = await article_control.getUserArticles(id);
+    var articles = new Array();
+    var i;
+
+    var user = {
+        nickname : result.nickname,
+        sex : result.sex,
+        profile : headPic,
+        birthday : result.birthday,
+        qq : result.qq,
+        phone : result.telephone,
+        github : result.github,
+        personalWeb : result.personal_web,
+        sign : result.signature||''
+    };
+
+    for(i in aresults)
+    {
+        articles[i] = {
+            title : aresults[i].title,
+            content : aresults[i].content||''
+        };
+        console.log('articles:'+aresults[i].title);
+    }
+
+    var s = await nunjucks_control.env.render('individualPage.html',{user:user, articles:articles});
+    ctx.response.body = s;
 };
 
 
@@ -63,6 +93,6 @@ var fn_updateUserInfo = async(ctx,next) => {
 
 
 module.exports = {
-    'GET /idPage' : fn_initPage,
+    'GET /idPage/:id' : fn_initPage,
     'POST /idPage/modifyInfo' : fn_updateUserInfo
 };
