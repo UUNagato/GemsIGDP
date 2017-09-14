@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <title>文章列表</title>
+    <link rel="stylesheet" href="css/basic.css" type="text/css">
+  </head>
+  <body>
+  <div class="container-fluid navigationbar">
+    <nav class="navbar navbar-inverse navigationbar">
+      <div class="container">
+        <div class="narbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarul">
+          <ul class="nav navbar-nav">
+            <li><a href="#">关于</a></li>
+            <li><a href="#">文章</a></li>
+            <li><a href="#">展示</a></li>
+          </ul>
+          <ul class="nav navbar-nav buttonnav withleftborder">
+            <li>
+              <button class="btn navigationbutton btn-lg">登录</button>
+            </li>
+            <li>
+              <button class="btn navigationbutton btn-lg">注册</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="container" style="background-color:#a1a1a1;height:750px;text-align:center;">
+    <div class="row" style="background-color:#737373;">
+      <h1 class="articlelisttitle">文章列表</h1>
+    </div>
+    <div class="row">
+
+      {% for label in labels %}
+      <div class="row articlelistlabelrow"><a class="articlelistlabel" href="{{label.src}}">{{label.name}}</a></div>
+      {% endfor %}
+
+    </div>
+    <div class="fengexian"></div>
+    <ul>
+
+      {% for article in articles %}
+      <li style=" list-style: none;">
+        <div>
+          <div class="col-md-8 row articlelist">
+            <div class="row"><a href="{{article.src}}">{{article.title}}</a></div>
+            <div class="row">
+              <p class="articlelistauthor">{{article.author}} {{article.releasetime}}  </p>
+            </div>
+          </div>
+          <div class="col-md-1" style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;">
+            <div class="row"><span class="glyphicon glyphicon-thumbs-up" style="font-size:42px;"></span></div>
+            <div class="row">
+              <p>
+                {% if article.dianzan > 1000 %}{{article.dianzan/1000}}k
+                {% else %}
+                {{article.dianzan}}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-1 withleftborder" style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;">
+            <div class="row"><span class="glyphicon glyphicon-eye-open" style="font-size:42px;"></span></div>
+            <div class="row">
+              <p>
+                {% if article.liulan > 1000 %}{{article.liulan/1000}}k
+                {% else %}
+                {{article.liulan}}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-1 withleftborder" style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;">
+            <div class="row"><span class="glyphicon glyphicon-comment" style="font-size:42px;"></span></div>
+            <div class="row">
+              <p>
+                {% if article.commentcount > 1000 %}{{article.commentcount/1000}}k
+                {% else %}
+                {{article.commentcount}}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+
+    </ul>
+    
+  </div>
+
+  <div class="container" style="text-align:center;">
+    <div class="row pagerow">
+        <a  href="/articleList/1" style="color:white;margin-left:5px;">|&lt</a>
+        <a  href="/articleList/{{currentpage-1}}" style="color:white;margin-left:5px;">←</a>
+        
+        
+          {% if sumpage > 10 %}
+          {% if currentpage < 5 %}
+            {% for i in range(1,currentpage) %}
+        <a  href="/articleList/{{i}}"  style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+        <a  href="/articleList/{{currentpage}}" style="font-weight:bold;color:blue;;margin-left:5px;">{{currentpage}}</a>
+           {% for i in range(currentpage+1,5) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+        <a href="" style="color:white;margin-left:5px;">…</a>
+            {% for i in range(sumpage-3,sumpage+1) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+           {% endfor %}
+          {% elif currentpage > (sumpage-4)%}
+            {% for i in range(1,5)%}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+        <a href="" style="color:white;margin-left:5px;">…</a>
+            {% for i in range(sumpage-3,currentpage) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+        <a  href="/articleList/{{currentpage}}" style="font-weight:border;color:blue;;margin-left:5px;">{{currentpage}}</a>
+           {% for i in range(currentpage+1,sumpage+1) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor%}
+          {% else %}
+            {% for i in range(1,5) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+        <a href="" style="color:white;margin-left:5px;">…</a>
+        <a  href="/articleList/{{currentpage-1}}" style="color:white;margin-left:5px;">{{currentpage-1}}</a>
+        <a  href="/articleList/{{currentpage}}" style="font-weight:border;color:blue;;margin-left:5px;">{{currentpage}}</a>
+        <a  href="/articleList/{{currentpage+1}}" style="color:white;margin-left:5px;">{{currentpage+1}}</a>
+        <a href="" style="color:white;margin-left:5px;">…</a>
+            {% for i in range(sumpage-3,sumpage+1) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+          {% endif %}
+        {% else %}
+          {% for i in range(1,currentpage) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+          {% endfor %}
+        <a  href="/articleList/{{currentpage}}" style="font-weight:bold;color:blue;;margin-left:5px;">{{currentpage}}</a>
+          {% for i in range(currentpage+1,sumpage+1) %}
+        <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+          {% endfor %}
+
+        <a  href="/articleList/{{currentpage+1}}" style="color:white;margin-left:5px;">→</a>
+        <a  href="/articleList/{{sumpage}}" style="color:white;margin-left:5px;">&gt|</a>
+    </div>
+  </div>
+
+</body>
+</html>
