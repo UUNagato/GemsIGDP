@@ -1,3 +1,4 @@
+
 //wenzhang pinglun
 module.exports = (sequelize, DataTypes) => {
     var theComment = sequelize.define("commentList",{
@@ -20,9 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     
-    /*theComment.associate = function(models){
-        theComment.belongsTo(models.article,{foreignKey:'article_id'});
-    };*/
+    theComment.associate = function(models){
+        theComment.belongsTo(models.article, {foreignKey:'article_id'});
+        theComment.belongsTo(models.user, {foreignKey:'user_id'});
+    };
 
     return theComment;
 };

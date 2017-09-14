@@ -1,3 +1,4 @@
+
 //xiaoxi mokuai
 module.exports = (sequelize, DataTypes) => {
     var theMessage =  sequelize.define('message',{
@@ -16,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     
-    /*theMessage.associate = function(models){
-        theMessage.belongsTo(models.user,{as:'sents',foreignKey:'sent_id'});
-        theMessage.belongsTo(models.user,{as:'receives',foreignKey:'receive_id'});
-    };*/
+    theMessage.associate = function(models){
+        theMessage.belongsTo(models.user,{as:'sents', foreignKey:'sent_id'});
+        theMessage.belongsTo(models.user,{as:'receives', foreignKey:'receive_id'});
+    };
     
     return theMessage;
 };

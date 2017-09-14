@@ -5,6 +5,7 @@
  */
 'use strict'
 
+
 module.exports = (sequelize, DataTypes) => {
     var Login_info = sequelize.define('login', {
         id : {type:DataTypes.INTEGER, primaryKey:true, autoIncrement: true},
@@ -16,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
         tableName: 'login_info'
     });
+
+    Login_info.associate = function(models){
+        Login_info.belongsTo(models.user, {foreignKey:'user_id'});
+    }
     
     return Login_info;
 };

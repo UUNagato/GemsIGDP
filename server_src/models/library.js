@@ -1,3 +1,4 @@
+
 //sucaiku mokuai
 module.exports = (sequelize, DataTypes) => {
     var theLibrary = sequelize.define('library',{
@@ -17,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     
-    /*theLibrary.associate = function(models){
+    theLibrary.associate = function(models){
         theLibrary.belongsTo(models.user,{foreignKey:'user_id'});
         theLibrary.hasMany(models.libraryContent,{foreignKey:'content_id'});
-    };*/
+    };
 
     //insert data
     /*theLibrary.create({
