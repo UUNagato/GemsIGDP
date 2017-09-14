@@ -244,9 +244,6 @@ var userTokenMiddleware = async function(ctx, next) {
 // user_name
 // }
 var getCurrentUserfunc = function() {
-    //for test  idPage !!!!!!!!!!!!!!!
-    currentUser = await models.user.findById(12);
-    
     return currentUser;
 }
 
@@ -341,7 +338,7 @@ var getValidatedUserfunc = function(req) {
 //get the userinfo by id
 var getUserByIdfunc = async function(id) {
     var user = await models.user.findOne({
-        attributes: ['nickname', 'profile', 'personal_web'],
+        attributes: ['nickname', 'telephone','qq','birthday','profile', 'sex','github','personal_web','signature'],
         where:{
             id : id
         }
@@ -359,7 +356,7 @@ var modifyUserInfofunc = async function(user) {
     try{
         await models.user.update(user,
             {where:{
-                id : getCurrentUser()
+                id : 1 //for test!!!!!!
             }
         });
     }catch(error){
