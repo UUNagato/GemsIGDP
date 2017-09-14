@@ -108,20 +108,16 @@ var searchArticleByIdfunc = async function(id) {
 //params: user_id
 //return all articles's title and content(and release_time,liulan,dianzan),limit for 30
 var getUserArticlesfunc = async function(user_id) {
-    try{
-        var articles = await models.article.findAll({
-            limit: 30,
-            where:{
-                user_id : user_id,
-                state : 1
-            }
-        });
-    }catch(error){
-        console.log('add comment, errors happen: '+error);
-        return false;
-    }
-
-    return true;
+    var articles = await models.article.findAll({
+        limit: 30,
+        attributes:['title','content'],
+        where:{
+            user_id : user_id,
+            state : 1
+        }
+    });
+    
+    return articles;
 };
 
 
