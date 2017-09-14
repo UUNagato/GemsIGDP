@@ -126,7 +126,7 @@ function change(){
 
     //and then upload the picture
     var formdata = new FormData();
-    var obj = $('#headPre');
+    var obj = $('#headImag');
     formdata.append('file', obj.files[0]);
     if(window.localStorage) {
         var csrf = window.localStorage.getItem('csrf');
@@ -227,7 +227,7 @@ function changeInfo(){
             $('#sign').val('个性签名: '+sign);
         }
     });
-    
+
     var popUp = document.getElementById("changeInfo");
     popUp.style.visibility = "hidden";
 }

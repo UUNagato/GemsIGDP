@@ -367,6 +367,24 @@ var modifyUserInfofunc = async function(user) {
     return true;
 }
 
+
+//to get user's head picture
+//params : user_id
+//return the path of head picture
+var getHeadPicfunc = async function(user_id){
+    let profile = await models.user.findOne({
+        attributes:['profile'],
+        where : {id : user_id}
+    });
+
+    let path = await models.file.findOne({
+        attributes:['file_path'],
+        where : {id : profile}
+    });
+
+    return path.file_path;
+};
+
 module.exports = {
     userCheck : userNameCheckfunc,
     loginCheck : loginCheckfunc,
@@ -381,6 +399,7 @@ module.exports = {
     getUserById : getUserByIdfunc,
     modifyUserInfo : modifyUserInfofunc,
     getValidatedUser : getValidatedUserfunc,
+    getHeadPic : getHeadPicfunc,
 
     middleware: userTokenMiddleware
 };

@@ -9,25 +9,27 @@ var path = require('path');
 var fn_initPage = async(ctx,next) => {
     let id = parseInt(ctx.params.id);
     let result = await user_control.getUserById(id);
+    let headPic = await user_control.getHeadPic(id);
     let aresults = await article_control.getUserArticles(id);
     var articles = new Array();
     var i;
 
     var user = {
-        nickname : result.nickname||'',
-        sex : result.sex||'',
-        birthday : result.birthday||'',
-        qq : result.qq||'',
-        phone : result.telephone||'',
-        github : result.github||'',
-        personalWeb : result.personal_web||'',
+        nickname : result.nickname,
+        sex : result.sex,
+        profile : headPic,
+        birthday : result.birthday,
+        qq : result.qq,
+        phone : result.telephone,
+        github : result.github,
+        personalWeb : result.personal_web,
         sign : result.signature||''
     };
 
     for(i in aresults)
     {
         articles[i] = {
-            title : aresults[i].title||'',
+            title : aresults[i].title,
             content : aresults[i].content||''
         };
         console.log('articles:'+aresults[i].title);
