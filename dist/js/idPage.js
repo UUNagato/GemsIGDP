@@ -126,32 +126,32 @@ function change(){
 
     //and then upload the picture
     var formdata = new FormData();
-    var obj = $('#headPre');
+    var obj = $('#headImag')[0];
     formdata.append('file', obj.files[0]);
     if(window.localStorage) {
         var csrf = window.localStorage.getItem('csrf');
         $.ajax({
-                url:'/upload/imgupload',
-                ethod: 'POST',
-                ata:formdata,
-                processData:false,
-                contentType:false,
-                beforeSend:function(xhr) {
-                    xhr.setRequestHeader('x-access-token',csrf);
-                },
-                success: function(data) {
-                    if(data.error) {
-                        alert('upload picture failed!');
-                        console.log('upload head picture, errors happen: '+data.error);
-                    } else {
-                            alert('upload picture success!');
-                            //to show the head picture directly(avoid query the table again)
-                            if (window.navigator.userAgent.indexOf("Firefox") >= 1) { 
-                                preview.style.backgroundImage = 'url('+url+')';
-                            }
-                        }
+            url:'/upload/imgupload',
+            method: 'POST',
+            data:formdata,
+            processData:false,
+            contentType:false,
+            beforeSend:function(xhr) {
+                xhr.setRequestHeader('x-access-token',csrf);
+            },
+            success: function(data) {
+                if(data.error) {
+                    alert('upload picture failed!');
+                    console.log('upload head picture, errors happen: '+data.error);
+                } else {
+                    alert('upload picture success!');
+                    //to show the head picture directly(avoid query the table again)
+                    if (window.navigator.userAgent.indexOf("Firefox") >= 1) { 
+                        preview.style.backgroundImage = 'url('+url+')';
                     }
-                });
+                }
+            }
+        });
     }
     var div = document.getElementById('changeHead');
     div.style.visibility = "hidden";
