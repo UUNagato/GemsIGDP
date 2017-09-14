@@ -1,4 +1,4 @@
-/*
+/**
   article module
   when user release or look up articles, to insert or query into database
   
@@ -18,6 +18,7 @@ var releaseArticlefunc = async function(user_id, title, label, content) {
                 user_id : user_id,
                 title : title,
                 release_time : new Date(),
+                update_time : new Date(),
                 label : label,
                 content : content
             });
@@ -70,6 +71,7 @@ var searchArticleByTitlefunc = async function(title) {
 };
 
 
+
 //to get article's id by title(no need now)
 //params: title
 //return article's id
@@ -96,9 +98,9 @@ var searchArticleByIdfunc = async function(id) {
         }],
         
         where:{id : id}
-        });
+    });
 
-      return article;
+    return article;
 }
 
 
@@ -106,6 +108,7 @@ var searchArticleByIdfunc = async function(id) {
 //params: user_id
 //return all articles's title and content(and release_time,liulan,dianzan),limit for 30
 var getUserArticlesfunc = async function(user_id) {
+    try{
         var articles = await models.article.findAll({
             limit: 30,
             where:{
@@ -113,11 +116,12 @@ var getUserArticlesfunc = async function(user_id) {
                 state : 1
             }
         });
+    }catch(error){
+        console.log('add comment, errors happen: '+error);
+        return false;
+    }
 
-        if(articles === null)
-            console.log('the user have no articles!!');
-        //return ....
-        return articles;
+    return true;
 };
 
 
@@ -140,8 +144,6 @@ var addCommentfunc = async function(content,user_id,article_id) {
 
       return true;
 };
-
-
 
 //to get all comments of an article
 //params: article_id
@@ -229,4 +231,4 @@ module.exports = {
       getArticleList : getArticleListfunc,
       getNumberOfComments : getNumberOfCommentsfunc,
       getNumberOfArticles : getNumberOfArticlesfunc
-}
+};
