@@ -111,6 +111,7 @@ var getUserArticlesfunc = async function(user_id) {
     try{
         var articles = await models.article.findAll({
             limit: 30,
+            attributes:['title','content'],
             where:{
                 user_id : user_id,
                 state : 1
