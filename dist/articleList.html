@@ -128,9 +128,9 @@
         <a class="pager" href="/articleList/{{i}}">{{i}}</a>
         {% endfor %}
         <a href="#" class="pager">…</a>
-        <a class="pager" href="/articleList/{{currentpage-1}}">currentpage-1</a>
+        <a class="pager" href="/articleList/{{currentpage-1}}">{{currentpage}}-1</a>
         <a class="pager" href="/articleList/{{currentpage}}" style="font-family:border;">{{currentpage}}</a>
-        <a class="pager" href="/articleList/{{currentpage+1}}">currentpage+1</a>
+        <a class="pager" href="/articleList/{{currentpage+1}}">{{currentpage}}+1</a>
         <a href="#" class="pager">…</a>
         {% for i in range(sumpage-3,sumpage+1) %}
         <a class="pager" href="/articleList/{{i}}">{{i}}</a>
