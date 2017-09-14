@@ -171,8 +171,8 @@ function changeInfo(){
         },
         processData:false,
         contentType:false,
-        success:function(){
-            console.log('success!');
+        success:function(data){
+            alert(data);
         }
     })
     var popUp = document.getElementById("changeInfo");

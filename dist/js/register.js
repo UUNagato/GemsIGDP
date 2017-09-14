@@ -157,6 +157,7 @@ function upRegInfo(){
         let email = $('#email').val();
         let password = $('#password').val();
 
+
         $.post('/register/upInfo', {username : name, email : email, password : password},
             function(url){
                 //console.log('register success, url is '+url);
