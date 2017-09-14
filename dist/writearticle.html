@@ -7,72 +7,41 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <title>文章编辑</title>
+    <title>发布文章</title>
     <link rel="stylesheet" href="css/writearticle.css" type="text/css">
+    <link rel="stylesheet" href="components/summernote/summernote.css">
+    <script type="text/javascript" src="components/summernote/summernote.min.js"></script>
     <script type="text/javascript" src="js/writearticle.js"></script>
   </head>
   <body>
-    <div class="container-fluid navigationbar">
-      <nav class="navbar navbar-inverse navigationbar">
-        <div class="container">
-          <div class="narbar-header">
-            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
-          </div>
-          <div class="collapse navbar-collapse" id="navbarul">
-            <ul class="nav navbar-nav">
-              <li><a href="#">关于</a></li>
-              <li><a href="#">文章</a></li>
-              <li><a href="#">展示</a></li>
-            </ul>
-            <ul class="nav navbar-nav buttonnav withleftborder">
-              <li>
-                <button class="btn navigationbutton btn-lg">登录</button>
-              </li>
-              <li>
-                <button class="btn navigationbutton btn-lg">注册</button>
-              </li>
-            </ul>
-          </div>
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="narbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
         </div>
-      </nav>
-    </div>
-    <div class="row" style="background-color:#737373;">
-      <h1 class="articlelisttitle">编辑一篇文章</h1>
+        <div class="collapse navbar-collapse" id="navbarul">
+          <ul class="nav navbar-nav">
+            <li><a href="#">关于</a></li>
+            <li><a href="#">文章</a></li>
+            <li><a href="#">展示窗</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row" style="background-color:rgb(34,34,34);">
+        <h1 class="boldwhitetext">编辑文章</h1>
+      </div>
     </div>
     <div class="container articlewriting">
-      <p class="writelabel">标题：</p>
-      <p class="title" id="title"></p>
-      <p class="writelabel">正文：</p>
-      <p id="toolbar"><span>字号：</span>
-        <select id="size">
-          <option value="3">Tiny</option>
-          <option value="4">Small</option>
-          <option value="5">Normal</option>
-          <option value="6">Big</option>
-          <option value="7">Large</option>
-        </select><span>颜色：</span>
-        <select id="color">
-          <option value="black" style="color:black;">Black</option>
-          <option value="gray" style="color:gray;">Gray</option>
-          <option value="brown" style="color:brown;">Brown</option>
-          <option value="red" style="color:red;">Red</option>
-          <option value="pink" style="color:pink;">Pink</option>
-          <option value="yellow" style="color:yellow;">Yellow</option>
-          <option value="orange" style="color:orange;">Orange</option>
-          <option value="blue" style="color:blue;">Blue</option>
-          <option value="green" style="color:green;">Green</option>
-        </select><span>字体：</span>
-        <select id="fontfamily">
-          <option value="'微软雅黑'" style="font-family:'微软雅黑';">微软雅黑</option>
-          <option value="宋体" style="font-family:'宋体';">宋体</option>
-          <option value="arial" style="font-family:'arial';">arial</option>
-        </select>
-        <button type="button" id="bold"><strong>B</strong></button>
-        <button type="button" id="italic"><i>I</i></button>
-        <button type="button" id="underline" style="text-decoration:underline;">U</button>
-      </p>
-      <p class="editable" id="editor"></p>
-      <button class="btn-lg" type="button" style="float:right;width:200px;">提交</button>
+      <div class="alert alert-danger" id="informwindow"></div>
+      <div class="form-group">
+        <label for="articletitle">标题：</label>
+        <input class="form-control" id="articletitle" type="text" placeholder="在此输入标题">
+      </div>
+      <label>正文：</label>
+      <div id="summernote"></div>
+      <button class="btn btn-lg btn-success" id="submit-btn" onclick="onSubmitClick()">完成提交</button>
     </div>
   </body>
 </html>

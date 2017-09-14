@@ -217,7 +217,6 @@ var findUserIdByUserNamefunc = async function(username) {
 var userTokenMiddleware = async function(ctx, next) {
     // try to get token
     var token = ctx.cookies.get('authentication') || ctx.request.body.token || ctx.request.query.token || ctx.request.headers['x-access-token'];
-    console.log(token);
     // emptp current user
     currentUser = null;
 
@@ -244,9 +243,6 @@ var userTokenMiddleware = async function(ctx, next) {
 // user_name
 // }
 var getCurrentUserfunc = function() {
-    //for test  idPage !!!!!!!!!!!!!!!
-    currentUser = await models.user.findById(12);
-    
     return currentUser;
 }
 

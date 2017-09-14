@@ -2,58 +2,24 @@ doctype html
 html
     head 
         include ../web_src/templates_pug/default-head.pug
-        title articleUI
+        title 发布文章
         link(rel="stylesheet", href="css/writearticle.css",type="text/css")
+        link(rel="stylesheet", href="components/summernote/summernote.css")
+        script(type="text/javascript", src="components/summernote/summernote.min.js")
         script(type="text/javascript", src="js/writearticle.js")
     body
-        div.container-fluid.navigationbar
+        nav.navbar.navbar-inverse
             include ../web_src/templates_pug/navbar-container.pug
         
-        div.row(style="background-color:#737373;")
-            h1.articlelisttitle 编辑一篇文章
+        div.container-fluid
+            div.row(style="background-color:rgb(34,34,34);")
+                h1.boldwhitetext 编辑文章
 
         div.container.articlewriting
-            p.writelabel 标题：
-            p.title(id="title")
-
-            p.writelabel 正文：
-            p(id="toolbar")
-                span 字号：
-                select(id="size")
-                    option(value="3") Tiny
-                    option(value="4") Small
-                    option(value="5") Normal
-                    option(value="6") Big
-                    option(value="7") Large
-                 
-                span 颜色：
-                select(id="color")
-                    option(value="black", style="color:black") Black
-                    option(value="gray", style="color:gray") Gray
-                    option(value="brown",style="color:brown") Brown
-                    option(value="red",style="color:red") Red
-                    option(value="pink",style="color:pink") Pink
-                    option(value="yellow",style="color:yellow") Yellow
-                    option(value="orange",style="color:orange") Orange
-                    option(value="blue",style="color:blue") Blue
-                    option(value="green",style="color:green") Green
-                
-                span 字体：
-                select(id="fontfamily")
-                    option(value="'微软雅黑'",style="font-family:'微软雅黑'") 微软雅黑
-                    option(value="宋体",style="font-family:'宋体'") 宋体
-                    option(value="arial",style="font-family:'arial'") arial
-
-                 
-                button(type="button",id="bold")
-                    strong B
-                   
-                button(type="button",id="italic")
-                     i I
-                 
-                button(type="button",id="underline",style="text-decoration:underline;") U
-                
-            
-            p.editable(id="editor")
-
-            button.btn-lg(type="button",style="float:right;width:200px;") 提交
+            div#informwindow.alert.alert-danger
+            div.form-group
+                label(for="articletitle") 标题：
+                input#articletitle.form-control(type="text",placeholder="在此输入标题")
+            label 正文：
+            div#summernote
+            button#submit-btn.btn.btn-lg.btn-success(onclick="onSubmitClick()") 完成提交
