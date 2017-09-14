@@ -9,15 +9,13 @@ const articles = require('../controllers/articles.js');
 var fn_articlepost = async function(ctx, next) {
     var user = users.getValidatedUser(ctx.request);
     if(user !== null) {
-        console.log(ctx.request.body.title);
-        console.log(ctx.request.body.content);
         // get text
         var title = ctx.request.body.title;
         var content = ctx.request.body.content;
         var titleexp = /^\D[^><\n\f\r\t\v]{6,50}/;
         if(titleexp.test(title)) {
             if(content.length >= 30 && content.length <= 30000 ) {
-                var result = await articles.releaseArticle(user.user_id, title, content);
+                var result = await articles.releaseArticle(user.user_id, title, 'game_design', content);
                 if(result) {
                     ctx.response.body = {success:'success'};
                 } else {

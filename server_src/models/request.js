@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue : 0},
         release_time : DataTypes.DATE,
         content : DataTypes.TEXT,
-        connection : DataTypes.STRING(20),
+        contact : DataTypes.STRING(20),
         state : {
             type : DataTypes.INTEGER,
             defaultValue : 1}
