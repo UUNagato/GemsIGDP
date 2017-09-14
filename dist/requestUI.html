@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <title>需求</title>
-    <link rel="stylesheet" href="css/basic.css" tyoe="text/css">
+    <link rel="stylesheet" href="/css/basic.css" tyoe="text/css">
   </head>
   <body>
     <div class="container-fluid navigationbar">
@@ -40,7 +40,7 @@
         <h1 class="articletitle">{{request.title}}</h1>
       </div>
       <div class="row" style="text-align:center;"><img class="img-circle userimg" src="{{user.imgsrc}}"></div>
-      <div class="row username"><a href="{{user.homepage}}">{{user.name}}</a></div>
+      <div class="row username"><a href="{{user.homepage}}">{{request.author}}</a></div>
       <div class="row note">
         <p>已阅读:{{request.yuedu}}</p>
       </div>
