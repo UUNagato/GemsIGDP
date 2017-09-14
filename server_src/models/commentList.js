@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement : true},
         user_id : DataTypes.INTEGER,
         article_id : DataTypes.INTEGER,
-        release_time : DataTypes.INTEGER,
+        release_time : DataTypes.DATE,
         content : DataTypes.TEXT,
         last_release_time : DataTypes.DATE,
         cite_comment_id : DataTypes.INTEGER,
