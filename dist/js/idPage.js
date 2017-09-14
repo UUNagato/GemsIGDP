@@ -109,7 +109,7 @@ function getFullPath(obj) {
             obj.select();
             return document.selection.createRange().text;
         } 
-        //Firefox
+        //preview the head picture
         else if (window.navigator.userAgent.indexOf("Firefox") >= 1) { 
             if (obj.files) {
                 console.log('firefox');
@@ -123,8 +123,35 @@ function getFullPath(obj) {
 
 function change(){
     var preview = document.getElementById('realHead');
-    if (window.navigator.userAgent.indexOf("Firefox") >= 1) { 
-        preview.style.backgroundImage = 'url('+url+')';
+
+    //and then upload the picture
+    var formdata = new FormData();
+    var obj = $('#headPre');
+    formdata.append('file', obj.files[0]);
+    if(window.localStorage) {
+        var csrf = window.localStorage.getItem('csrf');
+        $.ajax({
+                url:'/upload/imgupload',
+                ethod: 'POST',
+                ata:formdata,
+                processData:false,
+                contentType:false,
+                beforeSend:function(xhr) {
+                    xhr.setRequestHeader('x-access-token',csrf);
+                },
+                success: function(data) {
+                    if(data.error) {
+                        alert('upload picture failed!');
+                        console.log('upload head picture, errors happen: '+data.error);
+                    } else {
+                            alert('upload picture success!');
+                            //to show the head picture directly(avoid query the table again)
+                            if (window.navigator.userAgent.indexOf("Firefox") >= 1) { 
+                                preview.style.backgroundImage = 'url('+url+')';
+                            }
+                        }
+                    }
+                });
     }
     var div = document.getElementById('changeHead');
     div.style.visibility = "hidden";
@@ -156,6 +183,8 @@ function changeInfo(){
     let github = $('#githubLin').val();
     let personalWeb = $('#personalWebLin').val();
     let sign = $('#perSign').val();
+    let pixiv = $('#pixivInput').val();
+    let patreon = $('#patreonInput').val();
 
     console.log('name:'+name);
     console.log('sex:'+sex);
@@ -184,8 +213,21 @@ function changeInfo(){
         //contentType:false,
         success:function(data){
             console.log('success!');
+            
+            //if success, modify the info in the page(avoid query again in the user_info table)
+            $('#name').val('昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称: '+name);
+            $('#sex').val('性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别: '+sex);
+            $('#birthday').val('生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日: '+birthday);
+            $('#qq').val('Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q: '+qq);
+            $('#phone').val('电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话: '+phone);
+            $('#info-github').val(github);   
+            $('#info-personalWeb').val(personalWeb);      
+            $('#info-pixiv').val(pixiv);      
+            $('#info-patreon').val(patreon);         
+            $('#sign').val('个性签名: '+sign);
         }
-    })
+    });
+    
     var popUp = document.getElementById("changeInfo");
     popUp.style.visibility = "hidden";
 }

@@ -116,7 +116,7 @@
                     <p class="mess" id="pixiv">pixiv主页:</p>
                   </div>
                   <div class="col-md-4 col-md-pull-1">
-                    <input class="link" id="pixiv" type="text" name="pixiv">
+                    <input class="link" id="pixivInput" type="text" name="pixiv">
                   </div>
                 </div>
                 <div class="row">
@@ -124,7 +124,7 @@
                     <p class="mess" id="patreon">patreon:</p>
                   </div>
                   <div class="col-md-4 col-md-pull-1">
-                    <input class="link" id="patreon" type="text" name="patreon">
+                    <input class="link" id="patreonInput" type="text" name="patreon">
                   </div>
                 </div>
                 <div class="row">
@@ -208,25 +208,25 @@
                   <div class="info-s">
                     <div class="infoLink-title">
                       <p id="githubLink">GitHub&nbsp;&nbsp;:</p>
-                    </div><a class="info-link" herf="{{user.github}}">{{user.github}}</a>
+                    </div><a id='info-github' class="info-link" herf="{{user.github}}">{{user.github}}</a>
                   </div>
                   <div class="info-s">
                     <div class="infoLink-title">
                       <p id="personalWeb">个人博客:</p>
-                    </div><a class="info-link" herf="{{user.personalWeb}}">{{user.personalWeb}}</a>
+                    </div><a id='info-personalWeb' class="info-link" herf="{{user.personalWeb}}">{{user.personalWeb}}</a>
                   </div>
                   <div class="info-s">
                     <div class="infoLink-title">
                       <p id="pixiv">pixiv主页:</p>
-                    </div><a class="info-link" herf="{{user.pixivLink}}">{{user.pixivLink}}</a>
+                    </div><a id='info-pixiv' class="info-link" herf="{{user.pixivLink}}">{{user.pixivLink}}</a>
                   </div>
                   <div class="info-s">
                     <div class="infoLink-title">
                       <p id="patreon">patreon&nbsp;:</p>
-                    </div><a class="info-link" herf="{{user.patreonLink}}">{{user.patreonLink}}</a>
+                    </div><a id='info-patreon' class="info-link" herf="{{user.patreonLink}}">{{user.patreonLink}}</a>
                   </div>
                   <div class="info-s">
-                    <p id="sign">个性签名: {{sign}}</p>
+                    <p id="sign">个性签名: {{user.sign}}</p>
                   </div>
                 </div>
                 <div class="button"><a class="btn btn-success" onclick="showInfoChange(540)">更改个人信息</a></div>
