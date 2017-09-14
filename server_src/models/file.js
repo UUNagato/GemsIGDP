@@ -10,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
         file_time : DataTypes.DATE,  
         user_id : DataTypes.INTEGER,
         file_name : DataTypes.STRING,
-        file_address : DataTypes.STRING,
+        file_path : DataTypes.STRING,
+        upload_time : DataTypes.DATE,
+        file_md5 : DataTypes.CHAR(32),  
         file_type : DataTypes.STRING
     },{
         timestamps: false,
