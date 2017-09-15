@@ -4,6 +4,7 @@
  */
 'use strict'
 var user = require('../controllers/users.js');
+const projectpath = require('../configs/projectpath.js');
 var fs = require('fs');
 
 var userchecker = /^[a-zA-Z0-9_]{6,18}$/;
@@ -13,10 +14,11 @@ var passchecker = /[^><\s]{6,18}/;
 var rt_loginpage = async function(ctx, next) {
     // check if is logged in
     if(user.getCurrentUser() !== null) {
-        ctx.throw(404);
+        // redirect to index
+        ctx.response.redirect('/');
     } else {
         ctx.response.type = 'html';
-        ctx.response.body = fs.createReadStream('../dist/login.html');
+        ctx.response.body = fs.createReadStream(projectpath.path + '/login.html');
     }
 };
 

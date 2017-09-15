@@ -307,13 +307,13 @@ var generateCSRFtokenfunc = function(userid) {
 // context.request
 // return true for succeed, false for not
 //
-var validateCSRFtokenfunc = function(req) {
+var validateCSRFtokenfunc = function(req, id) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
     if(token) {
         try{
-            jwt.verify(token, csrfstr);
-            return true;
+            var csrf = jwt.verify(token, csrfstr);
+            return csrf.user_id === id;
         } catch(err) {
             return false;
         }
@@ -327,7 +327,7 @@ var validateCSRFtokenfunc = function(req) {
 // param request
 // 
 var getValidatedUserfunc = function(req) {
-    if(currentUser !== null && validateCSRFtokenfunc(req)) {
+    if(currentUser !== null && validateCSRFtokenfunc(req, currentUser.user_id)) {
         return currentUser;
     } else {
         return null;
@@ -377,13 +377,52 @@ var getHeadPicfunc = async function(user_id){
         where : {id : user_id}
     });
 
+    if(profile.profile === 0) {
+        return '/img/defaultprofile.png';
+    }
+
     let path = await models.file.findOne({
         attributes:['file_path'],
-        where : {id : profile}
+        where : {id : profile.profile}
     });
 
     return path.file_path;
 };
+
+/**
+ * Get user profile path and nickname
+ * @param {integer} user_id 
+ * @return {Promise} the object of data
+ */
+var getProfileAndNicknameByIdfunc = async function(user_id) {
+    let profile = await models.user.findOne({
+        attributes:['profile','nickname'],
+        where : {id : user_id}
+    });
+
+    if(profile === null)
+        return null;
+
+    var filepath = null;
+
+    if(profile.profile === 0) {
+        filepath = '/img/defaultprofile.png';
+    }
+    else{
+        let path = await models.file.findOne({
+            attributes:['file_path'],
+            where : {id : profile.profile}
+        });
+        if(path !== null) {
+            filepath = path.file_path;
+        }
+    }
+
+    return ({
+        profile:filepath,
+        nickname:profile.nickname
+    });
+}
 
 module.exports = {
     userCheck : userNameCheckfunc,
@@ -400,6 +439,7 @@ module.exports = {
     modifyUserInfo : modifyUserInfofunc,
     getValidatedUser : getValidatedUserfunc,
     getHeadPic : getHeadPicfunc,
+    getProfileAndNicknameById : getProfileAndNicknameByIdfunc,
 
     middleware: userTokenMiddleware
 };

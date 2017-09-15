@@ -5,22 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/global.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/global.js"></script>
     <title>Gems - Individual Game Developer Platform</title>
     <link href="css/index-style.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="narbar-header">
           <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
         </div>
         <div class="collapse navbar-collapse" id="navbarul">
-          <ul class="nav navbar-nav">
-            <li><a href="#">关于</a></li>
-            <li><a href="#">文章</a></li>
-            <li><a href="#">展示窗</a></li>
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="/articleList/1">文章</a></li>
+            <li><a href="/materials">素材</a></li>
+            <li><a href="/displays">展示窗</a></li>
+            <li><a href="/requestList/1">需求</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" id="unlog">
+            <li class="navbar-leftborder"></li>
+            <li><a class="btn btn-success" href="/login">登录</a></li>
+            <li><a class="btn btn-info" href="/register">注册</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right navbar-hide" id="login">
+            <li class="navbar-leftborder"></li>
+            <li class="navbar-middleondrop"><img class="navbar-profile" id="userprofile"></li>
+            <li>
+              <p class="navbar-text" id="usernick"></p>
+            </li>
+            <li class="navbar-hideondrop"> 
+              <p class="navbar-text">消息<span class="badge"></span></p>
+            </li>
           </ul>
         </div>
       </div>
