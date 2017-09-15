@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         user_id : DataTypes.INTEGER,
         title : DataTypes.STRING(50),
         release_time : DataTypes.DATE,
+        update_time : DataTypes.DATE, 
         label : DataTypes.ENUM('game_design','game_make'),
         content : DataTypes.TEXT,
         dianzan : {

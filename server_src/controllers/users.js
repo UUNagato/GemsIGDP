@@ -217,7 +217,6 @@ var findUserIdByUserNamefunc = async function(username) {
 var userTokenMiddleware = async function(ctx, next) {
     // try to get token
     var token = ctx.cookies.get('authentication') || ctx.request.body.token || ctx.request.query.token || ctx.request.headers['x-access-token'];
-    console.log(token);
     // emptp current user
     currentUser = null;
 
@@ -244,9 +243,6 @@ var userTokenMiddleware = async function(ctx, next) {
 // user_name
 // }
 var getCurrentUserfunc = function() {
-    //for test  idPage !!!!!!!!!!!!!!!
-    currentUser = await models.user.findById(12);
-    
     return currentUser;
 }
 
@@ -311,13 +307,13 @@ var generateCSRFtokenfunc = function(userid) {
 // context.request
 // return true for succeed, false for not
 //
-var validateCSRFtokenfunc = function(req) {
+var validateCSRFtokenfunc = function(req, id) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
     if(token) {
         try{
-            jwt.verify(token, csrfstr);
-            return true;
+            var csrf = jwt.verify(token, csrfstr);
+            return csrf.user_id === id;
         } catch(err) {
             return false;
         }
@@ -331,7 +327,7 @@ var validateCSRFtokenfunc = function(req) {
 // param request
 // 
 var getValidatedUserfunc = function(req) {
-    if(currentUser !== null && validateCSRFtokenfunc(req)) {
+    if(currentUser !== null && validateCSRFtokenfunc(req, currentUser.user_id)) {
         return currentUser;
     } else {
         return null;
@@ -341,7 +337,7 @@ var getValidatedUserfunc = function(req) {
 //get the userinfo by id
 var getUserByIdfunc = async function(id) {
     var user = await models.user.findOne({
-        attributes: ['nickname', 'profile', 'personal_web'],
+        attributes: ['nickname', 'telephone','qq','birthday','profile', 'sex','github','personal_web','signature'],
         where:{
             id : id
         }
@@ -359,7 +355,7 @@ var modifyUserInfofunc = async function(user) {
     try{
         await models.user.update(user,
             {where:{
-                id : getCurrentUser()
+                id : 1 //for test!!!!!!
             }
         });
     }catch(error){
@@ -369,6 +365,63 @@ var modifyUserInfofunc = async function(user) {
 
     console.log('update user_info success!!!');//!!!!!!!!test!!!!!!!!!!!!!
     return true;
+}
+
+
+//to get user's head picture
+//params : user_id
+//return the path of head picture
+var getHeadPicfunc = async function(user_id){
+    let profile = await models.user.findOne({
+        attributes:['profile'],
+        where : {id : user_id}
+    });
+
+    if(profile.profile === 0) {
+        return '/img/defaultprofile.png';
+    }
+
+    let path = await models.file.findOne({
+        attributes:['file_path'],
+        where : {id : profile.profile}
+    });
+
+    return path.file_path;
+};
+
+/**
+ * Get user profile path and nickname
+ * @param {integer} user_id 
+ * @return {Promise} the object of data
+ */
+var getProfileAndNicknameByIdfunc = async function(user_id) {
+    let profile = await models.user.findOne({
+        attributes:['profile','nickname'],
+        where : {id : user_id}
+    });
+
+    if(profile === null)
+        return null;
+
+    var filepath = null;
+
+    if(profile.profile === 0) {
+        filepath = '/img/defaultprofile.png';
+    }
+    else{
+        let path = await models.file.findOne({
+            attributes:['file_path'],
+            where : {id : profile.profile}
+        });
+        if(path !== null) {
+            filepath = path.file_path;
+        }
+    }
+
+    return ({
+        profile:filepath,
+        nickname:profile.nickname
+    });
 }
 
 module.exports = {
@@ -385,6 +438,8 @@ module.exports = {
     getUserById : getUserByIdfunc,
     modifyUserInfo : modifyUserInfofunc,
     getValidatedUser : getValidatedUserfunc,
+    getHeadPic : getHeadPicfunc,
+    getProfileAndNicknameById : getProfileAndNicknameByIdfunc,
 
     middleware: userTokenMiddleware
 };

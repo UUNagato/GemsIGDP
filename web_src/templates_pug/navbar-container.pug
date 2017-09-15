@@ -7,10 +7,27 @@ div.container
             span.icon-bar
         a.navbar-brand(href="#") GG
     div.collapse.navbar-collapse#navbarul
-        ul.nav.navbar-nav
+        ul.nav.navbar-nav.navbar-left
             li
-                a(href="#") 关于
+                a(href="/articleList/1") 文章
             li
-                a(href="#") 文章
+                a(href="/materials") 素材
             li
-                a(href="#") 展示窗
+                a(href="/displays") 展示窗
+            li
+                a(href="/requestList/1") 需求
+        ul#unlog.nav.navbar-nav.navbar-right
+            li.navbar-leftborder
+            li
+                a.btn.btn-success(href="/login") 登录
+            li
+                a.btn.btn-info(href="/register") 注册
+        ul#login.nav.navbar-nav.navbar-right.navbar-hide
+            li.navbar-leftborder
+            li.navbar-middleondrop
+                img#userprofile.navbar-profile
+            li
+                p#usernick.navbar-text
+            li.navbar-hideondrop 
+                p.navbar-text 消息
+                    span.badge

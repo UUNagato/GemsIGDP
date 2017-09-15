@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <title>需求列表</title>
-    <link rel="stylesheet" href="css/basic.css" tyoe="text/css">
+    <link rel="stylesheet" href="/css/basic.css" tyoe="text/css">
   </head>
   <body></body>
   <div class="container-fluid navigationbar">
@@ -37,19 +37,23 @@
   </div>
   <div class="container" style="background-color:#a1a1a1;height:750px;text-align:center;">
     <div class="row" style="background-color:#737373;">
-      <h1 class="articlelisttitle">需求列表</h1>
+      <h1 class="requestlisttitle">需求列表</h1>
     </div>
     <div class="row">
-      <div class="row articlelistlabelrow"><a class="articlelistlabel" href="{{label.src}}">{{label.name}}</a></div>
+      <div class="row requestlistlabelrow"><a class="requestlistlabel" href="{{label.src}}">{{label.name}}</a></div>
     </div>
     <div class="fengexian"></div>
     <ul>
+      
+      {% for request in requests %}
       <li style=" list-style: none;">
-        <div class="row articlelist"><a href="{{request.src}}">{{request.title}}</a>
-          <p class="articlelistauthor">{{request.author}} {{request.releasetime}}  </p>
+        <div class="row requestlist"><a href="/request/details/{{request.id}}">{{request.title}}</a>
+          <p class="requestlistauthor">{{request.author}} {{request.releasetime}}  </p>
         </div>
       </li>
+      {% endfor %}
+
     </ul>
-    <div class="row pagerrow"><a class="articlelistlabel" href="#">←</a><a href="page_i.src">i</a><a class="articlelistlabel" href="#">→</a></div>
+    <div class="row pagerrow"><a class="requestlistlabel" href="#">←</a><a href="page_i.src">i</a><a class="requestlistlabel" href="#">→</a></div>
   </div>
 </html>

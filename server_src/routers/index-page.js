@@ -1,7 +1,10 @@
-var fs = require('fs');
+'user strict'
+const fs = require('fs');
+const projectpath = require('../configs/projectpath.js');
 
 var fn_index = async(ctx, next) => {
-    ctx.response.redirect('/index.html');
+    ctx.response.type = 'html';
+    ctx.response.body = fs.createReadStream(projectpath.path + '/index.html');
 };
 
 module.exports = {
