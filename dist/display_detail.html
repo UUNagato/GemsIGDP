@@ -52,19 +52,21 @@
         <div class="main">
           <div class="viewer_wrapper carousel slide" id="myCarousel">
             <ol class="carousel-indicators">
-              <li class="active" data-target="#myCarousel" data-slide-to="0"></li>
-              <li data-target="#myCarousel" data-slide-to="1"></li>
-              <li data-target="#myCarousel" data-slide-to="2"></li>
-              <li data-target="#myCarousel" data-slide-to="3"></li>
+              {% for file in files %}
+              {% if file.num == 0 %}
+              <li class="active" data-target="#myCarousel" data-slide-to="{{file.num}}"></li>
+              {% else %}
+              <li data-target="#myCarousel" data-slide-to="{{file.num}}"></li>
+              {% endif %}
+              {% endfor %}
             </ol>
             <div class="carousel-inner">
-              <!--before modify
-              <div class="item active"><img src="" alt="First slide"></div>
-              <div class="item"><img src="" alt="Second slide"></div>
-              <div class="item"><img src="" alt="Third slide"></div>
-              <div class="item"><img src="" alt="Forth slide"></div>-->
               {% for file in files %}
-              <div class="item active"><img src="{{file.file_path}}" alt="slide"></div>
+              {% if file.num == 0 %}
+              <div class="item active"><img src="{{file.path}}"></div>
+              {% else %}
+              <div class="item"><img src="{{file.path}}"></div>
+              {% endif %}
               {% endfor %}
             </div><a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -80,7 +82,7 @@
               <div class="model_name"><span class="model_name">{{ewindow.title}}</span></div>
               <div class="owner_wrapper">
                 <div class="owner_left">
-                  <div class="image_container"><a class="card_footer_avatar" href="#"><img class="head" src="head.src"></a></div>
+                  <div class="image_container"><a class="card_footer_avatar" href="#"><img class="head" src="{{ewindow.headPic}}"></a></div>
                   <div class="card_footer_name">
                     <p class="card_footer_name"> <a class="model-name_label" href="#" target="_blank" title="Ryan">{{ewindow.author}}</a></p>
                   </div>

@@ -60,21 +60,37 @@ var getAEWindowfunc = async function(id) {
         attributes : ['id','title','introduce','create_date','dianzan','liulan'],
         include : [{
             model : models.user,
-            attributes : ['nickname'],
+            attributes : ['nickname','profile'],
             where : { id : Sequelize.col('exhibitionWindow.user_id')}
         }],
         where : {id : id}
     });
 
-    //test!!!!
-    console.log('test title:'+ewindow.title);
-    
-    var files = await ewindow.getFiles(); //may be an array
-    var i;
-    var paths = new Array();
-    for(i in files)
+    //get author's head picture
+    var headPic;
+    if(ewindow.user.profile === 0 || ewindow.user.profile === null)
     {
-        paths[i] = files[i].path;
+        //default head picture
+        headPic = '/img/defaultprofile.png';
+    }
+    else{
+        let headFile = await models.file.findOne({
+            attributes : ['file_path'],
+            where : {id : ewindow.user.profile}
+        });
+        headPic = headFile.file_path;
+    }
+
+    //get files
+    var items = await ewindow.getFiles(); //may be an array
+    var i;
+    var files = new Array();
+    for(i in items)
+    {
+        files[i] = {
+            path : items[i].file_path,
+            num : i
+        };
     }
 
     var result = {
@@ -82,11 +98,12 @@ var getAEWindowfunc = async function(id) {
             title : ewindow.title,
             introduce : ewindow.introduce,
             author : ewindow.user.nickname,
+            headPic : headPic,
             createDate : ewindow.create_date,
             dianzan : ewindow.dianzan,
             liulan : ewindow.liulan
         },
-        files : files
+        files : files //an array
     };
 
     return result;

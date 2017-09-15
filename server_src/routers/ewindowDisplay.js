@@ -22,18 +22,9 @@ var fn_initListPage = async(ctx, next) => {
 //init the display_detail.html
 var fn_initDetailPage = async(ctx, next) => {
     let id = parseInt(ctx.params.id);
-
-    //test!!!!!
-    console.log('details id: '+id);
-
     let result = await ewindow_control.getAEWindow(id);
 
-    var i;
-    for(i in result.files)
-    {
-        console.log('path:'+result.files[i].file_path);
-    }
-    
+
     //render
     var s = nunjucks_control.env.render('display_detail.html', {ewindow:result.ewindow, files:result.files});
     ctx.response.body = s;
