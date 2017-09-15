@@ -28,19 +28,19 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     User_info.associate = function(models){
-        User_info.hasOne(models.login,{foreignKey:'user_id'});
-        User_info.hasOne(models.individualPage);
+        User_info.hasOne(models.login, {foreignKey:'user_id'});
+        User_info.hasOne(models.individualPage ,{foreignKey:'user_id'});
 
-        User_info.hasMany(models.article);
-        User_info.hasMany(models.commentList);
+        User_info.hasMany(models.article ,{foreignKey:'user_id'});
+        User_info.hasMany(models.commentList ,{foreignKey:'user_id'});
 
-        User_info.hasMany(models.exhibitionWindow);
-        User_info.hasMany(models.library);
-        User_info.hasMany(models.file);
-        User_info.hasMany(models.request);
+        User_info.hasMany(models.exhibitionWindow ,{foreignKey:'user_id'});
+        User_info.hasMany(models.library ,{foreignKey:'user_id'});
+        User_info.hasMany(models.file ,{foreignKey:'user_id'});
+        User_info.hasMany(models.request ,{foreignKey:'user_id'});
         
-        User_info.hasMany(models.message);
-        User_info.hasMany(models.personalRecord); 
+        User_info.hasMany(models.message ,{foreignKey:'user_id'});
+        User_info.hasMany(models.personalRecord ,{foreignKey:'user_id'}); 
     };
 
 
