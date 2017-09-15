@@ -52,14 +52,14 @@
         {% for item in items %}
         <div class="display_col" ontouchstart="this.classList.toggle('hover');" onclick="window.open('display_detail.html');">
           <div class="display_container">
-            <div class="display_front" style="background-image: url(img/{{display}}.jpg);">
+            <div class="display_front" style="background-image: url(item.display);">
               <div class="display_inner">
-                <p>{{item.title}}</p><span>{{author.name}}</span>
+                <p>{{item.title}}</p><span>{{item.authorname}}</span>
               </div>
             </div>
             <div class="display_back">
               <div class="display_inner">
-                <p>{{description}}</p>
+                <p>{{item.description}}</p>
               </div>
             </div>
           </div>

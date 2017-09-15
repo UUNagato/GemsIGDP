@@ -51,15 +51,15 @@
     <div class="showwindow">
       <div class="show_left">
         <div class="main">
-          <div class="viewer_wrapper"><img class="card" src="head.imgsrc"></div>
+          <div class="viewer_wrapper"><img class="card" src="model.img"></div>
           <div class="content_wrapper">
             <div class="vieweradditional">
-              <div class="model_name"><span class="model_name">{{model_name}}</span></div>
+              <div class="model_name"><span class="model_name">{{model.name}}</span></div>
               <div class="owner_wrapper">
                 <div class="owner_left">
-                  <div class="image_container"><a class="card_footer_avatar" href="#"><img class="head" src="head.imgsrc"></a></div>
+                  <div class="image_container"><a class="card_footer_avatar" href="#"><img class="head" src="model.head"></a></div>
                   <div class="card_footer_name">
-                    <p class="card_footer_name"> <a class="model-name_label" href="#" target="_blank" title="author.name">{{author.name}}</a></p>
+                    <p class="card_footer_name"> <a class="model-name_label" href="#" target="_blank" title="model.authorname">{{model.authorname}}</a></p>
                   </div>
                 </div>
                 <div class="owner_right">
@@ -89,7 +89,7 @@
               <div class="blank"></div>
               <div class="informations_content1">
                 <div class="informations_timeIcon"><span class="glyphicon glyphicon-time"></span></div>
-                <div class="informations_time"><span class="imformations_time">上传于{{time}} </span></div>
+                <div class="informations_time"><span class="imformations_time">上传于{{model.time}} </span></div>
               </div>
               <div class="information_content2">
                 <div class="informations_tags"><span class="glyphicon glyphicon-tags"></span></div>
