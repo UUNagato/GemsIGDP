@@ -1,46 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <head> 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width initial-scale=1">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <title>需求列表</title>
-    <link rel="stylesheet" href="/css/basic.css" tyoe="text/css">
-  </head>
-  <body></body>
-  <div class="container-fluid navigationbar">
-    <nav class="navbar navbar-inverse navigationbar">
-      <div class="container">
-        <div class="narbar-header">
-          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarul">
-          <ul class="nav navbar-nav">
-            <li><a href="#">关于</a></li>
-            <li><a href="#">文章</a></li>
-            <li><a href="#">展示</a></li>
-          </ul>
-          <ul class="nav navbar-nav buttonnav withleftborder">
-            <li>
-              <button class="btn navigationbutton btn-lg">登录</button>
-            </li>
-            <li>
-              <button class="btn navigationbutton btn-lg">注册</button>
-            </li>
-          </ul>
-        </div>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width initial-scale=1">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/global.css" rel="stylesheet">
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/global.js"></script>
+  <title>需求列表</title>
+  <link rel="stylesheet" href="css/basic.css" tyoe="text/css">
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="narbar-header">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
       </div>
-    </nav>
-  </div>
+      <div class="collapse navbar-collapse" id="navbarul">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="/articleList/1">文章</a></li>
+          <li><a href="/materials">素材</a></li>
+          <li><a href="/displays">展示窗</a></li>
+          <li><a href="/requestList/1">需求</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" id="unlog">
+          <li class="navbar-leftborder"></li>
+          <li><a class="btn btn-success" href="/login">登录</a></li>
+          <li><a class="btn btn-info" href="/register">注册</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right navbar-hide" id="login">
+          <li class="navbar-leftborder"></li>
+          <li class="navbar-middleondrop"><img class="navbar-profile" id="userprofile"></li>
+          <li><a class="dropdown-toggle" id="usernick" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+            <ul class="dropdown-menu dropdown-inverse">
+              <li><a id="personalpage" href="#">个人页面</a></li>
+              <li class="divider" role="separator"></li>
+              <li><a class="btn btn-danger" onclick="logOut()">注销</a></li>
+            </ul>
+          </li>
+          <li class="navbar-hideondrop"> 
+            <p class="navbar-text">消息<span class="badge"></span></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div class="container" style="background-color:#a1a1a1;height:750px;text-align:center;">
     <div class="row" style="background-color:#737373;">
       <h1 class="requestlisttitle">需求列表</h1>
     </div>
     <div class="row">
-      <div class="row requestlistlabelrow"><a class="requestlistlabel" href="{{label.src}}">{{label.name}}</a></div>
+      <div class="row requestlistlabelrow">
+
+        {% for label in labels %}
+        <a class="requestlistlabel" href="{{label.src}}">{{label.name}}</a>
+        {% endfor %}
+
+      </div>
     </div>
     <div class="fengexian"></div>
     <ul>
@@ -54,6 +72,62 @@
       {% endfor %}
 
     </ul>
-    <div class="row pagerrow"><a class="requestlistlabel" href="#">←</a><a href="page_i.src">i</a><a class="requestlistlabel" href="#">→</a></div>
   </div>
+  <div class="container" style="text-align:center;">
+      <div class="row pagerow">
+          <a  href="/articleList/1" style="color:white;margin-left:5px;">|&lt</a>
+          <a  href="/articleList/{{currentpage-1}}" style="color:white;margin-left:5px;">←</a>
+          
+          
+            {% if sumpage > 10 %}
+            {% if currentpage < 5 %}
+              {% for i in range(1,currentpage) %}
+          <a  href="/articleList/{{i}}"  style="color:white;margin-left:5px;">{{i}}</a>
+              {% endfor %}
+          <a  href="/articleList/{{currentpage}}" style="font-weight:bold;color:blue;;margin-left:5px;">{{currentpage}}</a>
+             {% for i in range(currentpage+1,5) %}
+          <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+              {% endfor %}
+          <a href="" style="color:white;margin-left:5px;">…</a>
+              {% for i in range(sumpage-3,sumpage+1) %}
+          <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+             {% endfor %}
+            {% elif currentpage > (sumpage-4)%}
+              {% for i in range(1,5)%}
+          <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+              {% endfor %}
+          <a href="" style="color:white;margin-left:5px;">…</a>
+              {% for i in range(sumpage-3,currentpage) %}
+          <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+              {% endfor %}
+          <a  href="/articleList/{{currentpage}}" style="font-weight:border;color:blue;;margin-left:5px;">{{currentpage}}</a>
+             {% for i in range(currentpage+1,sumpage+1) %}
+          <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+              {% endfor%}
+            {% else %}
+              {% for i in range(1,5) %}
+          <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+              {% endfor %}
+          <a href="" style="color:white;margin-left:5px;">…</a>
+          <a  href="/articleList/{{currentpage-1}}" style="color:white;margin-left:5px;">{{currentpage-1}}</a>
+          <a  href="/articleList/{{currentpage}}" style="font-weight:border;color:blue;;margin-left:5px;">{{currentpage}}</a>
+          <a  href="/articleList/{{currentpage+1}}" style="color:white;margin-left:5px;">{{currentpage+1}}</a>
+          <a href="" style="color:white;margin-left:5px;">…</a>
+              {% for i in range(sumpage-3,sumpage+1) %}
+          <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+              {% endfor %}
+            {% endif %}
+          {% else %}
+            {% for i in range(1,currentpage) %}
+          <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+          <a  href="/articleList/{{currentpage}}" style="font-weight:bold;color:blue;;margin-left:5px;">{{currentpage}}</a>
+            {% for i in range(currentpage+1,sumpage+1) %}
+          <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
+            {% endfor %}
+          {% endif %}
+          <a  href="/articleList/{{currentpage+1}}" style="color:white;margin-left:5px;">→</a>
+          <a  href="/articleList/{{sumpage}}" style="color:white;margin-left:5px;">&gt|</a>
+      </div>
+    </div>
 </html>

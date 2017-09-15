@@ -210,6 +210,7 @@ function changeInfo(){
             personalWeb : personalWeb,
             sign : sign
         },
+        
         //processData:false,
         //contentType:false,
         success:function(data){

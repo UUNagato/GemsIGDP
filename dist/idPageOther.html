@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/global.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/global.js"></script>
+    <link href="css/individualPage-style.css" rel="stylesheet">
+    <link href="css/indivPageNav-style.css" rel="stylesheet">
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+    <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>Gems - 个人主页</title>
+    <script type="text/javascript" src="js/idPage.js"></script>
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="narbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarul">
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="/articleList/1">文章</a></li>
+            <li><a href="/materials">素材</a></li>
+            <li><a href="/displays">展示窗</a></li>
+            <li><a href="/requestList/1">需求</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" id="unlog">
+            <li class="navbar-leftborder"></li>
+            <li><a class="btn btn-success" href="/login">登录</a></li>
+            <li><a class="btn btn-info" href="/register">注册</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right navbar-hide" id="login">
+            <li class="navbar-leftborder"></li>
+            <li class="navbar-middleondrop"><img class="navbar-profile" id="userprofile"></li>
+            <li><a class="dropdown-toggle" id="usernick" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+              <ul class="dropdown-menu dropdown-inverse">
+                <li><a id="personalpage" href="#">个人页面</a></li>
+                <li class="divider" role="separator"></li>
+                <li><a class="btn btn-danger" onclick="logOut()">注销</a></li>
+              </ul>
+            </li>
+            <li class="navbar-hideondrop"> 
+              <p class="navbar-text">消息<span class="badge"></span></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="title">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="head" id="realHead"></div>
+            </div>
+            <div class="col-xs-4">
+              <div class="title-info">
+                <h1>{{userID}} 的个人主页</h1><a herf="{{githubLink}}"> {{userID}} 的github</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-main">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="left">
+              <ul class="time-vertical">
+                <li><b></b><a href="javascript:void(0);" onclick="changeDiv_1()">个人资料</a></li>
+                <li><b></b><a href="javascript:void(0);" onclick="changeDiv_2()">履历</a></li>
+                <li><b></b><a href="javascript:void(0);" onclick="changeDiv_3()">展示窗</a></li>
+                <li><b></b><a href="javascript:void(0);" onclick="changeDiv_4()">文章</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div class="right">
+              <div class="right-1">
+                <!--这里是模板p {% if visiable %}
+                -->
+                <div class="id-info">
+                  <p id="name">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称: {{name}}</p>
+                  <p id="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别: {{sex}}</p>
+                  <p id="birthday">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日: {{birthday}}</p>
+                  <p id="qq">Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q: {{qq}}</p>
+                  <p id="phone">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:{{phone}}</p>
+                  <div class="info-s">
+                    <div class="infoLink-title">
+                      <p id="githubLink">GitHub&nbsp;&nbsp;:</p>
+                    </div><a class="info-link" herf="{{ }}">{{githunLink}}</a>
+                  </div>
+                  <div class="info-s">
+                    <div class="infoLink-title">
+                      <p id="personalWeb">个人博客:</p>
+                    </div><a class="info-link" herf="{{ }}">{{personalWeb}}</a>
+                  </div>
+                  <div class="info-s">
+                    <div class="infoLink-title">
+                      <p id="pixiv">pixiv主页:</p>
+                    </div><a class="info-link" herf="{{ }}">{{pixivLink}}</a>
+                  </div>
+                  <div class="info-s">
+                    <div class="infoLink-title">
+                      <p id="patreon">patreon&nbsp;:</p>
+                    </div><a class="info-link" herf="{{ }}">{{patreonLink}}</a>
+                  </div>
+                  <div class="info-s">
+                    <p id="sign">个性签名: {{sign}}</p>
+                  </div>
+                </div>
+              </div>
+              <!--这里是模板
+              p {% else %}
+                  div.id-info
+                      p 该用户已设置个人信息不对外展示。
+              -->
+              <div class="right-2">
+                <!--这里是模板p {% if visiable %}
+                -->
+                <div class="id-info">
+                  <h1>个人履历</h1>
+                </div>
+              </div>
+              <!--这里是模板
+              p {% else %}
+                  div.id-info
+                      p 该用户已设置个人履历不对外展示。
+              -->
+              <div class="right-3">
+                <div class="id-info">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-5 col-md-push-1">
+                        <div class="show">
+                          <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
+                          <div class="show-info">
+                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5 col-md-push-1">
+                        <div class="show">
+                          <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
+                          <div class="show-info">
+                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-5 col-md-push-1">
+                        <div class="show">
+                          <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
+                          <div class="show-info">
+                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5 col-md-push-1">
+                        <div class="show">
+                          <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
+                          <div class="show-info">
+                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
+                            <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="right-4">
+                <!--这里是模板p {% for item in articles %}
+                -->
+                <div class="article"><a>{{item.title}}</a>
+                  <div class="detail">
+                    <p>{{item.detail}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
