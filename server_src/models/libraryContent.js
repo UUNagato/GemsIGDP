@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     
     theLContent.associate = function(models){
         theLContent.belongsTo(models.library,{foreignKey:'library_id'});
-        theLContent.hasMany(models.file,{foreignKey:'file_id'});
+        //theLContent.hasMany(models.file,{foreignKey:'file_id'});
     };
     
     return theLContent;

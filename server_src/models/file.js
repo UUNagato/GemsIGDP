@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     theFile.associate = function(models){
-        theFile.belongsTo(models.user,{foreignKey:'user_id'});
+        theFile.belongsTo(models.user, {foreignKey:'user_id'});
     };
     
     return theFile;
