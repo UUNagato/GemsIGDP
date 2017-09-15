@@ -33,8 +33,12 @@
           <ul class="nav navbar-nav navbar-right navbar-hide" id="login">
             <li class="navbar-leftborder"></li>
             <li class="navbar-middleondrop"><img class="navbar-profile" id="userprofile"></li>
-            <li>
-              <p class="navbar-text" id="usernick"></p>
+            <li><a class="dropdown-toggle" id="usernick" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+              <ul class="dropdown-menu dropdown-inverse">
+                <li><a id="personalpage" href="#">个人页面</a></li>
+                <li class="divider" role="separator"></li>
+                <li><a class="btn btn-danger" onclick="logOut()">注销</a></li>
+              </ul>
             </li>
             <li class="navbar-hideondrop"> 
               <p class="navbar-text">消息<span class="badge"></span></p>

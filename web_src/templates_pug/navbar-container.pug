@@ -27,7 +27,13 @@ div.container
             li.navbar-middleondrop
                 img#userprofile.navbar-profile
             li
-                p#usernick.navbar-text
+                a#usernick.dropdown-toggle(href="#",data-toggle="dropdown",role="button",aria-haspopup="true",aria-expanded="false")
+                ul.dropdown-menu.dropdown-inverse
+                    li
+                        a#personalpage(href="#") 个人页面
+                    li.divider(role="separator")
+                    li
+                        a.btn.btn-danger(onclick="logOut()") 注销
             li.navbar-hideondrop 
                 p.navbar-text 消息
                     span.badge
