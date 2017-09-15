@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         title : DataTypes.STRING(50),
         introduce : DataTypes.STRING,
         //file_id : DataTypes.INTEGER,
-        date : DataTypes.DATE,
+        create_date : DataTypes.DATE,
         dianzan : {
             type : DataTypes.INTEGER,
             defaultValue : 0},
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
 
     theEWindow.associate = function(models) {
         theEWindow.belongsTo(models.user,{as:'Author', foreignKey:'user_id'});
-        theEWindow.hasMany(models.file,{as:'Files', foreignKey:'file_id'});
+        theEWindow.belongsToMany(models.file,{through:'exhibitionFile', foreignKey:'window_id', otherKey:'file_id'});
     };
     
     return theEWindow;

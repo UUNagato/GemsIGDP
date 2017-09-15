@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
 
     
     theLibrary.associate = function(models){
-        theLibrary.belongsTo(models.user,{foreignKey:'user_id'});
-        theLibrary.hasMany(models.libraryContent,{foreignKey:'content_id'});
+        theLibrary.belongsTo(models.user, {foreignKey:'user_id'});
+        theLibrary.hasMany(models.libraryContent, {foreignKey:'library_id'});
     };
 
     //insert data

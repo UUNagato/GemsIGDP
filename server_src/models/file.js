@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     theFile.associate = function(models){
+        theFile.belongsToMany(models.file,{through:'exhibitionFile', foreignKey:'file_id', otherKey:'window_id'});
         theFile.belongsTo(models.user,{foreignKey:'user_id'});
     };
     
