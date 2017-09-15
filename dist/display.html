@@ -4,13 +4,13 @@
   <head><meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/global.css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/global.css" rel="stylesheet">
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/global.js"></script>
   <title>展示窗</title>
-  <link href="css/display.css" rel="stylesheet">
+  <link href="/css/display.css" rel="stylesheet">
   </head>
   <body>
       <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -50,16 +50,16 @@
     <div class="display_wrapper" style="width:90%;">
       <div class="display_cols">
         {% for item in items %}
-        <div class="display_col" ontouchstart="this.classList.toggle('hover');" onclick="window.open('display_detail.html');">
+        <div class="display_col" ontouchstart="this.classList.toggle('hover');" onclick='window.open("/ewindow/details/{{item.ewindow.id}}")'>
           <div class="display_container">
-            <div class="display_front" style="background-image: url(img/{{display}}.jpg);">
+            <div class="display_front" style='background-image: url("{{item.file.path}}");'>
               <div class="display_inner">
-                <p>{{item.title}}</p><span>{{author.name}}</span>
+                <p>{{item.ewindow.title}}</p><span>{{item.ewindow.author}}</span>
               </div>
             </div>
             <div class="display_back">
               <div class="display_inner">
-                <p>{{description}}</p>
+                <p>{{item.ewindow.introduce}}</p>
               </div>
             </div>
           </div>
