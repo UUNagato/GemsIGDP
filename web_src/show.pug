@@ -1,0 +1,238 @@
+doctype html
+html
+    head
+        include ./templates_pug/default-head.pug
+        link(href="css/show.css",rel="stylesheet")
+        script(type="text/javascript",src="js/show.js")
+        //- Javascript for this page
+    body
+        nav.navbar.navbar-inverse.navbar-fixed-top
+            include ./templates_pug/navbar-container.pug
+        div.showwindow
+            div.show_left
+                div.main
+                    div.viewer_wrapper
+                        img.card(src="img/head1.jpg")
+                    div.content_wrapper
+                        div.vieweradditional
+                            div.model_name
+                                span.model_name Ako
+                            div.owner_wrapper
+                                div.owner_left
+                                    div.image_container
+                                        a.card_footer_avatar(href="#")
+                                            img.head(src="img/head1.jpg")
+                                    div.card_footer_name
+                                        p.card_footer_name 
+                                            a.model-name_label(href="#",target="_blank",title="Ryan") Ryan
+                                div.owner_right
+                                    div.eye
+                                        div.icon
+                                            span.glyphicon.glyphicon-eye-open
+                                        div.count     
+                                            span.count 690
+                                    div.comments
+                                        div.icon
+                                            a.comments(href="#" data-toggle="tooltip" data-placement="top" title="Comments")
+                                                span.glyphicon.glyphicon-comment
+                                        div.count
+                                            span.count 12
+                                    div.like
+                                        div.icon
+                                            a.like(href="#" data-toggle="tooltip" data-placement="top" title="Like")
+                                                span.glyphicon.glyphicon-heart
+                                        div.count
+                                            span.count 46
+                                    div.thumbs-up
+                                        div.icon
+                                            span.glyphicon.glyphicon-thumbs-up(onclick="thumbs()")
+                                                
+                                        div.count 
+                                            span.count 888
+
+                            
+                        div.model_informations
+                            div.description_title
+                                span.description_title Description
+                            div.blank
+                            div.description_box
+                                span.description Ako在阿尔克图拉斯森林
+                            div.blank
+                            div.informations_content1
+                                div.informations_timeIcon
+                                    span.glyphicon.glyphicon-time
+                                div.informations_time
+                                    span.imformations_time 上传于一周前 
+                            div.information_content2
+                                div.informations_tags
+                                    span.glyphicon.glyphicon-tags
+                                div.tags
+                                    ul.tags
+                                        li.tags cartoon 
+                                        li.tags people
+                                div.clearfloat
+            div.show_right
+                div.label
+                    h1.label 其它相同标签素材
+                div.items
+                    div.item
+                        div.main_card
+                            a(href="#",target="_blank",title="page")
+                                img.card(src="img/head1.jpg")
+                        div.main_footer
+                            div.card_name
+                                span.card_name Ako
+                            div.user_name
+                                span.user_name Ryan
+                            div.card_action
+                                div.eye
+                                    div.icon
+                                        span.glyphicon.glyphicon-eye-open
+                                    div.count     
+                                        span.count 690
+                                div.comments
+                                    div.icon
+                                        a.comments(href="#" data-toggle="tooltip" data-placement="top" title="Comments")
+                                            span.glyphicon.glyphicon-comment
+                                    div.count
+                                        span.count 12
+                                div.like
+                                    div.icon
+                                         a.like(href="#" data-toggle="tooltip" data-placement="top" title="Like")
+                                            span.glyphicon.glyphicon-heart
+                                    div.count
+                                        span.count 46
+                                div.thumbs-up
+                                    div.icon
+                                        span.glyphicon.glyphicon-thumbs-up(onclick="thumbs(this)")
+                                    div.count 
+                                        span.count 888
+                            div.clearfloat
+                    div.item
+                        div.main_card
+                            a(href="#",target="_blank",title="page")
+                                img.card(src="img/head1.jpg")
+                        div.main_footer
+                            div.card_name
+                                span.card_name Ako
+                            div.user_name
+                                span.user_name Ryan
+                            div.card_action
+                                div.eye
+                                    div.icon
+                                        span.glyphicon.glyphicon-eye-open
+                                    div.count     
+                                        span.count 690
+                                div.comments
+                                    div.icon
+                                        a.comments(href="#" data-toggle="tooltip" data-placement="top" title="Comments")
+                                            span.glyphicon.glyphicon-comment
+                                    div.count
+                                        span.count 12
+                                div.like
+                                    div.icon
+                                         a.like(href="#" data-toggle="tooltip" data-placement="top" title="Like")
+                                            span.glyphicon.glyphicon-heart
+                                    div.count
+                                        span.count 46
+                                div.thumbs-up
+                                    div.icon
+                                        span.glyphicon.glyphicon-thumbs-up
+                                    div.count 
+                                        span.count 888
+                    div.item
+                        div.main_card
+                            a(href="#",target="_blank",title="page")
+                                img.card(src="img/head1.jpg")
+                        div.main_footer
+                            div.card_name
+                                span.card_name Ako
+                            div.user_name
+                                span.user_name Ryan
+                            div.card_action
+                                div.eye
+                                    div.icon
+                                        span.glyphicon.glyphicon-eye-open
+                                    div.count     
+                                        span.count 690
+                                div.comments
+                                    div.icon
+                                        a.comments(href="#" data-toggle="tooltip" data-placement="top" title="Comments")
+                                            span.glyphicon.glyphicon-comment
+                                    div.count
+                                        span.count 12
+                                div.like
+                                    div.icon
+                                         a.like(href="#" data-toggle="tooltip" data-placement="top" title="Like")
+                                            span.glyphicon.glyphicon-heart
+                                    div.count
+                                        span.count 46
+                                div.thumbs-up
+                                    div.icon
+                                        span.glyphicon.glyphicon-thumbs-up
+                                    div.count 
+                                        span.count 888
+                    div.item
+                        div.main_card
+                            a(href="#",target="_blank",title="page")
+                                img.card(src="img/head1.jpg")
+                        div.main_footer
+                            div.card_name
+                                span.card_name Ako
+                            div.user_name
+                                span.user_name Ryan
+                            div.card_action
+                                div.eye
+                                    div.icon
+                                        span.glyphicon.glyphicon-eye-open
+                                    div.count     
+                                        span.count 690
+                                div.comments
+                                    div.icon
+                                        a.comments(href="#" data-toggle="tooltip" data-placement="top" title="Comments")
+                                            span.glyphicon.glyphicon-comment
+                                    div.count
+                                        span.count 12
+                                div.like
+                                    div.icon
+                                         a.like(href="#" data-toggle="tooltip" data-placement="top" title="Like")
+                                            span.glyphicon.glyphicon-heart
+                                    div.count
+                                        span.count 46
+                                div.thumbs-up
+                                    div.icon
+                                        span.glyphicon.glyphicon-thumbs-up
+                                    div.count 
+                                        span.count 888
+                    div.item
+                        div.main_card
+                            a(href="#",target="_blank",title="page")
+                                img.card(src="img/head1.jpg")
+                        div.main_footer
+                            div.card_name
+                                span.card_name Ako
+                            div.user_name
+                                span.user_name Ryan
+                            div.card_action
+                                div.eye
+                                    div.icon
+                                        span.glyphicon.glyphicon-eye-open
+                                    div.count     
+                                        span.count 690
+                                div.comments
+                                    div.icon
+                                        a.comments(href="#" data-toggle="tooltip" data-placement="top" title="Comments")
+                                            span.glyphicon.glyphicon-comment
+                                    div.count
+                                        span.count 12
+                                div.like
+                                    div.icon
+                                         a.like(href="#" data-toggle="tooltip" data-placement="top" title="Like")
+                                            span.glyphicon.glyphicon-heart
+                                    div.count
+                                        span.count 46
+                                div.thumbs-up
+                                    div.icon
+                                        span.glyphicon.glyphicon-thumbs-up
+                                    div.count 
+                                        span.count 888

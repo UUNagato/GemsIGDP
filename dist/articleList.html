@@ -8,9 +8,9 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <title>文章列表</title>
-    <link rel="stylesheet" href="css/basic.css" tyoe="text/css">
+    <link rel="stylesheet" href="css/basic.css" type="text/css">
   </head>
-  <body></body>
+  <body>
   <div class="container-fluid navigationbar">
     <nav class="navbar navbar-inverse navigationbar">
       <div class="container">
@@ -40,28 +40,117 @@
       <h1 class="articlelisttitle">文章列表</h1>
     </div>
     <div class="row">
-      <div class="row articlelistlabelrow">
-        {% for label in labels %}
-        <a class="articlelistlabel" href="{{label.src}}">{{label.name}}</a>
-        {% endfor %}
-      </div>
+
+      {% for label in labels %}
+      <div class="row articlelistlabelrow"><a class="articlelistlabel" href="{{label.src}}">{{label.name}}</a></div>
+      {% endfor %}
+
     </div>
     <div class="fengexian"></div>
     <ul>
+
       {% for article in articles %}
       <li style=" list-style: none;">
-        <div class="row articlelist"><a href="{{article.src}}">{{article.title}}</a>
-          <p class="articlelistauthor">{{article.author}} {{article.releasetime}}  </p>
+        <div>
+          <div class="col-md-8 row articlelist">
+            <div class="row"><a href="{{article.src}}">{{article.title}}</a></div>
+            <div class="row">
+              <p class="articlelistauthor">{{article.author}} {{article.releasetime}}  </p>
+            </div>
+          </div>
+          <div class="col-md-1" style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;">
+            <div class="row"><span class="glyphicon glyphicon-thumbs-up" style="font-size:42px;"></span></div>
+            <div class="row">
+              <p>
+                {% if article.dianzan > 1000 %}{{article.dianzan/1000}}k
+                {% else %}
+                {{article.dianzan}}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-1 withleftborder" style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;">
+            <div class="row"><span class="glyphicon glyphicon-eye-open" style="font-size:42px;"></span></div>
+            <div class="row">
+              <p>
+                {% if article.liulan > 1000 %}{{article.liulan/1000}}k
+                {% else %}
+                {{article.liulan}}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-1 withleftborder" style="text-align:center;margin-top:15px;margin-bottom:5px;margin-left:3px;margin-right:3px;">
+            <div class="row"><span class="glyphicon glyphicon-comment" style="font-size:42px;"></span></div>
+            <div class="row">
+              <p>
+                {% if article.commentcount > 1000 %}{{article.commentcount/1000}}k
+                {% else %}
+                {{article.commentcount}}
+                {% endif %}
+              </p>
+            </div>
+          </div>
         </div>
       </li>
       {% endfor %}
+
     </ul>
     <div class="row pagerrow">
-      <a class="articlelistlabel" href="#">←</a>
-      {% page in pages%}
-      <a href="page.src">page.count</a>
-      {% endfor %}
-      <a class="articlelistlabel" href="#">→</a>
-      </div>
+        <a class="pager" href="/articleList/1">|&lt</a>
+        <a class="pager" href="/articleList/{{currentpage-1}}">←</a>
+        
+        {% if sumpage > 10 -%}
+          {% if currentpage < 5 %}
+            {% for i in range(1,currentpage) -%}
+              <a class="pager" href="/articleList/{{i}}">{{i}}</a>
+            {%- endfor %}
+            <a class="pager" href="/articleList/{{currentpage}}" style="font-weight:bold;color:blue;">{{currentpage}}</a>
+            {% for i in range(currentpage+1,5) -%}
+            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
+            {%- endfor %}
+            <p>…</p>
+            {% for i in range(sumpage-3,sumpage+1) -%}
+            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
+            {%- endfor %}
+          {% elif currentpage > sumpage-4 %}
+            {% for i in range(1,5) -%}
+              <a class="pager" href="/articleList/{{i}}">{{i}}</a>
+            {%- endfor %}
+            <p>…</p>
+            {% for i in range(sumpage-3,currentpage) -%}
+            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
+            {%- endfor %}
+            <a class="pager" href="/articleList/{{currentpage}}" style="font-weight:border;color:blue;">{{currentpage}}</a>
+            {% for i in range(currentpage+1,sumpage+1) -%}
+            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
+            {%- endfor %}
+          {% else %}
+            {% for i in range(1,4) -%}
+            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
+            {%- endfor %}
+            <p>…</p>
+            <a class="pager" href="/articleList/{{currentpage-1}}">{{currentpage-1}}</a>
+            <a class="pager" href="/articleList/{{currentpage}}" style="font-weight:border;color:blue;">{{currentpage}}</a>
+            <a class="pager" href="/articleList/{{currentpage+1}}">{{currentpage+1}}</a>
+            <p>…</p>
+            {% for i in range(sumpage-2,sumpage+1) -%}
+            <a class="pager" href="/articleList/{{i}}">{{i}}</a>
+            {%- endfor %}
+          {% endif %}
+        {% else %}
+          {% for i in range(1,currentpage) -%}
+          <a class="pager" href="/articleList/{{i}}">{{i}}</a>
+          {%- endfor %}
+          <a class="pager" href="/articleList/{{currentpage}}" style="font-weight:bold;color:blue;">{{currentpage}}</a>
+          {% for i in range(currentpage+1,sumpage+1) -%}
+          <a class="pager" href="/articleList/{{i}}">{{i}}</a>
+          {%- endfor %}
+        {%- endif %}
+
+        <a class="pager" href="/articleList/{{currentpage+1}}">→</a>
+        <a class="pager" href="/articleList/{{sumpage}}">&gt|</a>
+    </div>
   </div>
+</body>
 </html>

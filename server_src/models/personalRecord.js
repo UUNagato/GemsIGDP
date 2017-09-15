@@ -1,3 +1,4 @@
+
 //lvli
 module.exports = (sequelize, DataTypes) => {
     var theRecord = sequelize.define('personalRecord',{
@@ -15,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     });
 
    
-    /*theRecord.associate = function(models){
-        theRecord.belongsTo(models.user,{foreignKey:'user_id'});
-    };*/
+    theRecord.associate = function(models){
+        theRecord.belongsTo(models.user, {foreignKey:'user_id'});
+    };
     
     return theRecord;
 };

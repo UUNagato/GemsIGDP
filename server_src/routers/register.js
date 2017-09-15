@@ -1,8 +1,14 @@
+'use strict'
 var user_control = require('../controllers/users.js');
 var validate_control = require('../controllers/emails.js');
 var fs = require('fs');
 var path = require('path');
 
+
+//check login_info
+var userchecker = /^[a-zA-Z0-9_]{6,18}$/;
+var emailchecker = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+var passchecker = /[^><\s]{6,18}/;
 
 
 //to load register page
@@ -24,10 +30,6 @@ var fn_testId = async(ctx, next) => {
 };
 
 
-//global variable, then can export these variables, then be convenient to finish later functions
-/*var name = '';
-var password = '';
-var email = '';*/
 
 //to get register info and insert into the login_info table, and then send email
 var fn_getInfo = async(ctx, next) => {
@@ -35,10 +37,37 @@ var fn_getInfo = async(ctx, next) => {
     var email = ctx.request.body.email || '';
     var password = ctx.request.body.password || '';
 
+    //check user_info
+    var queryBody = {};
+    // should get a post request
+    if(ctx.request.body.username) {
+        // use username to login
+        // check username
+        if(!userchecker.test(ctx.request.body.username)) {
+            // error
+            ctx.body = {error:0};//the username error
+            return;
+        }
+        queryBody['user_name'] = ctx.request.body.username;
 
+    } 
+    if (ctx.request.body.email) {
+        if(!emailchecker.test(ctx.request.body.email)) {
+            ctx.body = {error:1}; //the email error
+            return;
+        }
+        queryBody['email'] = ctx.request.body.email;
+    }
+
+    // check password
+    if(!passchecker.test(ctx.request.body.password)) {
+        ctx.body = {error:2}; //the password error
+        return;
+    }
+
+
+    //insert a user into the user_info and login_info table
     let insert = await user_control.registerAUser(name, password, email);
-    console.log('user_id:'+insert);
-    console.log('email:'+email);
     
     if(insert != null)
     {
@@ -56,11 +85,10 @@ var fn_getInfo = async(ctx, next) => {
         '<h1>尊敬的用户您好！</h1>');*/
 
         console.log('send success : '+ success);
-        //console.log('url:http://127.0.0.1/register/emailvalidate/'+token);
         ctx.response.body = '/register/inform';
     }
     else
-        ctx.response.body = '/register/wrong';
+        ctx.response.body = {error : 4};//cannot send email error
 };
 
 

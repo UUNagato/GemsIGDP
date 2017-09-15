@@ -1,0 +1,396 @@
+body{
+    font-family: "Microsoft Yahei","微软雅黑";
+    width: 100%;
+    height: 100%;
+}
+
+div.showwindow{
+    margin-top:50px;
+    padding: 0;
+    width: 100%;
+    background-color: #000000;
+    background-size: 100% 100%;
+    overflow: hidden;
+    zoom: 1;
+}
+
+@media (max-width: 1000px){
+    div.show_right{
+        display: none;
+    }
+    div.show_left{
+        width:86%;
+        margin-left: 60px;
+        margin-top: 40px;
+        margin-right: 40px;
+    }
+}
+
+
+@media (min-width: 1000px){
+div.show_left{
+    margin-top: 40px;
+    margin-left: 60px;
+    width: 58%;
+    float: left;
+    }
+}
+
+div.main{
+    width:100%;
+}
+ 
+div.label{
+    margin-left: 15px;
+    padding-bottom: 10px;
+}
+
+h1.label{
+    color: #c5c5c5;
+}
+
+
+div.show_right{
+    margin-top: 33px;
+    margin-left: 10px;
+    float: left;
+    width:35%;
+}
+
+div.items{
+    margin-top: 10px;
+}
+
+div.item{
+    width: 80%;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    height: 100px;
+    overflow: hidden;
+    zoom: 1;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    background-size: 100% 100%;
+}
+
+div.main_card{
+    width: 50%;
+    float: left;
+    height: 100%;
+}
+
+div.main_footer{
+    width: 50%;
+    height: 100%;
+    float: left;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+div.card_name{
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+div.user_name{
+    margin-left: 10px;
+    width: 100%;
+}
+
+span.card_name{
+    font-size: 20px;
+    color: #000000
+}
+
+
+span.user_name{
+    font-size: 15px;
+    color: #968585;
+}
+
+span.card_name:hover{
+    color: #00cc66;
+}
+
+img.card{
+    width:100%;
+    height: 100%;
+}
+
+div.card_action{
+    width: 100%;
+    height: 30%;
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
+div.eye{
+    margin-right: 8px;
+    float: left;
+    width:20%;
+}
+
+div.comments{
+    margin-right: 5px;
+    flex:1;
+    float: left;
+    width:20%;
+}
+
+a.comments{
+    color: #2c2c2c;
+}
+
+div.like{
+    margin-right: 8px;
+    float: left;
+    width:20%;
+}
+
+div.thumbs-up{
+    margin-right: 8px;
+    flex:1;
+    float: left;
+    width:20%
+}
+
+div.icon{
+    float: left;
+    width: 40%;
+}
+
+div.count{
+    float: left;
+    margin-top: -2px;
+    width: 50%;
+    padding-left: 3px;
+}
+
+a.like{
+    color: #2c2c2c;
+}
+
+a.like:hover{
+    color: rgb(228, 41, 41);
+}
+
+a.comments:hover{
+    color:#968585;
+}
+
+span.count{
+    font-size: 4px;
+}
+
+div.owner_wrapper{
+    width:100%;
+    height: 60px;
+    margin-top: 10px;
+}
+
+div.owner_left{
+    width: 50%;
+    float: left;
+}
+
+div.owner_right{
+    width:40%;
+    float: right;
+    margin-top: 25px;
+}
+
+div.viewer_wrapper{
+    border: 0px;
+    padding: 0px;
+}
+
+div.content_wrapper{
+    border: 0px;
+    padding:0px;
+    background-color: #f1f1f1;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+div.image_container{
+    width: 50px;
+    height: 50px;
+    float: left;
+    border-radius: 4px;
+    margin-left: 20px;
+}
+
+div.card_footer_name{
+    float: left;
+    margin-left: 20px;
+    margin-top: 12px;
+}
+
+a.model-name_label{
+    color: #000000
+}
+
+div.model_name{
+    padding-top: 10px;
+}
+
+span.model_name{
+    color:#000000;
+    margin-left: 25px;
+    font-size: 25px;
+}
+
+img.head{
+    width:100%;
+    height: 100%;
+    border-radius: 25px;
+}
+
+div.share{
+    float: left;
+    margin-right: 20px;
+}
+
+div.add{
+    float: left;
+    margin-right: 20px;
+}
+
+div.actions{
+    width: 100%;
+    height: 50px;
+    border-top:2px solid #a9a9a9;
+    border-bottom: 6px solid #000000;
+}
+
+div.action{
+    margin-left: 20px;
+    padding-top: 10px;
+}
+
+div.share_size{
+    margin-left: 20px;
+    margin-top: -15px;
+}
+
+span.share_size{
+    color: #000000;
+}
+
+span.glyphicon.glyphicon-share-alt{
+    color: #000000;
+}
+
+span.glyphicon.glyphicon-plus{
+    color: #000000;
+}
+
+span.glyphicon.glyphicon-plus:hover{
+    color:#968585;
+}
+
+span.glyphicon.glyphicon-share-alt:hover{
+    color: #968585;
+}
+
+span.share_size:hover{
+    color:#968585;
+}
+
+div.model_informations{
+    border-top:5px solid #000000;
+}
+
+div.description_title{
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+
+span.description_title{
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+span.description{
+    font-size: 15px;
+    padding-left: 20px;
+    padding-bottom: 15px;
+}
+
+div.blank{
+    clear:both;
+    height:2px;
+    background:#a9a9a9;
+    width:100%;
+    overflow:hidden;
+    margin-bottom: 10px;
+}
+
+div.description_box{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+div.informations_content{
+    margin-left: 20px;
+}
+
+
+div.informations_content1{
+    overflow:auto
+}
+
+div.information_content2{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+div.informations_tags{
+    float: left;
+}
+
+div.clearfloat{
+    clear:both;
+    height:0;
+    font-size: 1px;
+    line-height: 0px;
+}
+
+div.informations_timeIcon{
+    margin-left: 20px;
+    margin-right: 17px;
+    float: left;
+}
+
+div.tags{
+    float: left;
+    margin-left: -20px;
+}
+
+li.tags{
+    list-style-type: none;
+    display: inline;
+    margin-right: 8px;
+    background-color: #a9a9a9;
+    border-radius: 4px;
+}
+
+div.informations_time{
+    float: left;
+}
+
+.white_content { 
+    display: none; 
+    position: absolute; 
+    top: 25%; 
+    left: 25%; 
+    width: 55%; 
+    height: 55%; 
+    padding: 20px; 
+    border: 10px solid orange; 
+    background-color: white; 
+    z-index:1002; 
+    overflow: auto; 
+} 
