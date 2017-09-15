@@ -60,8 +60,8 @@ function logOut() {
         window.localStorage.removeItem('user_nickname');
 
         var date = new Date();
-        date.setDate(date.getTime() - 1000);
-        document.cookie = 'authentication=null;expires=' + date;
+        date.setTime(date.getTime() - 1000);
+        document.cookie = 'authentication=; expires=' + date.toUTCString();
         location.reload();
     }
 }

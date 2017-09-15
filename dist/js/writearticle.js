@@ -62,9 +62,7 @@ function onSubmitClick() {
 
     if(csrf === null) {
         $('#informwindow').html('登录已过期，请重新登录').show();
-        var date = new Date();
-        date.setTime(date.getTime() - 1000);
-        document.cookie = 'authentication=null;expires=' + date;
+        logOut();
         return;
     }
 

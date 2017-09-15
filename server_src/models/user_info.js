@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     User_info.associate = function(models){
-        User_info.hasOne(models.login);
+        User_info.hasOne(models.login,{foreignKey:'user_id'});
         User_info.hasOne(models.individualPage);
 
         User_info.hasMany(models.article);
