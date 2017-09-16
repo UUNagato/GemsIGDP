@@ -109,8 +109,37 @@ var getAEWindowfunc = async function(id) {
     return result;
 }
 
+/**
+ * add a new ewindow to database
+ * @param {integer} userid
+ * @param {string} title 
+ * @param {string} des 
+ * @param {Array(integer)} imgs 
+ */
+var addNewEWindowfunc = async function(userid, title, des, imgs) {
+    var nitem = await models.exhibitionWindow.create({
+        user_id : userid,
+        title : title,
+        introduce : des,
+        create_date : new Date()
+    });
+
+    if(nitem !== null) {
+        var i = 0;
+        for(i in imgs) {
+            var nfitem = await models.exhibitionFiles.create({
+                window_id : nitem.id,
+                file_id : imgs[i]
+            });
+            if(nfitem === null)
+                console.log('Warning! exhibition window ' + nitem.id + ' file insert failed');
+        }
+    }
+}
+
 
 module.exports = {
     getExhibitionList : getExhibitionListfunc,
-    getAEWindow : getAEWindowfunc
+    getAEWindow : getAEWindowfunc,
+    addNewEWindow : addNewEWindowfunc
 };

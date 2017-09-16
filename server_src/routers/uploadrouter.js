@@ -33,13 +33,19 @@ var idImageUploadRouter = async function(ctx, next) {
     if(user !== null) {
         var filearray = ctx.request.body.files.file;
         var retarray = new Array();
-        for(let i in filearray) {
-            try {
-                var iid = await fileManager.imageUploadGetId(user.user_id, filearray[i]);
-                retarray.push(iid);
-            } catch(err) {
-                ctx.response.body = {error:err.message};
+        if(filearray instanceof Array) {
+            for(let i in filearray) {
+                try {
+                    var iid = await fileManager.imageUploadGetId(user.user_id, filearray[i]);
+                    retarray.push(iid);
+                } catch(err) {
+                    ctx.response.body = {error:err.message};
+                }
             }
+        }
+        else {
+            var iid = await fileManager.imageUploadGetId(user.user_id, filearray);
+            retarray.push(iid);
         }
         ctx.response.body = {id:retarray};
     } else {

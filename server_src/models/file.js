@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey : true,
             autoIncrement : true},
         //exhibition_id : DataTypes.INTEGER, //one exhibitonWindow can has many files
-        file_time : DataTypes.DATE,  
+        //file_time : DataTypes.DATE,  
         user_id : DataTypes.INTEGER,
         file_name : DataTypes.STRING,
         file_path : DataTypes.STRING,

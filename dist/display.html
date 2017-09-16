@@ -50,7 +50,7 @@
     <div class="display_wrapper" style="width:90%;">
       <div class="display_cols">
         {% for item in items %}
-        <div class="display_col" ontouchstart="this.classList.toggle('hover');" onclick='window.open("/ewindow/details/{{item.ewindow.id}}")'>
+        <div class="display_col" ontouchstart="this.classList.toggle('hover');" onclick='window.location.href="/displays/details/{{item.ewindow.id}}"'>
           <div class="display_container">
             <div class="display_front" style='background-image: url("{{item.file.path}}");'>
               <div class="display_inner">

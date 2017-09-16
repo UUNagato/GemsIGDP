@@ -19,6 +19,7 @@ $().ready(function(){
         if(!res.error) {
             uploadImgIds = res.id;
             // send post
+            postFullWindow();
         }
     });
 });
@@ -26,7 +27,7 @@ $().ready(function(){
 function postFullWindow() {
     if(uploadImgIds && uploadImgIds.length >= 1) {
         $.post({
-            url:'/exhibitions/postnew',
+            url:'/displays/postnew',
             data:{
                 imgs: uploadImgIds,
                 title: $('#title').val(),
@@ -34,7 +35,7 @@ function postFullWindow() {
             },
             function(data, status) {
                 if(status === 'success') {
-                    window.location.href = '/exhibitions';
+                    window.location.href = '/displays';
                 } else {
                     showInfo('不明上传错误');
                 }
@@ -45,17 +46,18 @@ function postFullWindow() {
 
 var uploadImgIds;
 function postWindow() {
-    $('#submitbtn').attr('disabled','disabled');
     $('#infodiv').hide();
     $('.form-group').removeClass('has-error');
 
     var title = $('#title').val();
     var description = $('#description').val();
-    console.log(description);
 
     var titleexp = /^\D[^><\n\f\r\t\v]{6,50}/;
-    if(titleexp.text(title)) {
+    if(titleexp.test(title)) {
         // upload picture
+        $('#submitbtn').attr('disabled','disabled');
+        $('#description').attr('disabled','disabled');
+        $('#title').attr('disabled','disabled')
         $('#imginput').fileinput('upload');
     } else {
         showInfo('不合法的标题');

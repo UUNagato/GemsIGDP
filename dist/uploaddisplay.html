@@ -71,12 +71,12 @@
       <div class="row">
         <div class="form-group text-center col-md-6 col-md-push-3" id="descriptiongroup">
           <label for="description">介绍文字</label><br>
-          <textarea id="description" maxlength="300" placeholder="请输入描述"></textarea>
+          <textarea id="description" maxlength="255" placeholder="请输入描述"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="text-center col-md-4 col-md-push-4">
-          <botton class="btn btn-lg btn-success margin-bottom-small" type="button" onclick="$('#imginput').fileinput('upload');">完成</botton>
+          <button class="btn btn-lg btn-success margin-bottom-small" id="submitbtn" type="button" onclick="postWindow()">完成</button>
         </div>
       </div>
     </div>
