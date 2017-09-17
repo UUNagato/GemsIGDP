@@ -1,6 +1,6 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-    var theEWindow =  sequelize.define('exhibitionFile',{
+    var theEWindow =  sequelize.define('exhibitionFiles',{
         id : {
             type : DataTypes.INTEGER,
             primaryKey : true,

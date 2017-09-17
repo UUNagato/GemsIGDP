@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey : true,
             autoIncrement : true},
         //exhibition_id : DataTypes.INTEGER, //one exhibitonWindow can has many files
-        file_time : DataTypes.DATE,  
+        //file_time : DataTypes.DATE,  
         user_id : DataTypes.INTEGER,
         file_name : DataTypes.STRING,
         file_path : DataTypes.STRING,
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     theFile.associate = function(models){
-        theFile.belongsToMany(models.file,{through:'exhibitionFile', foreignKey:'file_id', otherKey:'window_id'});
+        theFile.belongsToMany(models.exhibitionWindow,{as:'ewindow', through:'exhibitionFiles', foreignKey:'file_id', otherKey:'window_id'});
         theFile.belongsTo(models.user,{foreignKey:'user_id'});
     };
     

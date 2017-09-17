@@ -26,8 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     theEWindow.associate = function(models) {
-        theEWindow.belongsTo(models.user,{as:'Author', foreignKey:'user_id'});
-        theEWindow.belongsToMany(models.file,{through:'exhibitionFile', foreignKey:'window_id', otherKey:'file_id'});
+        theEWindow.belongsTo(models.user,{foreignKey:'user_id'});
+        theEWindow.belongsToMany(models.file,{as:'files', through:'exhibitionFiles', foreignKey:'window_id', otherKey:'file_id'});
     };
     
     return theEWindow;
