@@ -61,19 +61,11 @@
               {% endfor %}
             </ol>
             <div class="carousel-inner">
-<<<<<<< HEAD
               {% for file in files %}
               {% if file.num == 0 %}
               <div class="item active" style="background:url({{file.path}});background-size:cover;"></div>
               {% else %}
               <div class="item" style="background:url({{file.path}});background-size:cover;"></div>
-=======
-              {% for file in files %}
-              {% if file.num == 0 %}
-              <div class="item active"><img src="{{file.path}}"></div>
-              {% else %}
-              <div class="item"><img src="{{file.path}}"></div>
->>>>>>> 29432b21670846c04942d7f0c3bbe4d972868cc4
               {% endif %}
               {% endfor %}
             </div><a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
