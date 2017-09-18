@@ -1,6 +1,7 @@
 var user_control = require('../controllers/users.js');
 var nunjucks_control = require('../controllers/nunjucks.js');
 var article_control = require('../controllers/articles.js');
+var fileManager = require('../controllers/filemanager.js');
 var fs = require('fs');
 var path = require('path');
 
@@ -104,12 +105,12 @@ var fn_updateUserInfo = async(ctx,next) => {
 
 //modify profile
 var fn_updateProfile = async(ctx, next) => {
-    var user = users.getValidatedUser(ctx.request);
+    var user = user_control.getValidatedUser(ctx.request);
     if(user !== null) {
         var file = ctx.request.body.files.file;
         try {
             var obj = await fileManager.imageUploadGetFile(user.user_id, file);
-            await user_control.modifyHeadPic(obj.file_id,obj.file_path);
+            await user_control.modifyHeadPic(user.user_id, obj.file_id);
             ctx.response.body = {url:obj.file_path};
         } catch(err) {
             ctx.response.body = {error:err.message};
@@ -122,5 +123,5 @@ var fn_updateProfile = async(ctx, next) => {
 module.exports = {
     'GET /idPage/:id' : fn_initPage,
     'POST /idPage/modifyInfo' : fn_updateUserInfo,
-    'GET /upload/profileupload' : fn_updateProfile
+    'POST /upload/profileupload' : fn_updateProfile
 };

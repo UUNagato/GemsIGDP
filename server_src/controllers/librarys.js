@@ -40,7 +40,7 @@ var getMostRecentMaterialsfunc = async function() {
             {
                 let file = await models.file.findOne({
                     attributes : ['file_path'],
-                    where : {id : profile}
+                    where : {id : user.profile}
                 });
                 headPic = file.file_path;
             }

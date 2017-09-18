@@ -148,6 +148,7 @@ function change(){
                     alert('upload picture success!');
                     //to show the head picture directly(avoid query the table again)
                     preview.style.backgroundImage = 'url('+data.url+')';
+                    getUserInfoAndStore();
                 }
             }
         });
