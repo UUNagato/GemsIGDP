@@ -7,12 +7,25 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey : true,
             autoIncrement : true
         },
-        library_content_id : DataTypes.INTEGER,
-        file_id : DataTypes.INTEGER
+        name : DataTypes.STRING,
+        tags : DataTypes.STRING,
+        library_id : DataTypes.INTEGER,
+        file_id : DataTypes.INTEGER,
+        thumbnail_id : DataTypes.INTEGER,
+        upload_time : DataTypes.DATE,
+        view : {
+            type: DataTypes.INTEGER,
+            defaultValue: 0}
     },{
         timestamps: false,
         tableName: 'library_file'
     });
+
+    theLFile.associate = function(models) {
+        theLFile.belongsTo(models.library, {foreignKey:'library_id'});
+        theLFile.belongsTo(models.file, {as:'file', foreignKey:'file_id'});
+        theLFile.belongsTo(models.file, {as:'thumbnail', foreignKey:'thumbnail_id'});
+    }
     
     return theLFile;
 };

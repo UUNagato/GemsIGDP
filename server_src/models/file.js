@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     theFile.associate = function(models){
         theFile.belongsToMany(models.exhibitionWindow,{as:'ewindow', through:'exhibitionFiles', foreignKey:'file_id', otherKey:'window_id'});
         theFile.belongsTo(models.user,{foreignKey:'user_id'});
+        theFile.hasOne(models.libraryFile, {as:'libraryFile', foreignKey:'file_id'});
     };
     
     return theFile;
