@@ -11,9 +11,9 @@ function onKeyDown(event){
                      }
                    
                 }
-function DisplayAndHiddenBtn(btnId) {
-    if(isLocallyLogin()=="true"){
-        document.getElementById("first second").style.display="block";
-                }else
-        document.getElementById("first second").style.display="none";
-            }
+function DisplayAndHiddenBtn() {
+    $("#first #second").css("display","none");   
+   if('${isLocallyLogin()}' == 'true'){   
+       $("#first #second").css("display","");   
+   }
+}
