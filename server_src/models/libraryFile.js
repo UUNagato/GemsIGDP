@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement : true
         },
         name : DataTypes.STRING,
-        tags : DataTypes.STRING,
+        tags : DataTypes.STRING,//format:['tag1','tag2',...]
         library_id : DataTypes.INTEGER,
         file_id : DataTypes.INTEGER,
         thumbnail_id : DataTypes.INTEGER,
