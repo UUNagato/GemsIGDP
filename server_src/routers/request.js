@@ -17,6 +17,8 @@ var fn_initRequestPage = async(ctx,next) => {
     let count = await request_control.countRequests();
     var sumpage;
 
+    console.log('request count: '+count);//!!!!test
+
     if(count % 6 !== 0)
         sumpage = Math.floor(count /6) + 1;
     else
@@ -26,7 +28,7 @@ var fn_initRequestPage = async(ctx,next) => {
     let result = await request_control.getRequestList(currentPage);
     
     //render
-    var s = await nunjucks_control.env.render('requestList.html', {requests:requests, sumpage:sumpage, currentPage:currentPage});
+    var s = await nunjucks_control.env.render('request.html', {requests:result, sumpage:sumpage, currentpage:currentPage});
     
     ctx.response.body = s; 
 };

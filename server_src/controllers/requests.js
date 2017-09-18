@@ -107,7 +107,7 @@ var getRequestListfunc = async function(currentPage){
     });
 
 
-    return result;
+    return requests;
 };
 
 module.exports = {
