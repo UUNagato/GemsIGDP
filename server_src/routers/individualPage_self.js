@@ -8,6 +8,7 @@ var path = require('path');
 //init individualPage
 var fn_initPage = async(ctx,next) => {
     let id = parseInt(ctx.params.id);
+    let currentUser = user_control.getCurrentUser();
     let result = await user_control.getUserById(id);
     let headPic = await user_control.getHeadPic(id);
     let aresults = await article_control.getUserArticles(id);
@@ -16,6 +17,7 @@ var fn_initPage = async(ctx,next) => {
 
     var user = {
         nickname : result.nickname,
+        profile : headPic,
         sex : result.sex,
         profile : headPic,
         birthday : result.birthday,
@@ -23,7 +25,7 @@ var fn_initPage = async(ctx,next) => {
         phone : result.telephone,
         github : result.github,
         personalWeb : result.personal_web,
-        sign : result.signature||''
+        sign : result.signature
     };
 
     for(i in aresults)
@@ -35,7 +37,15 @@ var fn_initPage = async(ctx,next) => {
         console.log('articles:'+aresults[i].title);
     }
 
-    var s = await nunjucks_control.env.render('individualPage.html',{user:user, articles:articles});
+    //render
+    var s;
+    if( id === currentUser.user_id )
+    {
+        s = await nunjucks_control.env.render('individualPage.html',{user:user, articles:articles});//idPage-self
+    }
+    else
+        s = await nunjucks_control.env.render('idPageOther.html',{user:user, articles:articles});//idPage-other
+    
     ctx.response.body = s;
 };
 
@@ -92,7 +102,25 @@ var fn_updateUserInfo = async(ctx,next) => {
 };
 
 
+//modify profile
+var fn_updateProfile = async(ctx, next) => {
+    var user = users.getValidatedUser(ctx.request);
+    if(user !== null) {
+        var file = ctx.request.body.files.file;
+        try {
+            var obj = await fileManager.imageUploadGetFile(user.user_id, file);
+            await user_control.modifyHeadPic(obj.file_id,obj.file_path);
+            ctx.response.body = {url:obj.file_path};
+        } catch(err) {
+            ctx.response.body = {error:err.message};
+        }
+    } else {
+        ctx.response.body = {error:'非合法用户'};
+    }
+};
+
 module.exports = {
     'GET /idPage/:id' : fn_initPage,
-    'POST /idPage/modifyInfo' : fn_updateUserInfo
+    'POST /idPage/modifyInfo' : fn_updateUserInfo,
+    'GET /upload/profileupload' : fn_updateProfile
 };

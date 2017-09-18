@@ -44,8 +44,6 @@ $().ready(function(){
             }
         }
     });
-
-
 });
 
 function Delete(){
@@ -60,12 +58,11 @@ function Delete(){
             url:'/articleList/delete',
             type:'POST',
             cache:false,
-            data:add,
+            data:{article_id:add},
             beforeSend:function(req){
                 req.setRequestHeader('x-access-token',csrf)
             },
             success:function(data){
-                console.log('successs!');
                 if(data.error)
                     alert("删除失败");
                 else{
@@ -75,7 +72,6 @@ function Delete(){
             }
         })
     }
-    
 }
 
 function onCommentClick(){
