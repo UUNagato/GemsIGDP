@@ -50,12 +50,12 @@
     <header class="mine" style="background-image: url(https://d1jlf623bx36qa.cloudfront.net/static/builds/web/dist/polygons-gradients-f8c2f6e837438e4f72a517f2331a3702.png)">
       <div class="mine_container">
         <div class="avater">
-          <img id="imgInit" src="img/head1.jpg" onerror="imgUrl()" style="width:100px;height:100px;display:block;"/> 
+          <img id="imgInit" src="img/1.jpg" style="width:100px;height:100px;display:block;"/> 
             <script language="javascript">
-              function imgUrl() {
+              $().ready(function(){
                 var profilesrc = window.localStorage.getItem('user_profile');
-                document.images.imgInit.src = "profilesrc";
-              }
+                $('#imgInit').attr('src',profilesrc);
+              });
             </script>
         </div>
         <div class="meta">
