@@ -50,6 +50,26 @@ var deleteArticlefunc = async function(article_id) {
       //2.or delete this data
 };
 
+/**
+ * delete an article and validate with user id
+ * @param {integer} article_id the article id
+ * @param {integer} userid the user id
+ */
+var deleteArticleByIdwithUserfunc = async function(article_id, userid) {
+    var article = await models.article.findOne({
+        while: {
+            id : article_id
+        }
+    });
+
+    if(article !== null && article.user_id === userid) {
+        article.destroy({force:true});
+        return true;
+    }
+
+    return false;
+}
+
 
 //query articles by title(for search)
 //params: title
@@ -99,6 +119,9 @@ var searchArticleByIdfunc = async function(id) {
         }],
         where:{id : id}
     });
+
+    if(article === null)
+        return null;
 
     var isself;
     let currentUser = user_control.getCurrentUser();
@@ -294,6 +317,7 @@ var getNumberOfArticlesfunc = async function(){
 module.exports = {
       releaseArticle : releaseArticlefunc,
       deleteArticle : deleteArticlefunc,
+      deleteArticleByIdwithUser : deleteArticleByIdwithUserfunc,
       searchArticleByTitle : searchArticleByTitlefunc,
       searchArticleById : searchArticleByIdfunc,
       //getId by title

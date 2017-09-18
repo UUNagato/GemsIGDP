@@ -175,7 +175,7 @@ var imageUploadfunc = function(userid, file) {
  * @param {File} file 
  * @return {Promise} the file id
  */
-var imageUploadGetIdfunc = function(userid, file) {
+var imageUploadGetfunc = function(userid, file) {
     var promiseFunc = function(resolve, reject) {
         if(file) {
             var filetype = file.type.substring(file.type.lastIndexOf('/') + 1,file.type.length);
@@ -242,8 +242,84 @@ var imageUploadGetIdfunc = function(userid, file) {
     return(new Promise(promiseFunc));
 }
 
+/**
+ * Receive an image file and upload it.
+ * @param {integer} userid 
+ * @param {File} file 
+ * @return {Promise} the file id and file path
+ * {file_id, file_path}
+ */
+var imageUploadGetFilefunc = function(userid, file) {
+    var promiseFunc = function(resolve, reject) {
+        if(file) {
+            var filetype = file.type.substring(file.type.lastIndexOf('/') + 1,file.type.length);
+            // check size and type
+            if(uploadconfig[filetype] !== undefined) {
+                if(file.size > uploadconfig[filetype].size) {
+                    throw new Error('the file is too large');
+                }
+                // upload
+                var readstream = fs.createReadStream(file.path);
+                var date = new Date();
+                var relativepath = projectpath.relativeUploadpath + userid + date.getTime() + '.' + filetype;
+                var savepath = projectpath.path + relativepath;
+                var writestream = fs.createWriteStream(savepath);
+                var md5 = crypto.createHash('md5');
+                readstream.on('data',(src)=>{
+                    md5.update(src);
+                });
+                readstream.on('end',async () => {
+                    // get md5
+                    var filemd5 = md5.digest('hex');
+                    // find if file exists
+                    models.file.findOne({
+                        attributes: ['id','file_path'],
+                        where:{
+                            file_md5:filemd5
+                        }
+                    }).then(ret=>{
+                        if(ret !== null) {
+                            // delete newly file
+                            fs.unlink(savepath,function(err){
+                                if(err) {
+                                    console.log('there is a file:' + savepath + ' that failed to be deleted');
+                                }
+                            });
+                            resolve({file_id:ret.id,file_path:ret.file_path});
+                        }
+                        else {
+                            // add data
+                            models.file.create({
+                                user_id:userid,
+                                file_name:file.name,
+                                file_path:relativepath,
+                                upload_time: new Date(),
+                                file_md5:filemd5,
+                                file_type:filetype
+                            }).then(nfile => {
+                                resolve({file_id:nfile.id, file_path:nfile.file_path});
+                            });
+                        }
+                    })
+                });
+
+                readstream.pipe(writestream);
+            }
+            else {
+                throw new Error('not supported type');
+            }
+        } else {
+            throw new Error('no file data');
+        }
+    }
+
+    return(new Promise(promiseFunc));
+}
+
+
 module.exports = {
     uploadPlugin : uploadPluginfunc,
     singleImageUpload : imageUploadfunc,
-    imageUploadGetId : imageUploadGetIdfunc
+    imageUploadGetId : imageUploadGetIdfunc,
+    imageUploadGetFile : imageUploadGetFilefunc
 };
