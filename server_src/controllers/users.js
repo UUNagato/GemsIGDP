@@ -220,7 +220,7 @@ var userTokenMiddleware = async function(ctx, next) {
     // emptp current user
     currentUser = null;
 
-    if(token) {
+    if(token && token !== 'null') {
         // token exists
         try {
             var decoded = jwt.verify(token, jwtstr);
@@ -230,7 +230,6 @@ var userTokenMiddleware = async function(ctx, next) {
             return null;
         }
     }
-
     // next middleware
     await next();
 };

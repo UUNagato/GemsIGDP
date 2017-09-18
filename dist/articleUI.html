@@ -4,13 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/global.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/global.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/global.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
+    <script type="text/javascript" src="/js/articleUI.js"></script>
+    <link rel="stylesheet" href="/css/writearticle.css" type="text/css">
+    <link rel="stylesheet" href="/components/summernote/summernote.css">
+    <script type="text/javascript" src="/components/summernote/summernote.min.js"></script>
     <title>文章</title>
-    <link rel="stylesheet" href="css/basic.css" tyoe="text/css">
+    <link rel="stylesheet" href="/css/basic.css" tyoe="text/css">
   </head>
   <body>
     <nav class="navbar navbar-inverse">
@@ -50,13 +54,26 @@
     <div class="container articlearea">          
       <div class="row">
         <div class="col-md-8">
-          <h1 class="articletitle">{{article.title}}</h1>
+          <h1 class="articletitle" self="{{isself}}" id="title">{{article.title}}</h1>
         </div>
         <div class="col-md-4 withleftborder">
           <div class="row"><img class="img-circle userimg" src="{{user.imgsrc}}"></div>
           <div class="row username"><a href="{{user.homepage}}">{{article.author}}</a></div>
           <div class="row">
             <button class="btn btn-lg">关注</button>
+            <div class="btn-group" id="hiddenbtn" >
+                <button type="button" class="btn btn-lg dropdown-toggle" data-toggle="dropdown" style="display:none;">编辑/删除
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="#">编辑</a>
+                    </li>
+                    <li>
+                        <a href="" onclick="Delete()" id="delete">删除</a>
+                    </li>
+                </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -73,7 +90,7 @@
       </div>
       <div class="fengexian"></div>
       <div class="article"> 
-        <p>{{article.content}}</p>
+        <p>{{article.content | safe}}</p>
       </div>
       <div class="fengexian"></div>
       <div class="row zanline">
@@ -89,75 +106,61 @@
       </div>
     </div>
     <div class="container commentarea">
-      <p>{% for comment in comments %}
-        <div class="row" style="margin-top:30px;margin-left:30px;margin-right:30px;margin-bottom:30px;">
+      {% for comment in comments %}
+        <div class="row" style="margin-top:30px;margin-left:30px;margin-right:30px;margin-bottom:30px;" >
           <div class="col-md-2"><img class="commentuserimg img-circle" src="{{comment.user.imgsrc}}"></div>
           <div class="col-md-10 commentingarea">
-            <div class="comment">
-              <p>{{comment.content}}</p>
-            </div>
-            <div class="row username">
-              <div class="col-md-2"><a href="{{comment.user.homepage}}">{{comment.username}}</a></div>
-              <div class="col-md-1 col-md-offset-8">
-                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#commentmodal">回复</button>
-              </div>
-              <div class="col-md-1">
-                <p class="commenttime">{{comment.commenttime}}</p>
-              </div>
-            </div>
-            <div class="fengexian"></div>
-            <p>{% for citecomment in citecomments %}
+            {% if comment.citecommentid != null %}
               <div class="row">
-                <div class="col-md-2"><img class="incommentuserimg img-circle" src="{{citecoment.user.imgsrc}}"></div>
-                <div class="col-md-10 commentingarea">
-                  <div class="comment">
-                    <p>{{citecomment.comment}}</p>
-                  </div>
-                  <div class="row username">
-                    <div class="col-md-3"><a href="{{citecomment.user.homepage}}">{{citecoment.user.name}}}</a></div>
-                    <div class="col-md-2 col-md-offset-5">
-                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#commentmodal">回复</button>
+                  <div class="col-md-2"><img class="incommentuserimg img-circle" src="{{comment.citecoment.user.imgsrc}}"></div>
+                  <div class="col-md-10 commentingarea">
+                    <div class="comment">
+                      <p>{{comment.citecomment.content | safe}}</p>
                     </div>
-                    <div class="col-md-2">
-                      <p class="commenttime">{{citecoment.commenttime}}</p>
+                    <div class="row username">
+                      <div class="col-md-3">
+                        <a href="{{citecomment.user.homepage}}">{{comment.citecoment.user.name}}}</a>
+                      </div>
+                      <div class="col-md-2 col-md-offset-7">
+                        <p class="commenttime">{{comment.citecoment.commenttime}}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </p>
-            <p>{% endfor %}</p>
+            <div class="fengexian"></div>
+            {% endif %}
+              <div class="comment">
+                  <p>{{comment.content}}</p>
+                </div>
+                <div class="row username">
+                  <div class="col-md-2"><a href="{{comment.user.homepage}}">{{comment.username}}</a></div>
+                  <div class="col-md-1 col-md-offset-8">
+                    <button class="btn btn-primary btn-sm" onclick="onReplyClick(this)" id="{{comment.id}}">回复</button>
+                  </div>
+                  <div class="col-md-1">
+                    <p class="commenttime">{{comment.commenttime}}</p>
+                  </div>
+                </div>
+        
           </div>
         </div>
       </p>
-      <p>{% endfor %}</p>
+    {% endfor %}</p>
     </div>
     <div class="fengexian"></div>
-    <div class="container" style="padding:0px;background-color:#ebebeb;">
-      <div class="writecomment">
-        <textarea class="writing" id="comment" cols="30" rows="10"></textarea>
+    <div class="container" style="padding:0px;background-color:#ebebeb;margin-bottom:10px;">
+      <div class="writecomment" id="note">
+        <div id="summernote"></div>
         <div class="row" style="text-align:center;">
-          <div class="col-md-2 col-md-offset-8">
-            <button class="btn btn-lg commentbtn">评论</button>
+          <div class="col-md-2 col-md-offset-7">
+            <button class="btn btn-lg commentbtn" onclick="onCommentClick()" id="commentbtn" style="margin-bottom:10px;">评论</button>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary btn-default" onclick="onCancelClick()" id="cancelbtn" style="display:none;margin-bottom:10px;">取消回复</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="modal fade" id="commentmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title" id="myModalLabel">回复</h4>
-          </div>
-          <div class="modal-body">
-            <textarea id="recomment" cols="70" rows="10" style="resize:none;"></textarea>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-default" type="button" data-dismiss="modal">关闭</button>
-            <button class="btn btn-primary" type="button">回复</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    
   </body>
 </html>

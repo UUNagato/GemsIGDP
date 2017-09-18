@@ -50,10 +50,11 @@ $().ready(function() {
                     } else if(data.token) {
                         var date = new Date();
                         date.setTime(date.getTime() + 15 * 24 * 3600000);
-                        document.cookie = 'authentication=' + data.token + ';expires=' + date;
+                        document.cookie = 'authentication=' + data.token + '; expires=' + date.toUTCString();
                         // save csrf
                         window.localStorage.setItem('csrf',data.csrf);
-                    // jump
+                        // jump
+                        window.location.href = '/';
                     }
                 }
             }
