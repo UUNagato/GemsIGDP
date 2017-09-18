@@ -8,7 +8,7 @@ var path = require('path');
 //init individualPage
 var fn_initPage = async(ctx,next) => {
     let id = parseInt(ctx.params.id);
-    let currentUser = await user_control.getCurrentUser();
+    let currentUser = user_control.getCurrentUser();
     let result = await user_control.getUserById(id);
     let headPic = await user_control.getHeadPic(id);
     let aresults = await article_control.getUserArticles(id);
@@ -38,8 +38,10 @@ var fn_initPage = async(ctx,next) => {
 
     //render
     var s;
-    if( id === currentUser.id )
+    if( id === currentUser.user_id )
+    {
         s = await nunjucks_control.env.render('individualPage.html',{user:user, articles:articles});//idPage-self
+    }
     else
         s = await nunjucks_control.env.render('idPageOther.html',{user:user, articles:articles});//idPage-other
     

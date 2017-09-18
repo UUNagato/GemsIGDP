@@ -101,8 +101,8 @@ var searchArticleByIdfunc = async function(id) {
     });
 
     var isself;
-    let currentUser = await user_control.getCurrentUser();
-    if(article.user_id === currentUser.id)
+    let currentUser = user_control.getCurrentUser();
+    if(article.user_id === currentUser.user_id)
         isself = 'true';
     else
         isself = 'false';
