@@ -162,6 +162,7 @@ var getUserEWindowsfunc = async function(){
         var files = await windows[i].getFiles({attributes:['file_path']});
         
         result[i] = {
+            id : id,
             title : windows[i].title,
             introduce : windows[i].introduce,
             author : windows[i].user.nickname,

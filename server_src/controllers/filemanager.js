@@ -175,7 +175,7 @@ var imageUploadfunc = function(userid, file) {
  * @param {File} file 
  * @return {Promise} the file id
  */
-var imageUploadGetfunc = function(userid, file) {
+var imageUploadGetIdfunc = function(userid, file) {
     var promiseFunc = function(resolve, reject) {
         if(file) {
             var filetype = file.type.substring(file.type.lastIndexOf('/') + 1,file.type.length);
