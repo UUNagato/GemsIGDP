@@ -53,8 +53,15 @@ var fn_postNew = async(ctx, next) => {
     }
 }
 
+// router to upload new window
+var fn_uploadRt = async(ctx, next) => {
+    var s = nunjucks_control.env.render('uploaddisplay.html');
+    ctx.response.body = s;
+}
+
 module.exports = {
     'POST /displays/postnew' : fn_postNew,
     'GET /displays' : fn_initListPage,
-    'GET /displays/details/:id' : fn_initDetailPage
+    'GET /displays/details/:id' : fn_initDetailPage,
+    'GET /displays/upload' : fn_uploadRt
 }

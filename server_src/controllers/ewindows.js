@@ -133,8 +133,11 @@ var addNewEWindowfunc = async function(userid, title, des, imgs) {
             });
             if(nfitem === null)
                 console.log('Warning! exhibition window ' + nitem.id + ' file insert failed');
+
+            return true;
         }
     }
+    return false;
 }
 
 

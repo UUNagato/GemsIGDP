@@ -26,21 +26,22 @@ $().ready(function(){
 
 function postFullWindow() {
     if(uploadImgIds && uploadImgIds.length >= 1) {
-        $.post({
-            url:'/displays/postnew',
-            data:{
+        $.post(
+            '/displays/postnew',
+            {
                 imgs: uploadImgIds,
                 title: $('#title').val(),
                 description: $('#description').val()
             },
             function(data, status) {
+                console.log(status);
                 if(status === 'success') {
                     window.location.href = '/displays';
                 } else {
                     showInfo('不明上传错误');
                 }
             }
-        })
+        );
     }
 }
 
