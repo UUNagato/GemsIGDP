@@ -9,12 +9,18 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/global.js"></script>
-    <link href="css/inform-style.css" rel="stylesheet">
-    <title>Gems - 注册成功</title>
-    <script type="text/javascript" src="js/register.js"></script>
+    <title>发布展示窗</title>
+    <link href="/components/bfi/css/fileinput.min.css" rel="stylesheet">
+    <link href="/css/uploaddisplay.css" rel="stylesheet">
+    <script src="/components/bfi/js/plugins/sortable.min.js" type="text/javascript"></script>
+    <script src="/components/bfi/js/plugins/purify.min.js" type="text/javascript"></script>
+    <script src="/components/bfi/js/fileinput.min.js" type="text/javascript"></script>
+    <script src="/components/bfi/js/locales/zh.js" type="text/javascript"></script>
+    <script src="/js/uploaddisplay.js" type="text/javascript"></script>
+    <script src="/js/csrfheader.js" type="text/javascript"></script>
   </head>
   <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse">
       <div class="container">
         <div class="narbar-header">
           <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
@@ -48,21 +54,29 @@
         </div>
       </div>
     </nav>
-    <div class="showwindow">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-10 col-md-push-1">
-            <div class="informWindow">
-              <p class="inform">验证邮件已发送，请前往邮箱进行验证。</p>
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-4 col-md-push-4">
-                    <div class="button"><a class="btn btn-success">返回首页             </a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="container circlecircum">
+      <div class="row darkback margin-bottom-small">
+        <h1 class="text-center">发布展示窗</h1>
+      </div>
+      <label>上传图片</label>
+      <input id="imginput" name="file" type="file" multiple="multiple">
+      <hr>
+      <div class="row">
+        <div class="form-group text-center col-md-6 col-md-push-3" id="titlegroup">
+          <div class="alert alert-danger" id="infodiv"></div>
+          <label for="title">标题</label><br>
+          <input class="form-cotrol" id="title" type="text" maxlength="50" placeholder="请输入标题">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group text-center col-md-6 col-md-push-3" id="descriptiongroup">
+          <label for="description">介绍文字</label><br>
+          <textarea id="description" maxlength="255" placeholder="请输入描述"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="text-center col-md-4 col-md-push-4">
+          <button class="btn btn-lg btn-success margin-bottom-small" id="submitbtn" type="button" onclick="postWindow()">完成</button>
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     
     theArticle.associate = function(models) {
         theArticle.belongsTo(models.user,{foreignKey:'user_id'});
-        theArticle.hasMany(models.commentList,{foreignKey:'comment_id'});
+        theArticle.hasMany(models.commentList,{foreignKey:'article_id'});
     };
 
     return theArticle;

@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     thePage.associate = function(models){
-        thePage.belongsTo(models.user,{foreignKey:'user_id'});
-        thePage.hasMany(models.personalRecord,{foreignKey:'record_id'});
+        thePage.belongsTo(models.user, {foreignKey:'user_id'});
+        thePage.hasMany(models.personalRecord, {foreignKey:'individual_id'});
     };
     
     return thePage;
