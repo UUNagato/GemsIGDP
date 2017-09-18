@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/global.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/global.js"></script>
-    <script type="text/javascript" src="js/articleUI.js"></script>
-    <link rel="stylesheet" href="css/writearticle.css" type="text/css">
-    <link rel="stylesheet" href="components/summernote/summernote.css">
-    <script type="text/javascript" src="components/summernote/summernote.min.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/global.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
+    <script type="text/javascript" src="/js/articleUI.js"></script>
+    <link rel="stylesheet" href="/css/writearticle.css" type="text/css">
+    <link rel="stylesheet" href="/components/summernote/summernote.css">
+    <script type="text/javascript" src="/components/summernote/summernote.min.js"></script>
     <title>文章</title>
-    <link rel="stylesheet" href="css/basic.css" tyoe="text/css">
+    <link rel="stylesheet" href="/css/basic.css" tyoe="text/css">
   </head>
   <body>
     <nav class="navbar navbar-inverse">
@@ -90,7 +90,7 @@
       </div>
       <div class="fengexian"></div>
       <div class="article"> 
-        <p>{{article.content}}</p>
+        <p>{{article.content | safe}}</p>
       </div>
       <div class="fengexian"></div>
       <div class="row zanline">
@@ -115,7 +115,7 @@
                   <div class="col-md-2"><img class="incommentuserimg img-circle" src="{{comment.citecoment.user.imgsrc}}"></div>
                   <div class="col-md-10 commentingarea">
                     <div class="comment">
-                      <p>{{comment.citecomment.content}}</p>
+                      <p>{{comment.citecomment.content | safe}}</p>
                     </div>
                     <div class="row username">
                       <div class="col-md-3">
