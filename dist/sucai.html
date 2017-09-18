@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/global.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/global.js"></script>
-    <link href="css/sucai-style.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/global.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
+    <link href="/css/sucai-style.css" rel="stylesheet">
   </head>
   <body>
       <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -62,24 +62,24 @@
       <div class="items">
         {% for item in items %}
         <div class="item">
-          <div class="card_main"><a href="#" target="_blank" title="page"><img class="card" src="{{item.imgsrc}}"></a></div>
+          <div class="card_main"><a href="#" target="_blank" title="page"><img class="card" src="{{item.thumbnail_src}}"></a></div>
           <div class="card_footer"> 
             <div class="card_footer_left">
-              <div class="image_container"><a class="card_footer_avatar" href="#"><img class="head" src="{{item.head}}"></a></div>
-              <p class="card_footer_title"> <a class="model-name_label" href="#" target="_blank" title="Ako">{{item.title}}</a></p>
+              <div class="image_container"><a class="card_footer_avatar" href="#"><img class="head" src="{{item.uploader_profile}}"></a></div>
+              <p class="card_footer_title"> <a class="model-name_label" href="/materials/details/{{item.id}}" target="_blank" title="Ako">{{item.title}}</a></p>
             </div>
             <div class="card_footer_right">
               <div class="like">
                 <div class="icon"><a class="like" href="#" data-toggle="tooltip" data-placement="top" title="Like"><span class="glyphicon glyphicon-heart"></span></a></div>
-                <div class="count"><span class="count">{{like_count}}</span></div>
+                <div class="count"><span class="count">0</span></div>
               </div>
               <div class="comments">
                 <div class="icon"><a class="comments" href="#" data-toggle="tooltip" data-placement="top" title="Comments"><span class="glyphicon glyphicon-comment"></span></a></div>
-                <div class="count"><span class="count">{{comments_count}}</span></div>
+                <div class="count"><span class="count">0</span></div>
               </div>
               <div class="eye">
                 <div class="icon"><span class="glyphicon glyphicon-eye-open"></span></div>
-                <div class="count">    <span class="count">{{eye_count}}</span></div>
+                <div class="count">    <span class="count">{{item.view}}</span></div>
               </div>
             </div>
           </div>

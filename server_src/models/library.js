@@ -6,12 +6,9 @@ module.exports = (sequelize, DataTypes) => {
             type : DataTypes.INTEGER,
             primaryKey : true,
             autoIncrement : true},
-        library_time : DataTypes.DATE,
+        create_time : DataTypes.DATE,
         user_id : DataTypes.INTEGER,
         library_name : DataTypes.STRING(50),
-        library_authority : {
-            type : DataTypes.INTEGER,
-            defaultValue : 1}
     },{
         timestamps: false,
         tableName: 'library'
@@ -20,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     
     theLibrary.associate = function(models){
         theLibrary.belongsTo(models.user, {foreignKey:'user_id'});
-        theLibrary.hasMany(models.libraryContent, {foreignKey:'library_id'});
+        theLibrary.hasMany(models.libraryFile, {foreignKey:'library_id'});
     };
 
     //insert data
