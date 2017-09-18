@@ -1,0 +1,100 @@
+
+<!--展示窗页面--><!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的展示窗</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/global.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/global.js"></script>
+    <link href="css/display_mine.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="narbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarul">
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="/articleList/1">文章</a></li>
+            <li><a href="/materials">素材</a></li>
+            <li><a href="/displays">展示窗</a></li>
+            <li><a href="/requestList/1">需求</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" id="unlog">
+            <li class="navbar-leftborder"></li>
+            <li><a class="btn btn-success" href="/login">登录</a></li>
+            <li><a class="btn btn-info" href="/register">注册</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right navbar-hide" id="login">
+            <li class="navbar-leftborder"></li>
+            <li class="navbar-middleondrop"><img class="navbar-profile" id="userprofile"></li>
+            <li><a class="dropdown-toggle" id="usernick" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+              <ul class="dropdown-menu dropdown-inverse">
+                <li><a id="personalpage" href="#">个人页面</a></li>
+                <li class="divider" role="separator"></li>
+                <li><a class="btn btn-danger" onclick="logOut()">注销</a></li>
+              </ul>
+            </li>
+            <li class="navbar-hideondrop"> 
+              <p class="navbar-text">消息<span class="badge"></span></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <header class="mine" style="background-image: url(https://d1jlf623bx36qa.cloudfront.net/static/builds/web/dist/polygons-gradients-f8c2f6e837438e4f72a517f2331a3702.png)">
+      <div class="mine_container">
+        <div class="avater">
+          <img id="imgInit" src="img/1.jpg" style="width:100px;height:100px;display:block;"/> 
+            <script language="javascript">
+              $().ready(function(){
+                var profilesrc = window.localStorage.getItem('user_profile');
+                $('#imgInit').attr('src',profilesrc);
+              });
+            </script>
+        </div>
+        <div class="meta">
+          <div class="mine_name">
+            <span class="mine_name">
+                <script>
+                    var nickname = window.localStorage.getItem('user_nickname');
+                    document.write(nickname);
+                </script>
+            </span>                
+          </div>
+        </div>
+        <div class="clearfloat">
+        </div>
+      </div>
+      <div class="clearfloat">
+      </div>
+    </header>
+    <div class="display_wrapper" style="width:90%;">
+        <div class="display_cols">
+          {% for item in items %}
+          <div class="display_col" ontouchstart="this.classList.toggle('hover');" onclick='window.location.href="/displays/details/{{item.ewindow.id}}"'>
+            <div class="display_container">
+              <div class="display_front" style='background-image: url("{{item.file.path}}");'>
+                <div class="display_inner">
+                  <p>{{item.ewindow.title}}</p><span>{{item.ewindow.author}}</span>
+                </div>
+              </div>
+              <div class="display_back">
+                <button class="delete" type="button">
+                  <span class="glyphicon glyphicon-trash"></span> 
+                </button>
+                <div class="display_inner">
+                  <p>{{item.ewindow.introduce}}</p>
+                </div>
+              </div>
+            </div>
+          </div>{% endfor %}
+        </div>
+      </div>
+  </body>
+</html>
