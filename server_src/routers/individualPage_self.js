@@ -8,6 +8,7 @@ var path = require('path');
 //init individualPage
 var fn_initPage = async(ctx,next) => {
     let id = parseInt(ctx.params.id);
+    let currentUser = await user_control.getCurrentUser();
     let result = await user_control.getUserById(id);
     let headPic = await user_control.getHeadPic(id);
     let aresults = await article_control.getUserArticles(id);
@@ -23,7 +24,7 @@ var fn_initPage = async(ctx,next) => {
         phone : result.telephone,
         github : result.github,
         personalWeb : result.personal_web,
-        sign : result.signature||''
+        sign : result.signature
     };
 
     for(i in aresults)
@@ -35,7 +36,13 @@ var fn_initPage = async(ctx,next) => {
         console.log('articles:'+aresults[i].title);
     }
 
-    var s = await nunjucks_control.env.render('individualPage.html',{user:user, articles:articles});
+    //render
+    var s;
+    if( id === currentUser.id )
+        s = await nunjucks_control.env.render('individualPage.html',{user:user, articles:articles});//idPage-self
+    else
+        s = await nunjucks_control.env.render('idPageOther.html',{user:user, articles:articles});//idPage-other
+    
     ctx.response.body = s;
 };
 

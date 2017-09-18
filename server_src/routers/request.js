@@ -14,26 +14,19 @@ var path = require('path');
 
 
 var fn_initRequestPage = async(ctx,next) => {
+    let count = await request_control.countRequests();
+    var sumpage;
 
-    let result = await request_control.getRequestList();
-    var requests = new Array();
-    var i;
+    if(count % 6 !== 0)
+        sumpage = Math.floor(count /6) + 1;
+    else
+        sumpage = Math.floor(count /6);
 
-    console.log('request count: '+String(result.count));
-    
-    for(i in result.rows)
-    {
-        requests[i] = {
-            id : result.rows[i].id,
-            title : result.rows[i].title,
-            author : result.rows[i].user.nickname,
-            releasetime : result.rows[i].release_time
-        };
-    }
-
+    let currentPage = parseInt(ctx.params.currentPage);
+    let result = await request_control.getRequestList(currentPage);
     
     //render
-    var s = await nunjucks_control.env.render('requestList.html', {requests : requests});
+    var s = await nunjucks_control.env.render('requestList.html', {requests:requests, sumpage:sumpage, currentPage:currentPage});
     
     ctx.response.body = s; 
 };
@@ -59,6 +52,6 @@ var fn_showFullRequest = async(ctx,next) => {
 
 
 module.exports = {
-    'GET /request' : fn_initRequestPage,
-    'GET /request/details/:id' : fn_showFullRequest
+    'GET /requestList/:currentPage' : fn_initRequestPage,
+    'GET /requestList/details/:id' : fn_showFullRequest
 }

@@ -81,25 +81,38 @@ var upYuedufunc = async function(id) {
 };
 
 
+//get the number of all requests
+//return the count
+var countRequestsfunc = async function(){
+    var requests = await models.request.findAndCountAll();
+
+    return requests.count;
+}
+
 //get all requests in request_list table
 //use for show in requestList.html
 //return requests(include object and count)
-var getRequestListfunc = async function(){
-    var requests = await models.request.findAndCountAll({
-        attributes : ['id','title','yuedu','release_time'],
+var getRequestListfunc = async function(currentPage){
+    let c = (currentPage-1) *6;
+    var requests = await models.request.findAll({
+        attributes : ['id','title','content','yuedu','release_time'],
+        limit : 6,
         include: [{
             model: models.user,
             attributes : ['nickname'],
             where: { id: Sequelize.col('request.user_id') },//include the user's nickname
             required: true
         }],
+        where : {id : {$gt : c}}
     });
 
-    return requests;
+
+    return result;
 };
 
 module.exports = {
     getRequestById : getRequestByIdfunc,
     releaseRequest : releaseRequestfunc,
-    getRequestList : getRequestListfunc
+    getRequestList : getRequestListfunc,
+    countRequests : countRequestsfunc
 }

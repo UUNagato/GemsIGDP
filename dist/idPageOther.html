@@ -4,18 +4,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/global.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/global.js"></script>
-    <link href="css/individualPage-style.css" rel="stylesheet">
-    <link href="css/indivPageNav-style.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/global.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
+    <link href="/css/individualPage-style.css" rel="stylesheet">
+    <link href="/css/indivPageNav-style.css" rel="stylesheet">
     <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
     <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
     <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <title>Gems - 个人主页</title>
-    <script type="text/javascript" src="js/idPage.js"></script>
+    <script type="text/javascript" src="/js/idPage.js"></script>
     <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
   </head>
@@ -63,7 +63,7 @@
             </div>
             <div class="col-xs-4">
               <div class="title-info">
-                <h1>{{userID}} 的个人主页</h1><a herf="{{githubLink}}"> {{userID}} 的github</a>
+                <h1>{{user.name}} 的个人主页</h1><a herf="{{githubLink}}"> {{user.name}} 的github</a>
               </div>
             </div>
           </div>
@@ -89,53 +89,44 @@
                 <!--这里是模板p {% if visiable %}
                 -->
                 <div class="id-info">
-                  <p id="name">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称: {{name}}</p>
-                  <p id="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别: {{sex}}</p>
-                  <p id="birthday">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日: {{birthday}}</p>
-                  <p id="qq">Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q: {{qq}}</p>
-                  <p id="phone">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:{{phone}}</p>
+                  <p id="name">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称: {{user.name}}</p>
+                  <p id="sex">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别: {{user.sex}}</p>
+                  <p id="birthday">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日: {{user.birthday}}</p>
+                  <p id="qq">Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q: {{user.qq}}</p>
+                  <p id="phone">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:{{user.phone}}</p>
                   <div class="info-s">
                     <div class="infoLink-title">
                       <p id="githubLink">GitHub&nbsp;&nbsp;:</p>
-                    </div><a class="info-link" herf="{{ }}">{{githunLink}}</a>
+                    </div><a class="info-link" herf="{{user.github}}">{{user.github}}</a>
                   </div>
                   <div class="info-s">
                     <div class="infoLink-title">
                       <p id="personalWeb">个人博客:</p>
-                    </div><a class="info-link" herf="{{ }}">{{personalWeb}}</a>
+                    </div><a class="info-link" herf="{{user.personalWeb}}">{{user.personalWeb}}</a>
                   </div>
                   <div class="info-s">
                     <div class="infoLink-title">
                       <p id="pixiv">pixiv主页:</p>
-                    </div><a class="info-link" herf="{{ }}">{{pixivLink}}</a>
+                    </div><a class="info-link" herf="{{user.pixivLink}}">{{user.pixivLink}}</a>
                   </div>
                   <div class="info-s">
                     <div class="infoLink-title">
                       <p id="patreon">patreon&nbsp;:</p>
-                    </div><a class="info-link" herf="{{ }}">{{patreonLink}}</a>
+                    </div><a class="info-link" herf="{{user.patreonLink}}">{{user.patreonLink}}</a>
                   </div>
                   <div class="info-s">
-                    <p id="sign">个性签名: {{sign}}</p>
+                    <p id="sign">个性签名: {{user.sign}}</p>
                   </div>
                 </div>
               </div>
-              <!--这里是模板
-              p {% else %}
-                  div.id-info
-                      p 该用户已设置个人信息不对外展示。
-              -->
+              
               <div class="right-2">
-                <!--这里是模板p {% if visiable %}
-                -->
+                
                 <div class="id-info">
                   <h1>个人履历</h1>
                 </div>
               </div>
-              <!--这里是模板
-              p {% else %}
-                  div.id-info
-                      p 该用户已设置个人履历不对外展示。
-              -->
+              
               <div class="right-3">
                 <div class="id-info">
                   <div class="container-fluid">
@@ -144,7 +135,7 @@
                         <div class="show">
                           <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
                           <div class="show-info">
-                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
+                            <div class="show-name"> <a herf="#">作品名称</a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
                           </div>
@@ -154,7 +145,7 @@
                         <div class="show">
                           <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
                           <div class="show-info">
-                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
+                            <div class="show-name"> <a herf="#">作品名称</a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
                           </div>
@@ -168,7 +159,7 @@
                         <div class="show">
                           <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
                           <div class="show-info">
-                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
+                            <div class="show-name"> <a herf="#">作品名称</a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
                           </div>
@@ -178,7 +169,7 @@
                         <div class="show">
                           <div class="show-pic"><img class="pic" src="img/index-back.jpg"></div>
                           <div class="show-info">
-                            <div class="show-name"> <a herf="{{ }}">作品名称</a></div>
+                            <div class="show-name"> <a herf="#">作品名称</a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-heart" onclick="like(this)"></a></div>
                             <div class="show-like"><a class="glyphicon glyphicon-star"></a></div>
                           </div>
@@ -189,13 +180,13 @@
                 </div>
               </div>
               <div class="right-4">
-                <!--这里是模板p {% for item in articles %}
-                -->
-                <div class="article"><a>{{item.title}}</a>
+                {% for article in articles %}
+                <div class="article"><a>{{article.title}}</a>
                   <div class="detail">
-                    <p>{{item.detail}}</p>
+                    <p>{{article.content}}</p>
                   </div>
                 </div>
+                {% endfor %}
               </div>
             </div>
           </div>
