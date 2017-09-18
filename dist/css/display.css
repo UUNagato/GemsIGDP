@@ -11,7 +11,7 @@
     width:90%;
     margin: 0 auto;
     max-width: 80rem;
-    margin-top: 80px;
+    margin-top: 40px;
   }
    
   .display_cols{
@@ -196,4 +196,165 @@
     font-weight: normal;
     font-style: normal;
   }
+
+
+  div.col-sm-2.col-xs-6{
+    float: right;
+    margin-right: 50px;
+    margin-top: 18px;
+  }
+
+  div.top_btn{
+    margin-top:60px;
+    margin-bottom: 10px;
+  }
+
+  a.btn_left{
+    color: #fff;
+  }
+
+  a.btn_left:hover{
+    color: #fff;
+  }
   
+  div.blank{
+    clear:both;
+    height:2px;
+    background:#a9a9a9;
+    width:100%;
+    overflow:hidden;
+    margin-bottom: 10px;
+}
+
+div.clearfloat{
+  clear:both;
+  height:0;
+  font-size: 1px;
+  line-height: 0px;
+}
+
+#first{
+  overflow:hidden;
+  margin-left: 110px;
+  border-radius: 5px;
+}
+
+#first>button{
+  z-index:1;
+  transition:color .5s ease;
+}
+
+#first .border{
+  z-index:0;
+  background:#cedce7;
+  width:30px;
+  height:30px;
+  transform:rotate(45deg);
+}
+
+#first>.border:nth-of-type(1){
+  top:-65px;
+  left:-60px; 
+}
+
+#first>.border:nth-of-type(2){
+  top:-65px;
+  right:-60px;
+}
+
+#first>.border:nth-of-type(3){
+  bottom:-65px;
+  left:-60px;
+}
+
+#first>.border:nth-of-type(4){
+  bottom:-65px;
+  right:-60px;
+}
+
+#first:hover .border{
+  width:160px;
+  height:160px;
+}
+
+#first:hover button{
+  color:#35383a;
+  transition:color 2s ease;
+}
+
+.buttonBox{
+  position:relative;
+  float:left;
+  margin:1vw 3vw;
+}
+
+
+button{
+  width:70px;
+  height:40px;
+  position:relative;
+  background:rgba(255, 255, 255, .27);
+  text-transform:uppercase;
+  color:white;
+  font-weight:500;
+  letter-spacing:1px;
+  border:none;
+  font-size:15px;
+  outline:none;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.border{
+  position:absolute;
+  background:none;
+  transition:all .5s ease-in-out;
+}
+
+#second{
+  overflow:hidden;
+  margin-left: -30px;
+  border-radius: 5px;
+}
+
+#second>button{
+  z-index:1;
+  transition:color .5s ease;
+}
+
+#second .border{
+  z-index:0;
+  background:#cedce7;
+  width:30px;
+  height:30px;
+  transform:rotate(45deg);
+}
+
+#second>.border:nth-of-type(1){
+  top:-65px;
+  left:-60px; 
+}
+
+#second>.border:nth-of-type(2){
+  top:-65px;
+  right:-60px;
+}
+
+#second>.border:nth-of-type(3){
+  bottom:-65px;
+  left:-60px;
+}
+
+#second>.border:nth-of-type(4){
+  bottom:-65px;
+  right:-60px;
+}
+
+#second:hover .border{
+  width:160px;
+  height:160px;
+}
+
+#second:hover button{
+  color:#35383a;
+  transition:color 2s ease;
+}
