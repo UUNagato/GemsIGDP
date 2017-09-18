@@ -15,10 +15,9 @@ var nunjucks_control = require('../controllers/nunjucks.js');
 var fn_initList = async(ctx, next) => {
     //first, get currentPage
     var currentPage = parseInt(ctx.params.currentPage);
-    console.log('currentPage from html :'+currentPage);
+    
     if(currentPage === null)
     {
-        console.log('page is null');
         currentPage = 1;
     }
         
@@ -52,22 +51,9 @@ var fn_initList = async(ctx, next) => {
         };
     }
 
-    var labels = {
-        label1 : {
-            src : 'www.baidu.com',
-            name : 'game_make'
-        },
-        
-        label2 : {
-            src : 'www.baidu.com',
-            name : 'game_design'
-        }
-    };
-    
-    
     
     //render the page
-    var s = nunjucks_control.env.render('articleList.html', {articles:articles, labels:labels, sumpage:page, currentpage:currentPage} );
+    var s = nunjucks_control.env.render('articleList.html', {articles:articles, sumpage:page, currentpage:currentPage} );
     ctx.response.body = s;
 };
 
@@ -76,32 +62,11 @@ var fn_initList = async(ctx, next) => {
 var fn_initArticlePage = async(ctx, next) => {
     let result = await article_control.searchArticleById(ctx.params.id);
 
-    var article = {
-        title : result.title,
-        content : result.content,
-        releasetime : result.release_time,
-        author : result.user.nickname,
-        dianzan : result.dianzan,
-        yuedu : result.liulan
-    };
-
     //find all comments
-    let comment = await article_control.getComments(ctx.params.id);
-    var comments = new Array();
-    var i;
-    
-    for(i in comment)
-    {
-        comments[i] = {
-            content : comment[i].content,
-            username : comment[i].user.nickname,
-            commenttime : comment[i].release_time
-        };
-    }
-
+    let comments = await article_control.getComments(ctx.params.id);
     
     //render
-    var s = nunjucks_control.env.render('articleUI.html', {article:article, comments:comments});
+    var s = nunjucks_control.env.render('articleUI.html', {article:result, comments:comments});
     ctx.response.body = s;
 };
 

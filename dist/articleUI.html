@@ -54,11 +54,11 @@
     <div class="container articlearea">          
       <div class="row">
         <div class="col-md-8">
-          <h1 class="articletitle" self="{{isself}}" id="title">{{article.title}}</h1>
+          <h1 class="articletitle" self="{{article.isself}}" id="title">{{article.title}}</h1>
         </div>
         <div class="col-md-4 withleftborder">
-          <div class="row"><img class="img-circle userimg" src="{{user.imgsrc}}"></div>
-          <div class="row username"><a href="{{user.homepage}}">{{article.author}}</a></div>
+          <div class="row"><img class="img-circle userimg" src="{{article.author_profile}}"></div>
+          <div class="row username"><a href="/idPage/{{article.user_id}}">{{article.author}}</a></div>
           <div class="row">
             <button class="btn btn-lg">关注</button>
             <div class="btn-group" id="hiddenbtn" >
@@ -108,18 +108,18 @@
     <div class="container commentarea">
       {% for comment in comments %}
         <div class="row" style="margin-top:30px;margin-left:30px;margin-right:30px;margin-bottom:30px;" >
-          <div class="col-md-2"><img class="commentuserimg img-circle" src="{{comment.user.imgsrc}}"></div>
+          <div class="col-md-2"><img class="commentuserimg img-circle" src="{{comment.user_profile}}"></div>
           <div class="col-md-10 commentingarea">
-            {% if comment.citecommentid != null %}
+            {% if comment.cite_comment_id != null %}
               <div class="row">
-                  <div class="col-md-2"><img class="incommentuserimg img-circle" src="{{comment.citecoment.user.imgsrc}}"></div>
+                  <div class="col-md-2"><img class="incommentuserimg img-circle" src="{{comment.citecoment.user_profile}}"></div>
                   <div class="col-md-10 commentingarea">
                     <div class="comment">
                       <p>{{comment.citecomment.content | safe}}</p>
                     </div>
                     <div class="row username">
                       <div class="col-md-3">
-                        <a href="{{citecomment.user.homepage}}">{{comment.citecoment.user.name}}}</a>
+                        <a href="/idPage/{{comment.citecomment.user_id}}">{{comment.citecoment.username}}}</a>
                       </div>
                       <div class="col-md-2 col-md-offset-7">
                         <p class="commenttime">{{comment.citecoment.commenttime}}</p>
@@ -133,7 +133,7 @@
                   <p>{{comment.content}}</p>
                 </div>
                 <div class="row username">
-                  <div class="col-md-2"><a href="{{comment.user.homepage}}">{{comment.username}}</a></div>
+                  <div class="col-md-2"><a href="/idPage/{{comment.user_id}}">{{comment.username}}</a></div>
                   <div class="col-md-1 col-md-offset-8">
                     <button class="btn btn-primary btn-sm" onclick="onReplyClick(this)" id="{{comment.id}}">回复</button>
                   </div>

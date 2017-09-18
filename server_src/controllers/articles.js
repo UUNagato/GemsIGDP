@@ -6,6 +6,7 @@
   */
 
 var models = require('../models');
+var user_control = require('/opt/gitProject/GemsIGDP/server_src/controllers/users.js');
 var Sequelize = require('sequelize');
 
 
@@ -90,17 +91,38 @@ var getArticleIdByTitlefunc = async function(title) {
 //use for the show of full text
 var searchArticleByIdfunc = async function(id) {
     var article = await models.article.findOne({
-        attributes : ['title','release_time','content','dianzan','liulan'],   
+        attributes : ['user_id','title','release_time','content','dianzan','liulan'],   
         include : [{
             model : models.user,
             attributes : ['nickname'],
             where : { id : Sequelize.col('article.user_id')}//merge the user's nickname from user_info where id==article.user_id
         }],
-        
         where:{id : id}
     });
 
-    return article;
+    var isself;
+    let currentUser = await user_control.getCurrentUser();
+    if(article.user_id === currentUser.id)
+        isself = 'true';
+    else
+        isself = 'false';
+
+    //get head picture
+    var headPic = await user_control.getHeadPic(article.user_id);
+
+    var result = {
+        user_id : article.user_id,
+        title : article.title,
+        releasetime : article.release_time,
+        content : article.content,
+        dianzan : article.dianzan,
+        yuedu : article.liulan,
+        author : article.user.nickname,
+        author_profile : headPic,
+        isself : isself
+    };
+    
+    return result;
 }
 
 
@@ -148,7 +170,7 @@ var getCommentsfunc = async function(article_id) {
     //not sure for include!!!!
     var comments = await models.commentList.findAll({
           limit: 30,
-          attributes: ['release_time','content'],
+          attributes: ['user_id','release_time','content','cite_comment_id'],
           include:[{
               model: models.user,
               attributes: ['nickname'],
@@ -160,7 +182,61 @@ var getCommentsfunc = async function(article_id) {
       });
 
 
-      return comments;
+    var i;
+    var result = new Array();
+    for(i in comments)
+    {
+        //get comment.user_profile
+        var headPic = await user_control.getHeadPic(comments[i].user_id);
+        //get cite comments
+        var citecomment = null;
+        if(comments[i].cite_comment_id != null)
+        {   
+            citecomment = await models.commentList.findOne({
+                attributes : ['user_id','release_time','content'],
+                include : [{
+                    model : models.user,
+                    attributes : ['nickname'],
+                    where : { id : Sequelize.col('commentList.user_id')}
+                }],
+                where : { id : comments[i].cite_comment_id}
+            });
+
+            var cite_userprofile = await user_control.getHeadPic(citecomment.user_id);//get cite comment's user profile
+        }
+
+        if(citecomment != null)
+        {
+            result[i] = {
+                user_id : comments[i].user_id,
+                username : comments[i].user.nickname,
+                user_profile : headPic,
+                commenttime : comments[i].release_time,
+                content : comments[i].content,
+                cite_comment_id : comments[i].cite_comment_id,
+                citecomment : {
+                    user_profile : cite_userprofile,
+                    username : citecomment.user.nickname,
+                    user_id : citecomment.user_id,
+                    content : citecomment.content,
+                    commenttime : citecomment.release_time
+                }
+            };
+        }
+        else{
+            result[i] = {
+                user_id : comments[i].user_id,
+                username : comments[i].user.nickname,
+                user_profile : headPic,
+                commenttime : comments[i].release_time,
+                content : comments[i].content,
+                cite_comment_id : comments[i].cite_comment_id
+            };
+        }
+        
+    }
+    
+    return result;
 };
 
 
