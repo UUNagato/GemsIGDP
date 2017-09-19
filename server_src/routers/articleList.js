@@ -43,7 +43,7 @@ var fn_initList = async(ctx, next) => {
         articles[i] = {
             id : result[i].id,
             title : result[i].title,
-            author : result[i].user.nickname,
+            author : result[i].author,
             label : result[i].label,
             releasetime : result[i].release_time,
             dianzan : result[i].dianzan,
@@ -125,8 +125,14 @@ var fn_addComment = async(ctx, next) => {
     let article_id = parseInt(ctx.request.body.articleid);
     let content = ctx.request.body.content;
 
-    console.log('get article_id:'+article_id);
-    await article_control.addComment(article_id,content);
+    try{
+        await article_control.addComment(article_id,content);
+    }catch(error){
+        ctx.response.body = {error : error};
+        return;
+    }
+    
+    ctx.response.body = 'success!';
 };
 
 //add comment(with cite_comment)
@@ -135,7 +141,14 @@ var fn_addCommentWithCite = async(ctx, next) => {
     let content = ctx.request.body.content;
     let cite_id = parseInt(ctx.request.body.citecommentid);
 
-    await article_control.addCommentWithCite(article_id,cite_id,content);
+    try{
+        await article_control.addCommentWithCite(article_id,cite_id,content);
+    }catch(error){
+        ctx.response.body = {error : error};
+        return;
+    }
+
+    ctx.response.body = 'success!';
 };
 
 module.exports = {

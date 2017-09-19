@@ -36,24 +36,32 @@ var fn_initRequestPage = async(ctx,next) => {
 
 //to show the full text of a request
 var fn_showFullRequest = async(ctx,next) => {
-    var result = await request_control.getRequestById(ctx.params.id);
+    var request = await request_control.getRequestById(ctx.params.id);
 
-    var request = {
-        title : result.title,
-        author : result.user.nickname,
-        content : result.content,
-        contact : result.contact,
-        yuedu : result.yuedu,
-        releasetime : result.release_time
-    }
-
-    var s = nunjucks_control.env.render('requestUI.html', {request:request});
-
+    //render
+    var s = nunjucks_control.env.render('requestDetail.html', {request:request});
     ctx.response.body = s;
+};
+
+
+//delete a request
+var fn_deleteRequest = async(ctx,next) => {
+    let id = parseInt(ctx.request.body.id);
+    
+    try{
+        await request_control.deleteRequest(id);
+    }catch(error){
+        console.log(error);
+        ctx.response.body = {error : error};
+        return;
+    }
+    
+    ctx.response.body = 'success!';
 };
 
 
 module.exports = {
     'GET /requestList/:currentPage' : fn_initRequestPage,
-    'GET /requestList/details/:id' : fn_showFullRequest
+    'GET /requestList/details/:id' : fn_showFullRequest,
+    'POST /requestList/delete' : fn_deleteRequest
 }

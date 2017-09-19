@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
-    <title>requestUI</title>
+    <title>需求列表</title>
     <link rel="stylesheet" href="/css/style.css" media="screen">
     <link rel="stylesheet" href="/css/request.css">
   </head>
@@ -62,7 +62,7 @@
                   <div class="col-md-4">
                     <div class="request-detail">
                       <div class="title">
-                        <h3>{{request.title}}</h3>
+                        <a href='/requestList/details/{{request.id}}' style="font-size:25px;">{{request.title}}</a>
                       </div>
                       <div class="detail">
                         <p>{{request.content}}</p>

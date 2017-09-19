@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/components/summernote/summernote.css">
     <script type="text/javascript" src="/components/summernote/summernote.min.js"></script>
     <title>文章</title>
-    <link rel="stylesheet" href="/css/basic.css" tyoe="text/css">
+    <link rel="stylesheet" href="/css/basic.css" type="text/css">
   </head>
   <body>
     <nav class="navbar navbar-inverse">
@@ -60,7 +60,7 @@
           <div class="row"><img class="img-circle userimg" src="{{article.author_profile}}"></div>
           <div class="row username"><a href="/idPage/{{article.user_id}}">{{article.author}}</a></div>
           <div class="row">
-            <button class="btn btn-lg">关注</button>
+            <button class="btn btn-lg" onclick="onGuanzhuClick()" id="guanzhu">关注</button>
             <div class="btn-group" id="hiddenbtn" style="display:none;">
                 <button type="button" class="btn btn-lg dropdown-toggle" data-toggle="dropdown">编辑/删除
                     <span class="caret"></span>
