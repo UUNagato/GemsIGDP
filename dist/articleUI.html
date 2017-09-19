@@ -108,21 +108,26 @@
     <div class="container commentarea">
       {% for comment in comments %}
         <div class="row" style="margin-top:30px;margin-left:30px;margin-right:30px;margin-bottom:30px;" >
-          <div class="col-md-2"><img class="commentuserimg img-circle" src="{{comment.user_profile}}"></div>
+          <div class="col-md-2">
+            <img class="commentuserimg img-circle" src="{{comment.user_profile}}">
+            <div class="username"><a href="/idPage/{{comment.user_id}}">{{comment.username}}</a></div>
+          </div>
           <div class="col-md-10 commentingarea">
             {% if comment.cite_comment_id != null %}
               <div class="row">
-                  <div class="col-md-2"><img class="incommentuserimg img-circle" src="{{comment.citecoment.user_profile}}"></div>
+                  <div class="col-md-2">
+                    <img class="incommentuserimg img-circle" src="{{comment.citecomment.user_profile}}">
+                    <div class="username">
+                        <a href="/idPage/{{comment.citecomment.user_id}}">{{comment.citecomment.username}}</a>
+                    </div>
+                  </div>
                   <div class="col-md-10 commentingarea">
                     <div class="comment">
                       <p>{{comment.citecomment.content | safe}}</p>
                     </div>
                     <div class="row username">
-                      <div class="col-md-3">
-                        <a href="/idPage/{{comment.citecomment.user_id}}">{{comment.citecomment.username}}</a>
-                      </div>
-                      <div class="col-md-2 col-md-offset-7">
-                        <p class="commenttime">{{comment.citecomment.commenttime}}</p>
+                      <div class="col-md-3 col-md-offset-8">
+                        <p class="commenttime">{{comment.citecoment.commenttime}}</p>
                       </div>
                     </div>
                   </div>
@@ -133,11 +138,10 @@
                   <p>{{comment.content | safe}}</p>
                 </div>
                 <div class="row username">
-                  <div class="col-md-2"><a href="/idPage/{{comment.user_id}}">{{comment.username}}</a></div>
                   <div class="col-md-1 col-md-offset-8">
                     <button class="btn btn-primary btn-sm" onclick="onReplyClick(this)" id="{{comment.id}}">回复</button>
                   </div>
-                  <div class="col-md-1">
+                  <div class="col-md-3">
                     <p class="commenttime">{{comment.commenttime}}</p>
                   </div>
                 </div>
