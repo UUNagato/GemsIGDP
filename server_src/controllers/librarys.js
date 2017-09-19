@@ -150,9 +150,59 @@ var getLibrarysByTagsfunc = async function(tags){
     return result;
 };
 
+/**
+ * @param {integer} userid the id of user
+ * @return {integer} library id
+ */
+var findAndCreateALibraryfunc = async function(userid) {
+    // find if there's already a library
+    var lib = await models.library.findOne({
+        where: {user_id : userid}
+    });
+
+    if(lib !== null) {
+        return lib.id;
+    }
+
+    // create
+    lib = await models.library.create({
+        create_time: new Date(),
+        user_id : userid,
+        library_name : userid.toString()
+    });
+
+    return lib.id;
+}
+
+/**
+ * 
+ * @param {string} name
+ * @param {string} tags
+ * @param {integer} userid 
+ * @param {integer} file_id 
+ * @param {integer} thumbnail_id 
+ */
+var uploadAMaterialfunc = async function(name, tags, userid, file_id, thumbnail_id) {
+    var libid = await findAndCreateALibraryfunc(userid);
+    if(libid !== undefined) {
+        var nf = await models.libraryFile.create({
+            name : name,
+            tags : tags,
+            library_id : libid,
+            file_id : file_id,
+            thumbnail_id : thumbnail_id,
+            upload_time : new Date()
+        });
+
+        return (nf !== null);
+    }
+    return false;
+}
+
 
 module.exports = {
     getMostRecentMaterials : getMostRecentMaterialsfunc,
     getALibraryfileById : getALibraryfileByIdfunc,
-    getLibrarysByTags : getLibrarysByTagsfunc
+    getLibrarysByTags : getLibrarysByTagsfunc,
+    uploadAMaterial : uploadAMaterialfunc
 };
