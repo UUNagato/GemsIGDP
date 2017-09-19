@@ -6,13 +6,14 @@
 
 
 var models = require('../models');
+var date_convert = require('../configs/date_format.js');
 var Sequelize = require('sequelize');
 
 
 //get the request by id
 //use for the show of all text
 var getRequestByIdfunc = async function(id) {
-    var request = await models.request.findOne({
+    var r = await models.request.findOne({
         attributes : ['title','yuedu','release_time','content','contact'],
         include: [{
             model: models.user,
@@ -38,7 +39,7 @@ var releaseRequestfunc = async function(user_id,title,content,contact) {
         await models.request.create({
             user_id : user_id,
             title : title,
-            release_time : new Date(),
+            release_time : date_convert.getDateTime(new Date()),
             content : content,
             contact : contact
         });

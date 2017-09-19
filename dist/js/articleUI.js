@@ -87,7 +87,6 @@ function onCommentClick(){
         var address = new Array();
         address = url.split("/");
         var add = parseInt(address[address.length-1]);
-        console.log('article_id:'+add);
 
         if(document.getElementById("commentbtn").innerHTML == "评论"){
             $.ajax({
@@ -111,6 +110,7 @@ function onCommentClick(){
             });
         }
         else{
+            console.log('cite id:'+id_temp);//for test!!!!!!!!!
             $.ajax({
                 url:'/articleList/comment/addWithCite',
                 method:'POST',
@@ -150,9 +150,8 @@ function onReplyClick(obj){
     document.getElementById("commentbtn").classList.add("btn-primary");
     document.getElementById("commentbtn").classList.remove("btn-lg");
     document.getElementById("commentbtn").classList.add("btn-default");
-    id_temp = obj.id;
-    
-    
+    var $event = $(obj);
+    id_temp = $event.attr('id');
 }
 
 function onCancelClick(){

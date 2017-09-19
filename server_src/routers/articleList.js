@@ -122,7 +122,7 @@ var fn_writeNew = async function(ctx, next) {
 
 //add comment(with no cite_comment)
 var fn_addComment = async(ctx, next) => {
-    let article_id = ctx.request.body.articleid;
+    let article_id = parseInt(ctx.request.body.articleid);
     let content = ctx.request.body.content;
 
     console.log('get article_id:'+article_id);
@@ -131,9 +131,9 @@ var fn_addComment = async(ctx, next) => {
 
 //add comment(with cite_comment)
 var fn_addCommentWithCite = async(ctx, next) => {
-    let article_id = ctx.request.body.articleid;
+    let article_id = parseInt(ctx.request.body.articleid);
     let content = ctx.request.body.content;
-    let cite_id = ctx.request.body.citecommentid;
+    let cite_id = parseInt(ctx.request.body.citecommentid);
 
     await article_control.addCommentWithCite(article_id,cite_id,content);
 };

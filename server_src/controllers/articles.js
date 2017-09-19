@@ -7,6 +7,7 @@
 
 var models = require('../models');
 var user_control = require('/opt/gitProject/GemsIGDP/server_src/controllers/users.js');
+var date_convert = require('../configs/date_format.js');
 var Sequelize = require('sequelize');
 
 
@@ -18,8 +19,8 @@ var releaseArticlefunc = async function(user_id, title, label, content) {
             await models.article.create({
                 user_id : user_id,
                 title : title,
-                release_time : new Date(),
-                update_time : new Date(),
+                release_time : date_convert.getDateTime(new Date()),
+                update_time : date_convert.getDateTime(new Date()),
                 label : label,
                 content : content
             });
@@ -180,8 +181,8 @@ var addCommentfunc = async function(article_id,content) {
                 content : content,
                 user_id : user_id,
                 article_id : article_id,
-                release_time : new Date(),
-                last_release_time : new Date()
+                release_time : date_convert.getDateTime(new Date()),
+                last_release_time : date_convert.getDateTime(new Date())
             });
         }catch(error){
             console.log('add comment, errors happen: '+error);
@@ -217,8 +218,8 @@ var addCommentWithCitefunc = async function(article_id, cite_id, content){
                 user_id : user_id,
                 article_id : article_id,
                 cite_comment_id : cite_id,
-                release_time : new Date(),
-                last_release_time : new Date()
+                release_time : date_convert.getDateTime(new Date()),
+                last_release_time : date_convert.getDateTime(new Date())
             });
         }catch(error){
             console.log('add comment, errors happen: '+error);
@@ -241,7 +242,7 @@ var getCommentsfunc = async function(article_id) {
     //not sure for include!!!!
     var comments = await models.commentList.findAll({
           limit: 30,
-          attributes: ['user_id','release_time','content','cite_comment_id'],
+          attributes: ['id','user_id','release_time','content','cite_comment_id'],
           include:[{
               model: models.user,
               attributes: ['nickname'],
@@ -259,6 +260,7 @@ var getCommentsfunc = async function(article_id) {
     {
         //get comment.user_profile
         var headPic = await user_control.getHeadPic(comments[i].user_id);
+        console.log('headpic:'+headPic);
         //get cite comments
         var citecomment = null;
         if(comments[i].cite_comment_id != null)
@@ -279,6 +281,7 @@ var getCommentsfunc = async function(article_id) {
         if(citecomment != null)
         {
             result[i] = {
+                id : comments[i].id,
                 user_id : comments[i].user_id,
                 username : comments[i].user.nickname,
                 user_profile : headPic,
@@ -296,6 +299,7 @@ var getCommentsfunc = async function(article_id) {
         }
         else{
             result[i] = {
+                id : comments[i].id,
                 user_id : comments[i].user_id,
                 username : comments[i].user.nickname,
                 user_profile : headPic,
