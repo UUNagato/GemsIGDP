@@ -9,10 +9,9 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
-    <title>articleUI</title>
+    <title>需求详细信息</title>
     <link rel="stylesheet" href="/css/style.css" media="screen">
     <link rel="stylesheet" href="/css/requestDetail.css">
-    <script type="text/javascript" src="/js/request.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -65,17 +64,22 @@
                   <script type="text/javascript">
                       function deleteRequest(event){
                         let id = $(event).attr('id');
+                        console.log('delete id:'+id);
                         $.ajax({
-                            url: '',
+                            url: '/requestList/delete',
                             type:'POST',
                             //cache:false,
                             data:{
                                 id : id
                             },
                             success:function(data){
-                                console.log('success!');
-                                alert("删除成功！");
-                                window.history.back(-1);
+                                if(data.error){
+                                    alert(data.error);
+                                }
+                                else{
+                                    alert("删除成功！");
+                                    window.open('/requestList/1','_parent');
+                                }
                             }
                         });
                       }
