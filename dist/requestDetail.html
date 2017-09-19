@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/global.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/global.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/global.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
     <title>articleUI</title>
-    <link rel="stylesheet" href="css/style.css" media="screen">
-    <link rel="stylesheet" href="css/requestDetail.css">
-    <script type="text/javascript" src="js/request.js"></script>
+    <link rel="stylesheet" href="/css/style.css" media="screen">
+    <link rel="stylesheet" href="/css/requestDetail.css">
+    <script type="text/javascript" src="/js/request.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -60,11 +60,9 @@
                     <h1 style="text-align:center;">{{request.title}}</h1>
                   </div>
                 </div>
-                {% if  %}
                 <div class="col-md-2 col-md-push-6">
                   <div class="delete"><a class="glyphicon glyphicon-trash" id='{{request.id}}' onclick='deleteRequest(this)'>删除需求</a></div>
                 </div>
-                {% endif %}
               </div>
               <div class="row">
                 <div class="col-md-4 col-md-push-3">
