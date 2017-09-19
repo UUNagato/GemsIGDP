@@ -369,7 +369,7 @@ var getArticleListfunc = async function(page){
 //return the number
 var getNumberOfCommentsfunc = async function(article_id){
     var result = await models.commentList.findAndCountAll({
-        where : { id : article_id }
+        where : { article_id : article_id }
     });
 
     return result.count;
@@ -383,6 +383,19 @@ var getNumberOfArticlesfunc = async function(){
     var result = await models.article.findAndCountAll();
 
     return result.count;
+};
+
+/**
+ * 
+ * @param {integer} article_id 
+ * when user click to open the articleUI.html, this article's liulan++
+ */
+var upLiulanfunc = async function(article_id){
+    let article = await models.article.findOne({
+        where : {id : article_id}
+    });
+
+    article.increment('liulan');
 };
 
 
@@ -399,5 +412,6 @@ module.exports = {
       getComments : getCommentsfunc,
       getArticleList : getArticleListfunc,
       getNumberOfComments : getNumberOfCommentsfunc,
-      getNumberOfArticles : getNumberOfArticlesfunc
+      getNumberOfArticles : getNumberOfArticlesfunc,
+      upLiulan : upLiulanfunc
 };

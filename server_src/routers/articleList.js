@@ -61,6 +61,7 @@ var fn_initList = async(ctx, next) => {
 
 //init articleUI.html
 var fn_initArticlePage = async(ctx, next) => {
+    await article_control.upLiulan(ctx.params.id);
     let result = await article_control.searchArticleById(ctx.params.id);
 
     //find all comments
