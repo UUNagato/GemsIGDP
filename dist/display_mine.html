@@ -5,12 +5,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的展示窗</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/global.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/global.js"></script>
-    <link href="css/display_mine.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/global.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
+    <link href="/css/display_mine.css" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -50,7 +50,7 @@
     <header class="mine" style="background-image: url(https://d1jlf623bx36qa.cloudfront.net/static/builds/web/dist/polygons-gradients-f8c2f6e837438e4f72a517f2331a3702.png)">
       <div class="mine_container">
         <div class="avater">
-          <img id="imgInit" src="img/1.jpg" style="width:100px;height:100px;display:block;"/> 
+          <img id="imgInit" style="width:100px;height:100px;display:block;"/> 
             <script language="javascript">
               $().ready(function(){
                 var profilesrc = window.localStorage.getItem('user_profile');
@@ -76,12 +76,12 @@
     </header>
     <div class="display_wrapper" style="width:90%;">
         <div class="display_cols">
-          {% for item in items %}
-          <div class="display_col" ontouchstart="this.classList.toggle('hover');" onclick='window.location.href="/displays/details/{{item.ewindow.id}}"'>
+          {% for ewindow in ewindows %}
+          <div class="display_col" ontouchstart="this.classList.toggle('hover');" onclick='window.location.href="/displays/details/{{ewindow.id}}"'>
             <div class="display_container">
-              <div class="display_front" style='background-image: url("{{item.file.path}}");'>
+              <div class="display_front" style='background-image: url("{{ewindow.filepath}}");'>
                 <div class="display_inner">
-                  <p>{{item.ewindow.title}}</p><span>{{item.ewindow.author}}</span>
+                  <p>{{ewindow.title}}</p><span>{{ewindow.author}}</span>
                 </div>
               </div>
               <div class="display_back">
@@ -89,7 +89,7 @@
                   <span class="glyphicon glyphicon-trash"></span> 
                 </button>
                 <div class="display_inner">
-                  <p>{{item.ewindow.introduce}}</p>
+                  <p>{{ewindow.introduce}}</p>
                 </div>
               </div>
             </div>

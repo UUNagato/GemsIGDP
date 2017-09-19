@@ -45,12 +45,12 @@ $().ready(function() {
             data,
             function(data, status) {
                 if(status === 'success') {
-                    if(data.error) {
+                    if(data.error !== undefined) {
                         setErrorInfo(data.error);
-                    } else if(data.token) {
+                    } else if(data.token !== undefined) {
                         var date = new Date();
                         date.setTime(date.getTime() + 15 * 24 * 3600000);
-                        document.cookie = 'authentication=' + data.token + '; expires=' + date.toUTCString();
+                        document.cookie = 'authentication=' + data.token + '; expires=' + date.toUTCString() + '; path=/' ;
                         // save csrf
                         window.localStorage.setItem('csrf',data.csrf);
                         // jump

@@ -5,11 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
+    <title>素材库</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/global.css" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
+    <script type="text/javascript" src="/js/sucai.js"></script>
     <link href="/css/sucai-style.css" rel="stylesheet">
   </head>
   <body>
@@ -59,13 +61,37 @@
         <li class="category-item"> <a href="#">科学</a></li>
         <li class="category-item"><a href="#">更多...</a></li>
       </ul>
+      <div class="top_btn">
+        <div id="first" class="buttonBox">
+            <button onclick="window.location.href='/displays/upload'">发布</button>
+            <div class="border"></div>
+            <div class="border"></div>
+            <div class="border"></div>
+            <div class="border"></div>
+        </div>>
+        <div id="second" class="buttonBox">
+            <button onclick="window.location.href='/displays/my'">我的</button>
+            <div class="border"></div>
+            <div class="border"></div>
+            <div class="border"></div>
+            <div class="border"></div>
+          </div>
+      <div class="col-sm-2 col-xs-6">
+        <div class="input-group">
+            <input type="text" class="form-control" onkeydown="onKeyDown(event)"/>
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        </div>    
+      </div>
+      <div class="clearfloat">
+      </div>   
+    </div>
       <div class="items">
         {% for item in items %}
         <div class="item">
           <div class="card_main"><a href="#" target="_blank" title="page"><img class="card" src="{{item.thumbnail_src}}"></a></div>
           <div class="card_footer"> 
             <div class="card_footer_left">
-              <div class="image_container"><a class="card_footer_avatar" href="#"><img class="head" src="{{item.uploader_profile}}"></a></div>
+              <div class="image_container"><a class="card_footer_avatar" href="#"><img class="head" src="{{item.uploader_profile}}" href='/materials/details/{{item.id}}'></a></div>
               <p class="card_footer_title"> <a class="model-name_label" href="/materials/details/{{item.id}}" target="_blank" title="Ako">{{item.title}}</a></p>
             </div>
             <div class="card_footer_right">

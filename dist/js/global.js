@@ -21,8 +21,10 @@ function isLocallyLogin() {
     var cookies = document.cookie.split('; ');
     for(i in cookies) {
         var arr = cookies[i].split('=');
-        if(arr[0]==='authentication') {
+        if(arr[0]==='authentication' && arr[1]!=='null') {
             return true;
+        } else {
+            return false;
         }
     }
     return false;
@@ -61,7 +63,7 @@ function logOut() {
 
         var date = new Date();
         date.setTime(date.getTime() - 1000);
-        document.cookie = 'authentication=; expires=' + date.toUTCString();
+        document.cookie = 'authentication=null; expires=' + date.toUTCString() + '; path=/';
         location.reload();
     }
 }

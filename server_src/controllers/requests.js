@@ -6,13 +6,14 @@
 
 
 var models = require('../models');
+var date_convert = require('../configs/date_format.js');
 var Sequelize = require('sequelize');
 
 
 //get the request by id
 //use for the show of all text
 var getRequestByIdfunc = async function(id) {
-    var request = await models.request.findOne({
+    var r = await models.request.findOne({
         attributes : ['title','yuedu','release_time','content','contact'],
         include: [{
             model: models.user,
@@ -24,6 +25,14 @@ var getRequestByIdfunc = async function(id) {
             id : id
         }
     });
+
+    var request = {
+        title : r.title,
+        yuedu : r.yuedu,
+        release_time : date_convert.getDateTime(r.release_time),
+        content : r.content,
+        contact : r.contact
+    };
 
     return request;
 };
@@ -81,19 +90,43 @@ var upYuedufunc = async function(id) {
 };
 
 
+//get the number of all requests
+//return the count
+var countRequestsfunc = async function(){
+    var requests = await models.request.findAndCountAll();
+
+    return requests.count;
+}
+
 //get all requests in request_list table
 //use for show in requestList.html
 //return requests(include object and count)
-var getRequestListfunc = async function(){
-    var requests = await models.request.findAndCountAll({
-        attributes : ['id','title','yuedu','release_time'],
+var getRequestListfunc = async function(currentPage){
+    let c = (currentPage-1) *6;
+    var r = await models.request.findAll({
+        attributes : ['id','title','content','yuedu','release_time'],
+        limit : 6,
         include: [{
             model: models.user,
             attributes : ['nickname'],
             where: { id: Sequelize.col('request.user_id') },//include the user's nickname
             required: true
         }],
+        where : {id : {$gt : c}}
     });
+
+    var i;
+    var requests = new Array();
+    for(i in r)
+    {
+        requests[i] = {
+            id : r[i].id,
+            title : r[i].title,
+            content : r[i].content,
+            yuedu : r[i].yuedu,
+            release_time : date_convert.getDateTime(r[i].release_time)
+        };
+    }
 
     return requests;
 };
@@ -101,5 +134,6 @@ var getRequestListfunc = async function(){
 module.exports = {
     getRequestById : getRequestByIdfunc,
     releaseRequest : releaseRequestfunc,
-    getRequestList : getRequestListfunc
+    getRequestList : getRequestListfunc,
+    countRequests : countRequestsfunc
 }

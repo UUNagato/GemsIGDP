@@ -44,8 +44,6 @@ $().ready(function(){
             }
         }
     });
-
-
 });
 
 function Delete(){
@@ -60,12 +58,11 @@ function Delete(){
             url:'/articleList/delete',
             type:'POST',
             cache:false,
-            data:add,
+            data:{article_id:add},
             beforeSend:function(req){
                 req.setRequestHeader('x-access-token',csrf)
             },
             success:function(data){
-                console.log('successs!');
                 if(data.error)
                     alert("删除失败");
                 else{
@@ -75,7 +72,6 @@ function Delete(){
             }
         })
     }
-    
 }
 
 function onCommentClick(){
@@ -94,13 +90,12 @@ function onCommentClick(){
 
         if(document.getElementById("commentbtn").innerHTML == "评论"){
             $.ajax({
-                url:'',
+                url:'/articleList/comment/add',
                 method:'POST',
                 data:{
                     articleid:add,
                     content:text},
-                cache:false,
-                dataType:'json',
+                //cache:false,
                 beforeSend:function(xhr){
                     xhr.setRequestHeader('x-access-token',csrf);
                 },
@@ -115,15 +110,15 @@ function onCommentClick(){
             });
         }
         else{
+            console.log('cite id:'+id_temp);//for test!!!!!!!!!
             $.ajax({
-                url:'',
+                url:'/articleList/comment/addWithCite',
                 method:'POST',
                 data:{
                     articleid:add,
                     citecommentid:id_temp,
                     content:text},
-                cache:false,
-                dataType:'json',
+                //cache:false,
                 beforeSend:function(xhr){
                     xhr.setRequestHeader('x-access-token',csrf);
                 },
@@ -155,9 +150,8 @@ function onReplyClick(obj){
     document.getElementById("commentbtn").classList.add("btn-primary");
     document.getElementById("commentbtn").classList.remove("btn-lg");
     document.getElementById("commentbtn").classList.add("btn-default");
-    id_temp = obj.id;
-    
-    
+    var $event = $(obj);
+    id_temp = $event.attr('id');
 }
 
 function onCancelClick(){
