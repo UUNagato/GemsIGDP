@@ -426,16 +426,16 @@ var getProfileAndNicknameByIdfunc = async function(user_id) {
 
 /**
  * 
- * @param {Integer} file_id 
- * @param {String} path 
- * @return {Boolean} ture for modify success, false for not
+ * @param {integer} userid 
+ * @param {integer} fileid
+ * @return {boolean} ture for modify success, false for not
  * use for user upload head picture and modify it 
  */
-var modifyHeadPicfunc = async function(file_id, path){
+var modifyHeadPicfunc = async function(userid, fileid){
     try{
-        await models.file.update({
-            file_path : path,
-            where : {id : file_id}
+        await models.user.update({
+            profile : fileid},{
+            where : {id : userid}
         });
     }catch(error){
         console.log('modify profile, errors happen:'+error);
@@ -462,7 +462,7 @@ module.exports = {
     getValidatedUser : getValidatedUserfunc,
     getHeadPic : getHeadPicfunc,
     getProfileAndNicknameById : getProfileAndNicknameByIdfunc,
-    modifyHeadPic : modifyHeadPicfunc
+    modifyHeadPic : modifyHeadPicfunc,
 
     middleware: userTokenMiddleware
 };
