@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
-    <title>requestUI</title>
+    <title>需求列表</title>
     <link rel="stylesheet" href="/css/style.css" media="screen">
     <link rel="stylesheet" href="/css/request.css">
   </head>
@@ -54,6 +54,9 @@
           <div class="col-md-4 col-md-push-5">
             <h1 class="requestlisttitle" style="color:#EEEEEE;">需求列表</h1>
           </div>
+          <div class="col-md-2 col-md-push-7">
+            <a class="glyphicon glyphicon-pencil" style="font-size:15px;color:#EEEEEE;margin-top:30px;" href='/requestList/release/edit'>发布需求</a>
+            </div>
           <div class="col-md-12">
             <div class="request">
               <div class="container-fluid">
@@ -62,10 +65,10 @@
                   <div class="col-md-4">
                     <div class="request-detail">
                       <div class="title">
-                        <h3>{{request.title}}</h3>
+                        <a href='/requestList/details/{{request.id}}' style="font-size:25px;">{{request.title}}</a>
                       </div>
                       <div class="detail">
-                        <p>{{request.content}}</p>
+                        <p>{{request.content | safe}}</p>
                       </div>
                     </div>
                   </div>

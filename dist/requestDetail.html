@@ -4,15 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/global.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/global.js"></script>
-    <title>articleUI</title>
-    <link rel="stylesheet" href="css/style.css" media="screen">
-    <link rel="stylesheet" href="css/requestDetail.css">
-    <script type="text/javascript" src="js/request.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/global.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
+    <title>需求详细信息</title>
+    <link rel="stylesheet" href="/css/style.css" media="screen">
+    <link rel="stylesheet" href="/css/requestDetail.css">
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -60,29 +59,32 @@
                     <h1 style="text-align:center;">{{request.title}}</h1>
                   </div>
                 </div>
-                {% if  %}
                 <div class="col-md-2 col-md-push-6">
                   <div class="delete"><a class="glyphicon glyphicon-trash" id='{{request.id}}' onclick='deleteRequest(this)'>删除需求</a></div>
                   <script type="text/javascript">
                       function deleteRequest(event){
                         let id = $(event).attr('id');
+                        console.log('delete id:'+id);
                         $.ajax({
-                            url: '',
+                            url: '/requestList/delete',
                             type:'POST',
                             //cache:false,
                             data:{
                                 id : id
                             },
                             success:function(data){
-                                console.log('success!');
-                                alert("删除成功！");
-                                window.history.back(-1);
+                                if(data.error){
+                                    alert(data.error);
+                                }
+                                else{
+                                    alert("删除成功！");
+                                    window.open('/requestList/1','_parent');
+                                }
                             }
                         });
                       }
                   </script>
                 </div>
-                {% endif %}
               </div>
               <div class="row">
                 <div class="col-md-4 col-md-push-3">
@@ -100,7 +102,7 @@
                 </div>
                 <div class="col-md-10 col-md-push-1">
                   <div class="detail">
-                    <p style="font-size:20px;">{{request.content}}</p>
+                    <p style="font-size:20px;">{{request.content | safe}}</p>
                   </div>
                 </div>
               </div>

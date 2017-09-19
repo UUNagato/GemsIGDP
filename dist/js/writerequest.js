@@ -43,20 +43,15 @@ $(document).ready(function(){
 
 function onSubmitClick() {
     $('#informwindow').hide();
-    var title = $('#requesttitle').val();
+    var title = $('#articletitle').val();
+    var contact = $('#contact').val();
     var titleexp = /^\D[^><\n\f\r\t\v]{6,50}/;
-    var contact = $('#requestcontact').val();
-    var contactexp = /^\D[^><\n\f\r\t\v]{0,20}/;
     if(!titleexp.test(title)) {
         $('#informwindow').html('标题不符合格式（长度不符或包含敏感字符）').show();
         return;
     }
-    if(!contactexp.test(contact)) {
-        $('#informwindow').html('联系方式不符合格式（长度不符或包含敏感字符）').show();
-        return;
-    }
     var text = $('#summernote').summernote('code');
-    if(text.length < 10 || text.length > 300) {
+    if(text.length < 30 || text.length > 30000) {
         $('#informwindow').html('正文内容太长或太短').show();
         return;
     }
@@ -68,21 +63,23 @@ function onSubmitClick() {
 
     if(csrf === null) {
         $('#informwindow').html('登录已过期，请重新登录').show();
-        var date = new Date();
-        date.setTime(date.getTime() - 1000);
-        document.cookie = 'authentication=null;expires=' + date;
+        logOut();
         return;
     }
 
+    console.log('title:'+title);
+    console.log('content:'+text);
+    console.log('contact:'+contact);
     // all comfirmed
     $.ajax({
-        url:'/requestList/newpost',
+        url:'/requestList/release',
         method:'POST',
         data:{
             title:title,
-            content:text},
-        cache:false,
-        dataType:'json',
+            content:text,
+            contact:contact
+        },
+        //cache:false,
         beforeSend:function(xhr){
             xhr.setRequestHeader('x-access-token',csrf);
         },
@@ -92,7 +89,7 @@ function onSubmitClick() {
             } else {
                 $('#informwindow').removeClass('alert-danger').addClass('alert-success');
                 $('#informwindow').html('发布成功').show();
-                window.location.href = '/articleList/1';
+                window.location.href = '/requestList/1';
             }
         }
     });

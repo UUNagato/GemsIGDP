@@ -228,7 +228,7 @@ var addCommentWithCitefunc = async function(article_id, cite_id, content){
         }
     }else{
         console.log('add comment, the article_id is not an integer!');
-        throw({error:'the article_id is not an integer!'});
+        throw('the article_id is not an integer!');
         return false;
     }
 
@@ -323,7 +323,7 @@ var getArticleListfunc = async function(page){
     let p = (page - 1) * 5; 
     console.log('p : '+p);
 
-    var articles = await models.article.findAll({
+    var a = await models.article.findAll({
         limit : 5,
         attributes : ['id','title','release_time','label','dianzan','liulan','user_id'],
         include : [{
@@ -337,9 +337,29 @@ var getArticleListfunc = async function(page){
     });
 
     if(articles === null)
+    {
         console.log('get not articles to show in list....');
+        return null;
+    }
     else
+    {
+        var i;
+        var articles = new Array();
+        for(i in a)
+        {
+            articles[i] = {
+                id : a[i].id,
+                title : a[i].title,
+                release_time : date_convert.getDateTime(a[i].release_time),
+                label : a[i].label,
+                diazan : a[i].dianzan,
+                liulan : a[i].liulan,
+                user_id : a[i].user_id,
+                author : a[i].user.nickname
+            };
+        }
         return articles;
+    }
 };
 
 

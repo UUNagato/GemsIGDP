@@ -36,24 +36,58 @@ var fn_initRequestPage = async(ctx,next) => {
 
 //to show the full text of a request
 var fn_showFullRequest = async(ctx,next) => {
-    var result = await request_control.getRequestById(ctx.params.id);
+    var request = await request_control.getRequestById(ctx.params.id);
 
-    var request = {
-        title : result.title,
-        author : result.user.nickname,
-        content : result.content,
-        contact : result.contact,
-        yuedu : result.yuedu,
-        releasetime : result.release_time
+    //render
+    var s = nunjucks_control.env.render('requestDetail.html', {request:request});
+    ctx.response.body = s;
+};
+
+
+//delete a request
+var fn_deleteRequest = async(ctx,next) => {
+    let id = parseInt(ctx.request.body.id);
+    
+    try{
+        await request_control.deleteRequest(id);
+    }catch(error){
+        console.log(error);
+        ctx.response.body = {error : error};
+        return;
+    }
+    
+    ctx.response.body = 'success!';
+};
+
+//init release request page
+var fn_initReleasePage = async(ctx,next) => {
+    ctx.response.body = nunjucks_control.env.render('writerequest.html');
+};
+
+//release request
+var fn_releaseRequest = async(ctx,next) => {
+    let title = ctx.request.body.title;
+    let content = ctx.request.body.content;
+    let contact = ctx.request.body.contact;
+
+    console.log('title : '+title);
+    console.log('content : '+content);
+    console.log('contact : '+contact);
+    try{
+        await request_control.releaseRequest(title,content,contact);
+    }catch(error){
+        ctx.response.body = {error : error};
+        return;
     }
 
-    var s = nunjucks_control.env.render('requestUI.html', {request:request});
-
-    ctx.response.body = s;
+    ctx.response.body = 'success!';
 };
 
 
 module.exports = {
     'GET /requestList/:currentPage' : fn_initRequestPage,
-    'GET /requestList/details/:id' : fn_showFullRequest
+    'GET /requestList/details/:id' : fn_showFullRequest,
+    'GET /requestList/release/edit' : fn_initReleasePage,
+    'POST /requestList/delete' : fn_deleteRequest,
+    'POST /requestList/release' : fn_releaseRequest
 }
