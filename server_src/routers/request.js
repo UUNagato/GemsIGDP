@@ -59,9 +59,35 @@ var fn_deleteRequest = async(ctx,next) => {
     ctx.response.body = 'success!';
 };
 
+//init release request page
+var fn_initReleasePage = async(ctx,next) => {
+    ctx.response.body = nunjucks_control.env.render('writerequest.html');
+};
+
+//release request
+var fn_releaseRequest = async(ctx,next) => {
+    let title = ctx.request.body.title;
+    let content = ctx.request.body.content;
+    let contact = ctx.request.body.contact;
+
+    console.log('title : '+title);
+    console.log('content : '+content);
+    console.log('contact : '+contact);
+    try{
+        await request_control.releaseRequest(title,content,contact);
+    }catch(error){
+        ctx.response.body = {error : error};
+        return;
+    }
+
+    ctx.response.body = 'success!';
+};
+
 
 module.exports = {
     'GET /requestList/:currentPage' : fn_initRequestPage,
     'GET /requestList/details/:id' : fn_showFullRequest,
-    'POST /requestList/delete' : fn_deleteRequest
+    'GET /requestList/release/edit' : fn_initReleasePage,
+    'POST /requestList/delete' : fn_deleteRequest,
+    'POST /requestList/release' : fn_releaseRequest
 }

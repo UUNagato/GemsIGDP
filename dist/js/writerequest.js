@@ -67,17 +67,19 @@ function onSubmitClick() {
         return;
     }
 
+    console.log('title:'+title);
+    console.log('content:'+text);
+    console.log('contact:'+contact);
     // all comfirmed
     $.ajax({
-        url:'/articleList/newpost',
+        url:'/requestList/release',
         method:'POST',
         data:{
             title:title,
             content:text,
             contact:contact
         },
-        cache:false,
-        dataType:'json',
+        //cache:false,
         beforeSend:function(xhr){
             xhr.setRequestHeader('x-access-token',csrf);
         },
@@ -87,7 +89,7 @@ function onSubmitClick() {
             } else {
                 $('#informwindow').removeClass('alert-danger').addClass('alert-success');
                 $('#informwindow').html('发布成功').show();
-                window.location.href = '/articleList/1';
+                window.location.href = '/requestList/1';
             }
         }
     });
