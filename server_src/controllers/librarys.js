@@ -4,6 +4,7 @@
 'use strict'
 const models = require('../models');
 var user_control = require('/opt/gitProject/GemsIGDP/server_src/controllers/users.js');
+var date_convert = require('../configs/date_format.js');
 
 /**
  * @return {Promise} an array of most recent files
@@ -54,7 +55,7 @@ var getMostRecentMaterialsfunc = async function() {
                     uploader_nickname: user.nickname,
                     uploader_profile : headPic,
                     view: libraryfiles[i].view,
-                    upload_time: libraryfiles[i].upload_time
+                    upload_time: date_convert.getDateTime(libraryfiles[i].upload_time)
                 });
             }
             else {
@@ -99,7 +100,7 @@ var getALibraryfileByIdfunc = async function(id){
         name : libraryFile.name,
         tags : libraryFile.tags,
         src : src,
-        upload_time : libraryFile.upload_time,
+        upload_time : date_convert.getDateTime(libraryFile.upload_time),
         author_name : user.nickname,
         author_profile : headPic,
         view : libraryFile.view

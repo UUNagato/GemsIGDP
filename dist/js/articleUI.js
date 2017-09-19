@@ -90,13 +90,12 @@ function onCommentClick(){
 
         if(document.getElementById("commentbtn").innerHTML == "评论"){
             $.ajax({
-                url:'',
+                url:'/articleList/comment/add',
                 method:'POST',
                 data:{
                     articleid:add,
                     content:text},
-                cache:false,
-                dataType:'json',
+                //cache:false,
                 beforeSend:function(xhr){
                     xhr.setRequestHeader('x-access-token',csrf);
                 },
@@ -111,15 +110,15 @@ function onCommentClick(){
             });
         }
         else{
+            console.log('cite id:'+id_temp);//for test!!!!!!!!!
             $.ajax({
-                url:'',
+                url:'/articleList/comment/addWithCite',
                 method:'POST',
                 data:{
                     articleid:add,
                     citecommentid:id_temp,
                     content:text},
-                cache:false,
-                dataType:'json',
+                //cache:false,
                 beforeSend:function(xhr){
                     xhr.setRequestHeader('x-access-token',csrf);
                 },
@@ -151,9 +150,8 @@ function onReplyClick(obj){
     document.getElementById("commentbtn").classList.add("btn-primary");
     document.getElementById("commentbtn").classList.remove("btn-lg");
     document.getElementById("commentbtn").classList.add("btn-default");
-    id_temp = obj.id;
-    
-    
+    var $event = $(obj);
+    id_temp = $event.attr('id');
 }
 
 function onCancelClick(){
@@ -205,4 +203,13 @@ function elementPosition(obj) {
    }
   repeatCount++;
   cTimeout = setTimeout("ScrollSmoothly('"+scrollPos+"','"+repeatTimes+"')",10);
+  }
+
+  function onGuanzhuClick(){
+      if(document.getElementById("guanzhu").innerHTML == "关注"){
+        document.getElementById("guanzhu").innerHTML="已关注";
+      }
+      else{
+        document.getElementById("guanzhu").innerHTML="关注";
+      }
   }

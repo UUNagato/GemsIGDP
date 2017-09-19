@@ -7,6 +7,7 @@
 
 var models = require('../models');
 var user_control = require('/opt/gitProject/GemsIGDP/server_src/controllers/users.js');
+var date_convert = require('../configs/date_format.js');
 var Sequelize = require('sequelize');
 
 
@@ -167,23 +168,71 @@ var getUserArticlesfunc = async function(user_id) {
 
 
 
-//to insert a comment of an article
-//params:content, user_id, article_id
+//to insert a comment of an article(with no cite comment)
+//params:content, article_id
 //return true for success or false for not
-var addCommentfunc = async function(content,user_id,article_id) {
-      try{
-          await models.commentList.create({
-              content : content,
-              user_id : user_id,
-              article_id : article_id,
-              release_time : new Date()
-          });
-      }catch(error){
-          console.log('add comment, errors happen: '+error);
-          return false;
-      }
+var addCommentfunc = async function(article_id,content) {
+    //judge article_id is a number and is an integer
+    if(typeof article_id === 'number' && article_id % 1 === 0)
+    {
+        try{
+            let user_id = user_control.getCurrentUser().user_id;
+            await models.commentList.create({
+                content : content,
+                user_id : user_id,
+                article_id : article_id,
+                release_time : new Date(),
+                last_release_time : new Date()
+            });
+        }catch(error){
+            console.log('add comment, errors happen: '+error);
+            throw(error);
+            return false;
+        }
+    }else{
+        console.log('add comment, the article_id is not an integer!');
+        throw('the article_id is not an integer!');
+        return false;
+    }
 
-      return true;
+    return true;
+};
+
+
+/**
+ * 
+ * @param {integer} article_id 
+ * @param {integer} cite_id 
+ * @param {string} content 
+ * @return {boolean} true for success or fail for not
+ * to insert a comment in an article(have cite comment)
+ */
+var addCommentWithCitefunc = async function(article_id, cite_id, content){
+    //judge article_id is a number and is an integer
+    if(typeof article_id === 'number' && article_id % 1 === 0)
+    {
+        try{
+            let user_id = user_control.getCurrentUser().user_id;
+            await models.commentList.create({
+                content : content,
+                user_id : user_id,
+                article_id : article_id,
+                cite_comment_id : cite_id,
+                release_time : new Date(),
+                last_release_time : new Date()
+            });
+        }catch(error){
+            console.log('add comment, errors happen: '+error);
+            throw(error);
+            return false;
+        }
+    }else{
+        console.log('add comment, the article_id is not an integer!');
+        throw('the article_id is not an integer!');
+        return false;
+    }
+
+    return true;
 };
 
 //to get all comments of an article
@@ -193,7 +242,7 @@ var getCommentsfunc = async function(article_id) {
     //not sure for include!!!!
     var comments = await models.commentList.findAll({
           limit: 30,
-          attributes: ['user_id','release_time','content','cite_comment_id'],
+          attributes: ['id','user_id','release_time','content','cite_comment_id'],
           include:[{
               model: models.user,
               attributes: ['nickname'],
@@ -211,6 +260,7 @@ var getCommentsfunc = async function(article_id) {
     {
         //get comment.user_profile
         var headPic = await user_control.getHeadPic(comments[i].user_id);
+        console.log('headpic:'+headPic);
         //get cite comments
         var citecomment = null;
         if(comments[i].cite_comment_id != null)
@@ -231,10 +281,11 @@ var getCommentsfunc = async function(article_id) {
         if(citecomment != null)
         {
             result[i] = {
+                id : comments[i].id,
                 user_id : comments[i].user_id,
                 username : comments[i].user.nickname,
                 user_profile : headPic,
-                commenttime : comments[i].release_time,
+                commenttime : date_convert.getDateTime(comments[i].release_time),
                 content : comments[i].content,
                 cite_comment_id : comments[i].cite_comment_id,
                 citecomment : {
@@ -242,16 +293,17 @@ var getCommentsfunc = async function(article_id) {
                     username : citecomment.user.nickname,
                     user_id : citecomment.user_id,
                     content : citecomment.content,
-                    commenttime : citecomment.release_time
+                    commenttime : date_convert.getDateTime(citecomment.release_time)
                 }
             };
         }
         else{
             result[i] = {
+                id : comments[i].id,
                 user_id : comments[i].user_id,
                 username : comments[i].user.nickname,
                 user_profile : headPic,
-                commenttime : comments[i].release_time,
+                commenttime : date_convert.getDateTime(comments[i].release_time),
                 content : comments[i].content,
                 cite_comment_id : comments[i].cite_comment_id
             };
@@ -271,7 +323,7 @@ var getArticleListfunc = async function(page){
     let p = (page - 1) * 5; 
     console.log('p : '+p);
 
-    var articles = await models.article.findAll({
+    var a = await models.article.findAll({
         limit : 5,
         attributes : ['id','title','release_time','label','dianzan','liulan','user_id'],
         include : [{
@@ -285,9 +337,29 @@ var getArticleListfunc = async function(page){
     });
 
     if(articles === null)
+    {
         console.log('get not articles to show in list....');
+        return null;
+    }
     else
+    {
+        var i;
+        var articles = new Array();
+        for(i in a)
+        {
+            articles[i] = {
+                id : a[i].id,
+                title : a[i].title,
+                release_time : date_convert.getDateTime(a[i].release_time),
+                label : a[i].label,
+                diazan : a[i].dianzan,
+                liulan : a[i].liulan,
+                user_id : a[i].user_id,
+                author : a[i].user.nickname
+            };
+        }
         return articles;
+    }
 };
 
 
@@ -297,7 +369,7 @@ var getArticleListfunc = async function(page){
 //return the number
 var getNumberOfCommentsfunc = async function(article_id){
     var result = await models.commentList.findAndCountAll({
-        where : { id : article_id }
+        where : { article_id : article_id }
     });
 
     return result.count;
@@ -313,6 +385,19 @@ var getNumberOfArticlesfunc = async function(){
     return result.count;
 };
 
+/**
+ * 
+ * @param {integer} article_id 
+ * when user click to open the articleUI.html, this article's liulan++
+ */
+var upLiulanfunc = async function(article_id){
+    let article = await models.article.findOne({
+        where : {id : article_id}
+    });
+
+    article.increment('liulan');
+};
+
 
 module.exports = {
       releaseArticle : releaseArticlefunc,
@@ -323,8 +408,10 @@ module.exports = {
       //getId by title
       getUserArticles : getUserArticlesfunc,
       addComment : addCommentfunc,
+      addCommentWithCite : addCommentWithCitefunc,
       getComments : getCommentsfunc,
       getArticleList : getArticleListfunc,
       getNumberOfComments : getNumberOfCommentsfunc,
-      getNumberOfArticles : getNumberOfArticlesfunc
+      getNumberOfArticles : getNumberOfArticlesfunc,
+      upLiulan : upLiulanfunc
 };
