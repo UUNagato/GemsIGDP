@@ -204,3 +204,12 @@ function elementPosition(obj) {
   repeatCount++;
   cTimeout = setTimeout("ScrollSmoothly('"+scrollPos+"','"+repeatTimes+"')",10);
   }
+
+  function onGuanzhuClick(){
+      if(document.getElementById("guanzhu").innerHTML == "关注"){
+        document.getElementById("guanzhu").innerHTML="已关注";
+      }
+      else{
+        document.getElementById("guanzhu").innerHTML="关注";
+      }
+  }
