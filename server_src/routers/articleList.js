@@ -120,10 +120,30 @@ var fn_writeNew = async function(ctx, next) {
 };
 
 
+//add comment(with no cite_comment)
+var fn_addComment = async(ctx, next) => {
+    let article_id = ctx.request.body.articleid;
+    let content = ctx.request.body.content;
+
+    console.log('get article_id:'+article_id);
+    await article_control.addComment(article_id,content);
+};
+
+//add comment(with cite_comment)
+var fn_addCommentWithCite = async(ctx, next) => {
+    let article_id = ctx.request.body.articleid;
+    let content = ctx.request.body.content;
+    let cite_id = ctx.request.body.citecommentid;
+
+    await article_control.addCommentWithCite(article_id,cite_id,content);
+};
+
 module.exports = {
     'GET /articleList/:currentPage' : fn_initList,
     'GET /articleList/details/:id' : fn_initArticlePage,
     'GET /articleList/writenew/new' : fn_writeNew,
     'POST /articleList/delete' : fn_deleteArticle,
-    'POST /articleList/newpost' : fn_articlepost
+    'POST /articleList/newpost' : fn_articlepost,
+    'POST /articleList/comment/add' : fn_addComment,
+    'POST /articleList/comment/addWithCite' : fn_addCommentWithCite
 }
