@@ -63,6 +63,24 @@
                 {% if  %}
                 <div class="col-md-2 col-md-push-6">
                   <div class="delete"><a class="glyphicon glyphicon-trash" id='{{request.id}}' onclick='deleteRequest(this)'>删除需求</a></div>
+                  <script type="text/javascript">
+                      function deleteRequest(event){
+                        let id = $(event).attr('id');
+                        $.ajax({
+                            url: '',
+                            type:'POST',
+                            //cache:false,
+                            data:{
+                                id : id
+                            },
+                            success:function(data){
+                                console.log('success!');
+                                alert("删除成功！");
+                                window.history.back(-1);
+                            }
+                        });
+                      }
+                  </script>
                 </div>
                 {% endif %}
               </div>
