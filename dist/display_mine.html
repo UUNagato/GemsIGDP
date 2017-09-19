@@ -1,17 +1,16 @@
-<!DOCTYPE html>
+
+<!--展示窗页面--><!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width initial-scale=1">
+  <head><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的展示窗</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/global.css" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
-    <link href="/css/inform-style.css" rel="stylesheet">
-    <title>Gems - 注册成功</title>
-    <script type="text/javascript" src="/js/register.js"></script>
+    <link href="/css/display_mine.css" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -48,23 +47,54 @@
         </div>
       </div>
     </nav>
-    <div class="showwindow">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-10 col-md-push-1">
-            <div class="informWindow">
-              <p class="inform">验证邮件已发送，请前往邮箱进行验证。</p>
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-4 col-md-push-4">
-                    <div class="button"><a class="btn btn-success">返回首页             </a></div>
-                  </div>
+    <header class="mine" style="background-image: url(https://d1jlf623bx36qa.cloudfront.net/static/builds/web/dist/polygons-gradients-f8c2f6e837438e4f72a517f2331a3702.png)">
+      <div class="mine_container">
+        <div class="avater">
+          <img id="imgInit" style="width:100px;height:100px;display:block;"/> 
+            <script language="javascript">
+              $().ready(function(){
+                var profilesrc = window.localStorage.getItem('user_profile');
+                $('#imgInit').attr('src',profilesrc);
+              });
+            </script>
+        </div>
+        <div class="meta">
+          <div class="mine_name">
+            <span class="mine_name">
+                <script>
+                    var nickname = window.localStorage.getItem('user_nickname');
+                    document.write(nickname);
+                </script>
+            </span>                
+          </div>
+        </div>
+        <div class="clearfloat">
+        </div>
+      </div>
+      <div class="clearfloat">
+      </div>
+    </header>
+    <div class="display_wrapper" style="width:90%;">
+        <div class="display_cols">
+          {% for ewindow in ewindows %}
+          <div class="display_col" ontouchstart="this.classList.toggle('hover');" onclick='window.location.href="/displays/details/{{ewindow.id}}"'>
+            <div class="display_container">
+              <div class="display_front" style='background-image: url("{{ewindow.filepath}}");'>
+                <div class="display_inner">
+                  <p>{{ewindow.title}}</p><span>{{ewindow.author}}</span>
+                </div>
+              </div>
+              <div class="display_back">
+                <button class="delete" type="button">
+                  <span class="glyphicon glyphicon-trash"></span> 
+                </button>
+                <div class="display_inner">
+                  <p>{{ewindow.introduce}}</p>
                 </div>
               </div>
             </div>
-          </div>
+          </div>{% endfor %}
         </div>
       </div>
-    </div>
   </body>
 </html>

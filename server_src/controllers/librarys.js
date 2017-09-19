@@ -3,6 +3,7 @@
  */
 'use strict'
 const models = require('../models');
+var user_control = require('/opt/gitProject/GemsIGDP/server_src/controllers/users.js');
 
 /**
  * @return {Promise} an array of most recent files
@@ -18,7 +19,7 @@ var getMostRecentMaterialsfunc = async function() {
     var headPic;
     // try to catch 20 items
     var libraryfiles = await models.libraryFile.findAll({
-        attributes:['name','library_id','thumbnail_id','upload_time','view'],
+        attributes:['id','name','library_id','thumbnail_id','upload_time','view'],
         limit: 20,
         order: [['upload_time','DESC']]
     });
@@ -39,7 +40,7 @@ var getMostRecentMaterialsfunc = async function() {
             {
                 let file = await models.file.findOne({
                     attributes : ['file_path'],
-                    where : {id : profile}
+                    where : {id : user.profile}
                 });
                 headPic = file.file_path;
             }
@@ -87,27 +88,16 @@ var getALibraryfileByIdfunc = async function(id){
 
     //get uploader
     var library = await libraryFile.getLibrary({attributes:['id','user_id']});
-    var user = null;
-    if(library !== null) {
-        user = await library.getUser({attributes:['id','nickname','profile']});
-
-        //get uploader's profile
-        var headPic;
-        if(user.profile === 0 || user.profile === null)
-            headPic = '/img/defaultprofile.png';//default profile
-        else{
-            let file = await models.file.findOne({
-                attributes : ['file_path'],
-                where : {id : user.profile}
-            });
-            headPic = file.file_path;
-        }
-    }
+    var user = await models.user.findOne({
+        attributes : ['nickname'],
+        where : {id : library.user_id}
+    });
+    var headPic = await user_control.getHeadPic(library.user_id);
     
     //construct result
     var result = {
         name : libraryFile.name,
-        tags : tags,
+        tags : libraryFile.tags,
         src : src,
         upload_time : libraryFile.upload_time,
         author_name : user.nickname,
@@ -127,7 +117,7 @@ var getALibraryfileByIdfunc = async function(id){
  */
 var getLibrarysByTagsfunc = async function(tags){
     var tag = '%'+tags+'%';
-    var libraryFiles = models.libraryFile.findAll({
+    var libraryFiles = await models.libraryFile.findAll({
         attributes : ['name','library_id','file_id','view'],
         where : {tags : {$like : tag}} //query by tags(the user of $like is not sure)
     });

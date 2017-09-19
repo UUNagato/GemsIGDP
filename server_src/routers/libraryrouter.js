@@ -30,9 +30,14 @@ var fn_initDetails = async(ctx, next) => {
     ctx.response.body = s;
 };
 
+var fn_uploadFiles = async(ctx, next) => {
+    console.log(ctx.request.body.files);
+};
+
 
 
 module.exports = {
     'GET /materials': fn_librarylist,
-    'GET /materials/details/:id': fn_initDetails
+    'GET /materials/details/:id': fn_initDetails,
+    'POST /materials/upload': fn_uploadFiles
 };

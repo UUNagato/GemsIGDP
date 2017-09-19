@@ -44,8 +44,6 @@ $().ready(function(){
             }
         }
     });
-
-
 });
 
 function Delete(){
@@ -60,12 +58,11 @@ function Delete(){
             url:'/articleList/delete',
             type:'POST',
             cache:false,
-            data:add,
+            data:{article_id:add},
             beforeSend:function(req){
                 req.setRequestHeader('x-access-token',csrf)
             },
             success:function(data){
-                console.log('successs!');
                 if(data.error)
                     alert("删除失败");
                 else{
@@ -75,7 +72,6 @@ function Delete(){
             }
         })
     }
-    
 }
 
 function onCommentClick(){
@@ -91,16 +87,16 @@ function onCommentClick(){
         var address = new Array();
         address = url.split("/");
         var add = parseInt(address[address.length-1]);
+        console.log('article_id:'+add);
 
         if(document.getElementById("commentbtn").innerHTML == "评论"){
             $.ajax({
-                url:'',
+                url:'/articleList/comment/add',
                 method:'POST',
                 data:{
                     articleid:add,
                     content:text},
-                cache:false,
-                dataType:'json',
+                //cache:false,
                 beforeSend:function(xhr){
                     xhr.setRequestHeader('x-access-token',csrf);
                 },
@@ -116,14 +112,13 @@ function onCommentClick(){
         }
         else{
             $.ajax({
-                url:'',
+                url:'/articleList/comment/addWithCite',
                 method:'POST',
                 data:{
                     articleid:add,
                     citecommentid:id_temp,
                     content:text},
-                cache:false,
-                dataType:'json',
+                //cache:false,
                 beforeSend:function(xhr){
                     xhr.setRequestHeader('x-access-token',csrf);
                 },

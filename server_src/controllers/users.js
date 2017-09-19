@@ -423,6 +423,29 @@ var getProfileAndNicknameByIdfunc = async function(user_id) {
     });
 }
 
+
+/**
+ * 
+ * @param {integer} userid 
+ * @param {integer} fileid
+ * @return {boolean} ture for modify success, false for not
+ * use for user upload head picture and modify it 
+ */
+var modifyHeadPicfunc = async function(userid, fileid){
+    try{
+        await models.user.update({
+            profile : fileid},{
+            where : {id : userid}
+        });
+    }catch(error){
+        console.log('modify profile, errors happen:'+error);
+        return false;
+    }
+
+    return true;
+
+}
+
 module.exports = {
     userCheck : userNameCheckfunc,
     loginCheck : loginCheckfunc,
@@ -439,6 +462,7 @@ module.exports = {
     getValidatedUser : getValidatedUserfunc,
     getHeadPic : getHeadPicfunc,
     getProfileAndNicknameById : getProfileAndNicknameByIdfunc,
+    modifyHeadPic : modifyHeadPicfunc,
 
     middleware: userTokenMiddleware
 };

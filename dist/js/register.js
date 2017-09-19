@@ -178,7 +178,8 @@ function upRegInfo(){
                     alert('can not send email, please try again.');
                 }else{
                     //success
-                    window.open(info,'_blank');
+                    console.log('registe success');
+                    window.location.href = '/register/inform';
                 }
                 
                 

@@ -132,7 +132,7 @@ function change(){
     if(window.localStorage) {
         var csrf = window.localStorage.getItem('csrf');
         $.ajax({
-            url:'/upload/imgupload',
+            url:'/upload/profileupload',
             method: 'POST',
             data:formdata,
             processData:false,
@@ -147,9 +147,8 @@ function change(){
                 } else {
                     alert('upload picture success!');
                     //to show the head picture directly(avoid query the table again)
-                    if (window.navigator.userAgent.indexOf("Firefox") >= 1) { 
-                        preview.style.backgroundImage = 'url('+url+')';
-                    }
+                    preview.style.backgroundImage = 'url('+data.url+')';
+                    getUserInfoAndStore();
                 }
             }
         });

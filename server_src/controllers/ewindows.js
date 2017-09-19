@@ -5,6 +5,7 @@
 
 var models = require('../models');
 var Sequelize = require('sequelize');
+var user_control = require('/opt/gitProject/GemsIGDP/server_src/controllers/users.js');
 
 
 //get all exhibition windows
@@ -137,9 +138,44 @@ var addNewEWindowfunc = async function(userid, title, des, imgs) {
     }
 }
 
+/**
+ * get current user's all exhibition windows
+ * user for show in the display_mine.html
+ */
+var getUserEWindowsfunc = async function(){
+    let user = user_control.getCurrentUser();
+    let windows = await models.exhibitionWindow.findAll({
+        attributes : ['id','title','introduce'],
+        include : [{
+            model : models.user,
+            attributes : ['nickname'],
+            where : {id : Sequelize.col('exhibitionWindow.user_id')}
+        }],
+        where : {user_id : user.user_id}
+    });
+
+    var i;
+    var result = new Array();
+    for(i in windows)
+    {
+        //get file path
+        var files = await windows[i].getFiles({attributes:['file_path']});
+        
+        result[i] = {
+            id : windows[i].id,
+            title : windows[i].title,
+            introduce : windows[i].introduce,
+            author : windows[i].user.nickname,
+            filepath : files[0].file_path
+        }
+    }
+
+    return result;
+};
 
 module.exports = {
     getExhibitionList : getExhibitionListfunc,
     getAEWindow : getAEWindowfunc,
-    addNewEWindow : addNewEWindowfunc
+    addNewEWindow : addNewEWindowfunc,
+    getUserEWindows : getUserEWindowsfunc
 };
