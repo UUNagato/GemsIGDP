@@ -7,6 +7,7 @@
 
 var models = require('../models');
 var user_control = require('/opt/gitProject/GemsIGDP/server_src/controllers/users.js');
+var date_convert = require('../configs/date_format.js');
 var Sequelize = require('sequelize');
 
 
@@ -241,7 +242,7 @@ var getCommentsfunc = async function(article_id) {
     //not sure for include!!!!
     var comments = await models.commentList.findAll({
           limit: 30,
-          attributes: ['user_id','release_time','content','cite_comment_id'],
+          attributes: ['id','user_id','release_time','content','cite_comment_id'],
           include:[{
               model: models.user,
               attributes: ['nickname'],
@@ -259,6 +260,7 @@ var getCommentsfunc = async function(article_id) {
     {
         //get comment.user_profile
         var headPic = await user_control.getHeadPic(comments[i].user_id);
+        console.log('headpic:'+headPic);
         //get cite comments
         var citecomment = null;
         if(comments[i].cite_comment_id != null)
@@ -279,10 +281,11 @@ var getCommentsfunc = async function(article_id) {
         if(citecomment != null)
         {
             result[i] = {
+                id : comments[i].id,
                 user_id : comments[i].user_id,
                 username : comments[i].user.nickname,
                 user_profile : headPic,
-                commenttime : comments[i].release_time,
+                commenttime : date_convert.getDateTime(comments[i].release_time),
                 content : comments[i].content,
                 cite_comment_id : comments[i].cite_comment_id,
                 citecomment : {
@@ -290,16 +293,17 @@ var getCommentsfunc = async function(article_id) {
                     username : citecomment.user.nickname,
                     user_id : citecomment.user_id,
                     content : citecomment.content,
-                    commenttime : citecomment.release_time
+                    commenttime : date_convert.getDateTime(citecomment.release_time)
                 }
             };
         }
         else{
             result[i] = {
+                id : comments[i].id,
                 user_id : comments[i].user_id,
                 username : comments[i].user.nickname,
                 user_profile : headPic,
-                commenttime : comments[i].release_time,
+                commenttime : date_convert.getDateTime(comments[i].release_time),
                 content : comments[i].content,
                 cite_comment_id : comments[i].cite_comment_id
             };

@@ -61,13 +61,8 @@
           <div class="row username"><a href="/idPage/{{article.user_id}}">{{article.author}}</a></div>
           <div class="row">
             <button class="btn btn-lg">关注</button>
-<<<<<<< HEAD
-            <div class="btn-group" id="hiddenbtn" style="display:none;" >
-                <button type="button" class="btn btn-lg dropdown-toggle" data-toggle="dropdown" >编辑/删除
-=======
             <div class="btn-group" id="hiddenbtn" style="display:none;">
                 <button type="button" class="btn btn-lg dropdown-toggle" data-toggle="dropdown">编辑/删除
->>>>>>> e466d8e7c786f16fcf533625fc24c313fb3f77fe
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
@@ -121,9 +116,9 @@
             {% if comment.cite_comment_id != null %}
               <div class="row">
                   <div class="col-md-2">
-                    <img class="incommentuserimg img-circle" src="{{comment.citecoment.user_profile}}">
+                    <img class="incommentuserimg img-circle" src="{{comment.citecomment.user_profile}}">
                     <div class="username">
-                        <a href="/idPage/{{comment.citecomment.user_id}}">{{comment.citecoment.username}}}</a>
+                        <a href="/idPage/{{comment.citecomment.user_id}}">{{comment.citecomment.username}}</a>
                     </div>
                   </div>
                   <div class="col-md-10 commentingarea">
