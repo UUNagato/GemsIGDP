@@ -190,7 +190,6 @@ div.detail{
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
-
 }
 div.detail p{
     display: block;
@@ -303,14 +302,14 @@ div#changeInfo{
     padding:5px; 
     z-index: 3;
     top:100px;
+    min-height: 550px;
 }
 div.id-info-2{
     width: 90%;
     border: 1px solid #464646;
     padding: 20px;
     margin-top: 30px;
-    margin-left: 5%;
-    
+    margin-left: 5%; 
 }
 div.id-info-2 p{
     font-size: 17px;
@@ -327,7 +326,7 @@ input.mess{
 textarea{
     resize: none;
 }
-@media screen and (max-width: 980px){
+@media screen and (max-width: 1100px){
     .time-vertical {
         list-style-type: none;
         border-top: 1px solid #303030;
@@ -336,7 +335,12 @@ textarea{
         padding: 0px;
         margin: 0px;
     }
-     
+    
+    div.id-info-2 p{
+        font-size: 13px;
+        color: #1E1E1E;
+    }
+
     .time-vertical li {
         float: left;
         position: relative;
@@ -390,6 +394,12 @@ textarea{
 }
 
 @media screen and (max-width: 345px){
+
+    div.id-info-2 p{
+        font-size: 13px;
+        color: #1E1E1E;
+    }
+
     div.title{
         width: 100%;
         margin-top: 50px;
