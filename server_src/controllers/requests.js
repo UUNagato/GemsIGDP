@@ -44,7 +44,8 @@ var getRequestByIdfunc = async function(id) {
 //use for release a request
 //params: ?????an object???
 //return true for insert success or false for not
-var releaseRequestfunc = async function(user_id,title,content,contact) {
+var releaseRequestfunc = async function(title,content,contact) {
+    let user_id = user_control.getCurrentUser().user_id;
     try{
         await models.request.create({
             user_id : user_id,
