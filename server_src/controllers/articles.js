@@ -19,8 +19,8 @@ var releaseArticlefunc = async function(user_id, title, label, content) {
             await models.article.create({
                 user_id : user_id,
                 title : title,
-                release_time : date_convert.getDateTime(new Date()),
-                update_time : date_convert.getDateTime(new Date()),
+                release_time : new Date(),
+                update_time : new Date(),
                 label : label,
                 content : content
             });
@@ -181,8 +181,8 @@ var addCommentfunc = async function(article_id,content) {
                 content : content,
                 user_id : user_id,
                 article_id : article_id,
-                release_time : date_convert.getDateTime(new Date()),
-                last_release_time : date_convert.getDateTime(new Date())
+                release_time : new Date(),
+                last_release_time : new Date()
             });
         }catch(error){
             console.log('add comment, errors happen: '+error);
@@ -218,8 +218,8 @@ var addCommentWithCitefunc = async function(article_id, cite_id, content){
                 user_id : user_id,
                 article_id : article_id,
                 cite_comment_id : cite_id,
-                release_time : date_convert.getDateTime(new Date()),
-                last_release_time : date_convert.getDateTime(new Date())
+                release_time : new Date(),
+                last_release_time : new Date()
             });
         }catch(error){
             console.log('add comment, errors happen: '+error);
@@ -285,7 +285,7 @@ var getCommentsfunc = async function(article_id) {
                 user_id : comments[i].user_id,
                 username : comments[i].user.nickname,
                 user_profile : headPic,
-                commenttime : comments[i].release_time,
+                commenttime : date_convert.getDateTime(comments[i].release_time),
                 content : comments[i].content,
                 cite_comment_id : comments[i].cite_comment_id,
                 citecomment : {
@@ -293,7 +293,7 @@ var getCommentsfunc = async function(article_id) {
                     username : citecomment.user.nickname,
                     user_id : citecomment.user_id,
                     content : citecomment.content,
-                    commenttime : citecomment.release_time
+                    commenttime : date_convert.getDateTime(citecomment.release_time)
                 }
             };
         }
@@ -303,7 +303,7 @@ var getCommentsfunc = async function(article_id) {
                 user_id : comments[i].user_id,
                 username : comments[i].user.nickname,
                 user_profile : headPic,
-                commenttime : comments[i].release_time,
+                commenttime : date_convert.getDateTime(comments[i].release_time),
                 content : comments[i].content,
                 cite_comment_id : comments[i].cite_comment_id
             };

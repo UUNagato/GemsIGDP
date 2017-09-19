@@ -1,6 +1,6 @@
 function getDateTime(date){
     var year = date.getFullYear();
-    var month = date.getMonth();
+    var month = date.getMonth()+1;
     var day = date.getDate();
     var h = date.getHours();
     var m = date.getMinutes();

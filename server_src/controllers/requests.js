@@ -26,6 +26,14 @@ var getRequestByIdfunc = async function(id) {
         }
     });
 
+    var request = {
+        title : r.title,
+        yuedu : r.yuedu,
+        release_time : date_convert.getDateTime(r.release_time),
+        content : r.content,
+        contact : r.contact
+    };
+
     return request;
 };
 
@@ -39,7 +47,7 @@ var releaseRequestfunc = async function(user_id,title,content,contact) {
         await models.request.create({
             user_id : user_id,
             title : title,
-            release_time : date_convert.getDateTime(new Date()),
+            release_time : new Date(),
             content : content,
             contact : contact
         });
@@ -95,7 +103,7 @@ var countRequestsfunc = async function(){
 //return requests(include object and count)
 var getRequestListfunc = async function(currentPage){
     let c = (currentPage-1) *6;
-    var requests = await models.request.findAll({
+    var r = await models.request.findAll({
         attributes : ['id','title','content','yuedu','release_time'],
         limit : 6,
         include: [{
@@ -107,6 +115,18 @@ var getRequestListfunc = async function(currentPage){
         where : {id : {$gt : c}}
     });
 
+    var i;
+    var requests = new Array();
+    for(i in r)
+    {
+        requests[i] = {
+            id : r[i].id,
+            title : r[i].title,
+            content : r[i].content,
+            yuedu : r[i].yuedu,
+            release_time : date_convert.getDateTime(r[i].release_time)
+        };
+    }
 
     return requests;
 };
