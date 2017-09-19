@@ -119,10 +119,10 @@
                     </div>
                     <div class="row username">
                       <div class="col-md-3">
-                        <a href="/idPage/{{comment.citecomment.user_id}}">{{comment.citecoment.username}}}</a>
+                        <a href="/idPage/{{comment.citecomment.user_id}}">{{comment.citecomment.username}}}</a>
                       </div>
                       <div class="col-md-2 col-md-offset-7">
-                        <p class="commenttime">{{comment.citecoment.commenttime}}</p>
+                        <p class="commenttime">{{comment.citecomment.commenttime}}</p>
                       </div>
                     </div>
                   </div>
@@ -130,7 +130,7 @@
             <div class="fengexian"></div>
             {% endif %}
               <div class="comment">
-                  <p>{{comment.content}}</p>
+                  <p>{{comment.content | safe}}</p>
                 </div>
                 <div class="row username">
                   <div class="col-md-2"><a href="/idPage/{{comment.user_id}}">{{comment.username}}</a></div>

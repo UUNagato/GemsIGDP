@@ -434,8 +434,8 @@ var getProfileAndNicknameByIdfunc = async function(user_id) {
 var modifyHeadPicfunc = async function(file_id, path){
     try{
         await models.file.update({
-            file_path : path,
-            where : {id : file_id}
+            file_path : path},
+            {where : {id : file_id}
         });
     }catch(error){
         console.log('modify profile, errors happen:'+error);
@@ -462,7 +462,7 @@ module.exports = {
     getValidatedUser : getValidatedUserfunc,
     getHeadPic : getHeadPicfunc,
     getProfileAndNicknameById : getProfileAndNicknameByIdfunc,
-    modifyHeadPic : modifyHeadPicfunc
+    modifyHeadPic : modifyHeadPicfunc,
 
     middleware: userTokenMiddleware
 };

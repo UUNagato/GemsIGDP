@@ -167,23 +167,71 @@ var getUserArticlesfunc = async function(user_id) {
 
 
 
-//to insert a comment of an article
-//params:content, user_id, article_id
+//to insert a comment of an article(with no cite comment)
+//params:content, article_id
 //return true for success or false for not
-var addCommentfunc = async function(content,user_id,article_id) {
-      try{
-          await models.commentList.create({
-              content : content,
-              user_id : user_id,
-              article_id : article_id,
-              release_time : new Date()
-          });
-      }catch(error){
-          console.log('add comment, errors happen: '+error);
-          return false;
-      }
+var addCommentfunc = async function(article_id,content) {
+    //judge article_id is a number and is an integer
+    if(typeof article_id === 'number' && article_id % 1 === 0)
+    {
+        try{
+            let user_id = user_control.getCurrentUser().user_id;
+            await models.commentList.create({
+                content : content,
+                user_id : user_id,
+                article_id : article_id,
+                release_time : new Date(),
+                last_release_time : new Date()
+            });
+        }catch(error){
+            console.log('add comment, errors happen: '+error);
+            throw(error);
+            return false;
+        }
+    }else{
+        console.log('add comment, the article_id is not an integer!');
+        throw('the article_id is not an integer!');
+        return false;
+    }
 
-      return true;
+    return true;
+};
+
+
+/**
+ * 
+ * @param {integer} article_id 
+ * @param {integer} cite_id 
+ * @param {string} content 
+ * @return {boolean} true for success or fail for not
+ * to insert a comment in an article(have cite comment)
+ */
+var addCommentWithCitefunc = async function(article_id, cite_id, content){
+    //judge article_id is a number and is an integer
+    if(typeof article_id === 'number' && article_id % 1 === 0)
+    {
+        try{
+            let user_id = user_control.getCurrentUser().user_id;
+            await models.commentList.create({
+                content : content,
+                user_id : user_id,
+                article_id : article_id,
+                cite_comment_id : cite_id,
+                release_time : new Date(),
+                last_release_time : new Date()
+            });
+        }catch(error){
+            console.log('add comment, errors happen: '+error);
+            throw(error);
+            return false;
+        }
+    }else{
+        console.log('add comment, the article_id is not an integer!');
+        throw({error:'the article_id is not an integer!'});
+        return false;
+    }
+
+    return true;
 };
 
 //to get all comments of an article
@@ -323,6 +371,7 @@ module.exports = {
       //getId by title
       getUserArticles : getUserArticlesfunc,
       addComment : addCommentfunc,
+      addCommentWithCite : addCommentWithCitefunc,
       getComments : getCommentsfunc,
       getArticleList : getArticleListfunc,
       getNumberOfComments : getNumberOfCommentsfunc,
