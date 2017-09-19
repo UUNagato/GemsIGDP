@@ -14,7 +14,8 @@ function onKeyDown(event){
 function DisplayAndHiddenBtn() {
     if(isLocallyLogin()=="true")
         {
-            document.getElementById('first second').style.display='block';
+            document.getElementById('first').style.display='block';
+            document.getElementById('second').style.display='block';
         }else{
             document.getElementById('first second').style.display='none';
         }
