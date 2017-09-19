@@ -1,7 +1,7 @@
 var config = {
     database: 'test',
     username: 'root',
-    password: 'hyy970421',
+    password: '123456',
     host: 'localhost',
     port: 3306
 };
