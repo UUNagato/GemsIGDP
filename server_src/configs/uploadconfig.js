@@ -15,5 +15,9 @@ module.exports = {
     },
     tga:{
         size:5242880
-    }
+    },
+    obj:{
+        size:10485760
+    },
+    
 };
