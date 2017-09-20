@@ -119,7 +119,7 @@ var getALibraryfileByIdfunc = async function(id){
 var getLibrarysByTagsfunc = async function(tags){
     var tag = '%'+tags+'%';
     var libraryFiles = await models.libraryFile.findAll({
-        attributes : ['name','library_id','file_id','view'],
+        attributes : ['id', 'name','library_id','thumbnail_id','view'],
         where : {tags : {$like : tag}} //query by tags(the user of $like is not sure)
     });
 
@@ -135,12 +135,10 @@ var getLibrarysByTagsfunc = async function(tags){
         }
 
         //get file src
-        var file = await models.file.findOne({
-            attributes : ['file_path'],
-            where : {id : libraryFiles[i].file_id}
-        });
+        var file = await libraryFiles[i].getThumbnail({attributes:['file_path']});
 
         result[i] = {
+            id : libraryFiles[i].id,
             name : libraryFiles[i].name,
             author_name : user.nickname,
             src : file.file_path,
@@ -200,10 +198,53 @@ var uploadAMaterialfunc = async function(name, tags, userid, file_id, thumbnail_
     return false;
 }
 
+/**
+ * 
+ * @param {integer} userid 
+ */
+var getLibraryFilesByUserIDfunc = async function(userid) {
+    // get user info
+    var user = await user_control.getProfileAndNicknameById(userid);
+    if(user === null)
+        return null;    // wrong
+
+    var libid = await findAndCreateALibraryfunc(userid);
+    if(libid !== undefined) {
+        var lfiles = await models.libraryFile.findAll({
+            where:{
+                library_id : libid
+            }
+        });
+
+        if(lfiles !== null) {
+            var result = new Array();
+            for(var i in lfiles) {
+                // just find thumbnail file src
+                var thumbnail = await lfiles[i].getThumbnail({arrtibutes:['file_path']});
+                // now push data
+                result.push({
+                    id : lfiles[i].id,
+                    title: lfiles[i].name,
+                    thumbnail_src: thumbnail.file_path,
+                    uploader_nickname: user.nickname,
+                    uploader_profile : user.profile,
+                    view: lfiles[i].view,
+                    upload_time: date_convert.getDateTime(lfiles[i].upload_time)
+                });
+            }
+
+            return result;
+        }
+    }
+
+    return null;
+}
+
 
 module.exports = {
     getMostRecentMaterials : getMostRecentMaterialsfunc,
     getALibraryfileById : getALibraryfileByIdfunc,
     getLibrarysByTags : getLibrarysByTagsfunc,
-    uploadAMaterial : uploadAMaterialfunc
+    uploadAMaterial : uploadAMaterialfunc,
+    getLibraryFilesByUserID : getLibraryFilesByUserIDfunc
 };

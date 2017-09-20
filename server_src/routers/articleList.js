@@ -61,15 +61,19 @@ var fn_initList = async(ctx, next) => {
 
 //init articleUI.html
 var fn_initArticlePage = async(ctx, next) => {
-    await article_control.upLiulan(ctx.params.id);
     let result = await article_control.searchArticleById(ctx.params.id);
+    if(result !== null) {
+        await article_control.upLiulan(ctx.params.id);
 
-    //find all comments
-    let comments = await article_control.getComments(ctx.params.id);
-    
-    //render
-    var s = nunjucks_control.env.render('articleUI.html', {article:result, comments:comments});
-    ctx.response.body = s;
+        //find all comments
+        let comments = await article_control.getComments(ctx.params.id);
+        
+        //render
+        var s = nunjucks_control.env.render('articleUI.html', {article:result, comments:comments});
+        ctx.response.body = s;
+    } else {
+        ctx.response.redirect('/acticleList/1');
+    }
 };
 
 // router deal with article delete
@@ -89,7 +93,7 @@ var fn_deleteArticle = async(ctx, next) => {
 }
 
 // deal with post article.
-const titleexp = /^\D[^><\n\f\r\t\v]{6,50}/;
+const titleexp = /^\D[^><\n\f\r\t\v]{3,50}/;
 var fn_articlepost = async function(ctx, next) {
     var user = users.getValidatedUser(ctx.request);
     if(user !== null) {

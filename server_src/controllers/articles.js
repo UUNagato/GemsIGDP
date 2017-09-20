@@ -58,7 +58,7 @@ var deleteArticlefunc = async function(article_id) {
  */
 var deleteArticleByIdwithUserfunc = async function(article_id, userid) {
     var article = await models.article.findOne({
-        while: {
+        where: {
             id : article_id
         }
     });

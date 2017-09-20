@@ -328,11 +328,22 @@ var imageUploadGetFilefunc = function(userid, file) {
     return(new Promise(promiseFunc));
 }
 
+/**
+ * 
+ * @param {File} file 
+ */
+var getDefaultThumbnailfunc = function(file) {
+    var filename = file.name;
+    var filetype = filename.substring(filename.lastIndexOf('.') + 1, filename.length);
+    return uploadconfig[filetype].defaultThumbnail;
+}
+
 
 module.exports = {
     uploadPlugin : uploadPluginfunc,
     singleImageUpload : imageUploadfunc,
     imageUploadGetId : imageUploadGetIdfunc,
     imageUploadGetFile : imageUploadGetFilefunc,
-    singleFileUpload : imageUploadGetIdfunc
+    singleFileUpload : imageUploadGetIdfunc,
+    getDefaultThumbnail : getDefaultThumbnailfunc
 };

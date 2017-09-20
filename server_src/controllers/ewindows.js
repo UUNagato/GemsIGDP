@@ -145,6 +145,9 @@ var addNewEWindowfunc = async function(userid, title, des, imgs) {
  */
 var getUserEWindowsfunc = async function(){
     let user = user_control.getCurrentUser();
+    if(user === null)
+        return [];
+
     let windows = await models.exhibitionWindow.findAll({
         attributes : ['id','title','introduce'],
         include : [{
