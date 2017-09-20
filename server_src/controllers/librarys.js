@@ -3,7 +3,7 @@
  */
 'use strict'
 const models = require('../models');
-var user_control = require('/opt/gitProject/GemsIGDP/server_src/controllers/users.js');
+var user_control = require('./users.js');
 var date_convert = require('../configs/date_format.js');
 
 /**
