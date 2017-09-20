@@ -7,7 +7,7 @@
 
 var models = require('../models');
 var date_convert = require('../configs/date_format.js');
-var user_control = require('/opt/gitProject/GemsIGDP/server_src/controllers/users.js');
+var user_control = require('./users.js');
 var Sequelize = require('sequelize');
 
 
