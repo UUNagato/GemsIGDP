@@ -6,7 +6,7 @@
   */
 
 var models = require('../models');
-var user_control = require('/opt/gitProject/GemsIGDP/server_src/controllers/users.js');
+var user_control = require('./users.js');
 var date_convert = require('../configs/date_format.js');
 var Sequelize = require('sequelize');
 
@@ -137,7 +137,7 @@ var searchArticleByIdfunc = async function(id) {
     var result = {
         user_id : article.user_id,
         title : article.title,
-        releasetime : article.release_time,
+        releasetime : date_convert.getDateTime(article.release_time),
         content : article.content,
         dianzan : article.dianzan,
         yuedu : article.liulan,
