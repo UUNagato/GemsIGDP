@@ -354,7 +354,7 @@ var modifyUserInfofunc = async function(user) {
     try{
         await models.user.update(user,
             {where:{
-                id : 1 //for test!!!!!!
+                id : getCurrentUserfunc().user_id
             }
         });
     }catch(error){
