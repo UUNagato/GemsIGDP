@@ -112,7 +112,11 @@
   <div class="container" style="text-align:center;">
     <div class="row pagerow">
         <a  href="/articleList/1" style="color:white;margin-left:5px;">|&lt</a>
+        {% if currentpage == 1 %}
+        <a  href="/articleList/1" style="color:white;margin-left:5px;">←</a>
+        {% else %}
         <a  href="/articleList/{{currentpage-1}}" style="color:white;margin-left:5px;">←</a>
+        {% endif %}
         
         
           {% if sumpage > 10 %}
@@ -162,7 +166,12 @@
         <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
           {% endfor %}
         {% endif %}
+
+        {% if currentpage == sumpage %}
+        <a  href="/articleList/{{sumpage}}" style="color:white;margin-left:5px;">→</a>
+        {% else %}
         <a  href="/articleList/{{currentpage+1}}" style="color:white;margin-left:5px;">→</a>
+        {% endif %}
         <a  href="/articleList/{{sumpage}}" style="color:white;margin-left:5px;">&gt|</a>
     </div>
   </div>
