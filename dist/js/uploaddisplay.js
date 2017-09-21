@@ -33,12 +33,11 @@ function postFullWindow() {
                 title: $('#title').val(),
                 description: $('#description').val()
             },
-            function(data, status) {
-                console.log(status);
-                if(status === 'success') {
-                    window.location.href = '/displays';
-                } else {
+            function(data) {
+                if(data.error) {
                     showInfo('不明上传错误');
+                } else {
+                    window.location.href = '/displays';
                 }
             }
         );
@@ -53,7 +52,7 @@ function postWindow() {
     var title = $('#title').val();
     var description = $('#description').val();
 
-    var titleexp = /^\D[^><\n\f\r\t\v]{6,50}/;
+    var titleexp = /^\D[^><\n\f\r\t\v]{2,50}/;
     if(titleexp.test(title)) {
         // upload picture
         $('#submitbtn').attr('disabled','disabled');

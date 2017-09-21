@@ -62,7 +62,7 @@ var getAEWindowfunc = async function(id) {
         attributes : ['id','title','introduce','create_date','dianzan','liulan'],
         include : [{
             model : models.user,
-            attributes : ['nickname','profile'],
+            attributes : ['id','nickname','profile'],
             where : { id : Sequelize.col('exhibitionWindow.user_id')}
         }],
         where : {id : id}
@@ -177,9 +177,40 @@ var getUserEWindowsfunc = async function(){
     return result;
 };
 
+var getEWindowsByIdfunc = async function(uid){
+    let windows = await models.exhibitionWindow.findAll({
+        attributes : ['id','title','introduce'],
+        include : [{
+            model : models.user,
+            attributes : ['nickname'],
+            where : {id : Sequelize.col('exhibitionWindow.user_id')}
+        }],
+        where : {user_id : uid}
+    });
+
+    var i;
+    var result = new Array();
+    for(i in windows)
+    {
+        //get file path
+        var files = await windows[i].getFiles({attributes:['file_path']});
+        
+        result[i] = {
+            id : windows[i].id,
+            title : windows[i].title,
+            introduce : windows[i].introduce,
+            author : windows[i].user.nickname,
+            filepath : files[0].file_path
+        }
+    }
+
+    return result;
+};
+
 module.exports = {
     getExhibitionList : getExhibitionListfunc,
     getAEWindow : getAEWindowfunc,
     addNewEWindow : addNewEWindowfunc,
-    getUserEWindows : getUserEWindowsfunc
+    getUserEWindows : getUserEWindowsfunc,
+    getEWindowsById : getEWindowsByIdfunc
 };

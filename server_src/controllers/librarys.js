@@ -90,7 +90,7 @@ var getALibraryfileByIdfunc = async function(id){
     //get uploader
     var library = await libraryFile.getLibrary({attributes:['id','user_id']});
     var user = await models.user.findOne({
-        attributes : ['nickname'],
+        attributes : ['id','nickname'],
         where : {id : library.user_id}
     });
     var headPic = await user_control.getHeadPic(library.user_id);
@@ -101,6 +101,7 @@ var getALibraryfileByIdfunc = async function(id){
         tags : libraryFile.tags,
         src : src,
         upload_time : date_convert.getDateTime(libraryFile.upload_time),
+        author_id : user.id,
         author_name : user.nickname,
         author_profile : headPic,
         view : libraryFile.view

@@ -110,6 +110,13 @@ function initCanvasPreview3D(type, url) {
 
     animate();
     $('#onpost').removeAttr('disabled');
+
+    window.addEventListener('resize', ()=>{
+        camera.aspect = canvasdiv.clientWidth / canvasdiv.clientHeight;
+        camera.updateProjectionMatrix();
+
+        gems_renderer.setSize(canvasdiv.clientWidth, canvasdiv.clientHeight);
+    }, false);
 }
 
 function onpost() {

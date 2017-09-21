@@ -61,9 +61,13 @@ var fn_uploadRt = async(ctx, next) => {
 
 //init display_mine.html
 var fn_initMyDisplay = async(ctx, next) => {
-    let result = await ewindow_control.getUserEWindows();
+    var uid = ctx.params.id || -1;
+    let result;
+    if(uid === -1)
+        result = await ewindow_control.getUserEWindows();
+    else
+        result = await ewindow_control.getEWindowsById(uid);
 
-    //render
     var s = nunjucks_control.env.render('display_mine.html',{ewindows:result});
     ctx.response.body = s;
 }
@@ -73,5 +77,6 @@ module.exports = {
     'GET /displays' : fn_initListPage,
     'GET /displays/details/:id' : fn_initDetailPage,
     'GET /displays/upload' : fn_uploadRt,
+    'GET /displays/my/:id' : fn_initMyDisplay,
     'GET /displays/my' : fn_initMyDisplay
 }

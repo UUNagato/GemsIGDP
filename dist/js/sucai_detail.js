@@ -19,7 +19,7 @@ $().ready(function(){
     var filetype = filesrc.substring(filesrc.lastIndexOf('.') + 1, filesrc.length);
     if(filetype === 'obj') {
         init3DPreview('obj', filesrc);
-    } else if(filetype === 'jpg' || filetype === 'png' || filetype === 'gif') {
+    } else if(filetype === 'jpg' || filetype === 'png' || filetype === 'gif' || filetype === 'jpeg') {
         initImgPreview(filesrc);
     } else if(filetype === 'ogg' || filetype === 'mp3') {
         initAudioPreview(filesrc);
@@ -93,4 +93,11 @@ function init3DPreview(type, src) {
     };
 
     animate();
+
+    window.addEventListener('resize', ()=>{
+        camera.aspect = canvasdiv.clientWidth / canvasdiv.clientHeight;
+        camera.updateProjectionMatrix();
+
+        gems_renderer.setSize(canvasdiv.clientWidth, canvasdiv.clientHeight);
+    }, false);
 }

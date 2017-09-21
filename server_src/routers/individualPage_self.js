@@ -17,6 +17,7 @@ var fn_initPage = async(ctx,next) => {
     var i;
 
     var user = {
+        id : id,
         nickname : result.nickname,
         profile : headPic,
         sex : result.sex,

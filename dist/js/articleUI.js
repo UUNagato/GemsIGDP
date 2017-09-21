@@ -74,6 +74,22 @@ function Delete(){
     }
 }
 
+function Edit() {
+    // record data
+    var id = window.location.href;
+    id = id.substring(id.lastIndexOf('/') + 1,id.length);
+    id = parseInt(id);
+    
+    var title = $('#title').text();
+    var content = $('#content').text();
+
+    window.localStorage.setItem('editid', id);
+    window.localStorage.setItem('edittitle', title);
+    window.localStorage.setItem('editcontent', content);
+
+    window.location.href = '/articleList/articleedit/edit';
+}
+
 function onCommentClick(){
     var login = isLocallyLogin();
     if(login){

@@ -67,10 +67,10 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="" onclick="alert('抱歉，您没有编辑权限。')">编辑</a>
+                        <a onclick="Edit()">编辑</a>
                     </li>
                     <li>
-                        <a href="" onclick="Delete()" id="delete">删除</a>
+                        <a onclick="Delete()" id="delete">删除</a>
                     </li>
                 </ul>
             </div>
@@ -89,8 +89,8 @@
         </div>
       </div>
       <div class="fengexian"></div>
-      <div class="article"> 
-        <p>{{article.content | safe}}</p>
+      <div class="article" id="content"> 
+        {{article.content | safe}}
       </div>
       <div class="fengexian"></div>
       <div class="row zanline">
@@ -155,7 +155,7 @@
     <div class="container" style="padding:0px;background-color:#ebebeb;margin-bottom:10px;">
       <div class="writecomment" id="note">
         <div id="summernote"></div>
-        <div class="row" style="text-align:center;">
+        <div class="row">
           <div class="col-md-2 col-md-offset-7">
             <button class="btn btn-lg commentbtn" onclick="onCommentClick()" id="commentbtn" style="margin-bottom:10px;">评论</button>
           </div>

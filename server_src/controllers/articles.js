@@ -392,6 +392,25 @@ var upLiulanfunc = async function(article_id){
     article.increment('liulan');
 };
 
+var updateArticlefunc = async function(userid, artid, title, content) {
+    // try to find
+    var article = await models.article.findOne({
+        attributes:['id', 'user_id', 'title', 'content', 'update_time'],
+        where: {id:artid}
+    });
+
+    if(article !== null && article.user_id === userid) {
+        article.update({
+            title:title,
+            content:content,
+            update_time:new Date()
+        });
+        return true;
+    }
+
+    return false;
+}
+
 
 module.exports = {
       releaseArticle : releaseArticlefunc,
@@ -407,5 +426,6 @@ module.exports = {
       getArticleList : getArticleListfunc,
       getNumberOfComments : getNumberOfCommentsfunc,
       getNumberOfArticles : getNumberOfArticlesfunc,
-      upLiulan : upLiulanfunc
+      upLiulan : upLiulanfunc,
+      updateArticle : updateArticlefunc
 };

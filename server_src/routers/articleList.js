@@ -157,12 +157,41 @@ var fn_addCommentWithCite = async(ctx, next) => {
     ctx.response.body = 'success!';
 };
 
+var fn_edit = async(ctx, next) => {
+    ctx.response.body = nunjucks_control.env.render('editarticle.html');
+}
+
+var fn_editpost = async(ctx, next) => {
+    var user = users.getValidatedUser(ctx.request);
+    if(user !== null) {
+        var artid = ctx.request.body.id;
+        var title = ctx.request.body.title;
+        var content = ctx.request.body.content;
+
+        if(artid === undefined || title === undefined || content === undefined) {
+            ctx.response.body = {error:'illegal parameters'};
+        }
+        else {
+            var result = await article_control.updateArticle(user.user_id, artid, title, content);
+            if(result) {
+                ctx.response.body = {success:true};
+            } else {
+                ctx.response.body = {error:'Illegal Edit!'};
+            }
+        }
+    } else {
+        ctx.response.body = {error:'Illegal user'};
+    }
+}
+
 module.exports = {
     'GET /articleList/:currentPage' : fn_initList,
     'GET /articleList/details/:id' : fn_initArticlePage,
     'GET /articleList/writenew/new' : fn_writeNew,
+    'GET /articleList/articleedit/edit' : fn_edit,
     'POST /articleList/delete' : fn_deleteArticle,
     'POST /articleList/newpost' : fn_articlepost,
     'POST /articleList/comment/add' : fn_addComment,
-    'POST /articleList/comment/addWithCite' : fn_addCommentWithCite
+    'POST /articleList/comment/addWithCite' : fn_addCommentWithCite,
+    'POST /articleList/editarticle' : fn_editpost
 }
