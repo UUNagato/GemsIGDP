@@ -63,14 +63,14 @@
       </ul>
       <div class="top_btn">
         <div id="first" class="buttonBox">
-            <button onclick="window.location.href='/displays/upload'">发布</button>
+            <button onclick="window.location.href='/materials/new'">发布</button>
             <div class="border"></div>
             <div class="border"></div>
             <div class="border"></div>
             <div class="border"></div>
         </div>>
         <div id="second" class="buttonBox">
-            <button onclick="window.location.href='/displays/my'">我的</button>
+            <button onclick="window.location.href='/materials/my'">我的</button>
             <div class="border"></div>
             <div class="border"></div>
             <div class="border"></div>
@@ -88,7 +88,7 @@
       <div class="items">
         {% for item in items %}
         <div class="item">
-          <div class="card_main"><a href="#" target="_blank" title="page"><img class="card" src="{{item.thumbnail_src}}"></a></div>
+          <div class="card_main"><a href="/materials/details/{{item.id}}" target="_blank" title="page"><img class="card" src="{{item.thumbnail_src}}"></a></div>
           <div class="card_footer"> 
             <div class="card_footer_left">
               <div class="image_container"><a class="card_footer_avatar" href="#"><img class="head" src="{{item.uploader_profile}}" href='/materials/details/{{item.id}}'></a></div>

@@ -16,6 +16,7 @@ function onfileselect() {
         } else if(filetype === 'mp3' || filetype === 'ogg') {
             initAudioPreview(file);
         } else {
+            $('#onpost').attr('disabled','disabled');
             $('#preupload').show();
             $('#selectedfile').hide();
         }
@@ -26,11 +27,17 @@ function initImagePreview(file) {
     $('#infop').text(file.name);
     var url = createOBJURL(file);
     $('#selectedfile').css('background-image','url(' + url + ')');
+    $('#onpost').removeAttr('disabled');
 }
 
 function initAudioPreview(file) {
     $('#infop').text(file.name);
-    $('#selectedfile').css('background-image','url(/img/mp3icon.png)');
+    var url = createOBJURL(file);
+    var audiotag = $('<audio controls>');
+    var source = $('<source src="' + url + '">');
+    audiotag.append(source);
+    $('#selectedfile').append(audiotag);
+    $('#onpost').removeAttr('disabled');
 }
 
 function createOBJURL(file) {
@@ -42,6 +49,7 @@ function createOBJURL(file) {
     return null;
 }
 
+var gems_renderer = null;
 function initCanvasPreview3D(type, url) {
     $('#preupload').hide();
     $('#selectedfile').show();
@@ -70,15 +78,17 @@ function initCanvasPreview3D(type, url) {
         },onProgress, onError);
     };
 
-    var renderer = new THREE.WebGLRenderer();
-    renderer.setSize( canvasdiv.clientWidth, canvasdiv.clientHeight );
-    canvasdiv.appendChild( renderer.domElement );
+    gems_renderer = new THREE.WebGLRenderer({
+        preserveDrawingBuffer : true
+    });
+    gems_renderer.setSize( canvasdiv.clientWidth, canvasdiv.clientHeight );
+    canvasdiv.appendChild( gems_renderer.domElement );
 
     var light = new THREE.HemisphereLight(0xffffff, 0x444444, 1.0);
     light.position.set(0, 1, 0);
     scene.add(light);
 
-    controls = new THREE.TrackballControls( camera, renderer.domElement);
+    controls = new THREE.TrackballControls( camera, gems_renderer.domElement);
     controls.rotateSpeed = 1.0;
     controls.zoomSpeed = 1.2;
     controls.panSpeed = 0.8;
@@ -95,10 +105,11 @@ function initCanvasPreview3D(type, url) {
         requestAnimationFrame( animate );
 
         controls.update();
-        renderer.render(scene, camera);
+        gems_renderer.render(scene, camera);
     };
 
     animate();
+    $('#onpost').removeAttr('disabled');
 }
 
 function onpost() {
@@ -108,7 +119,7 @@ function onpost() {
     var tags = $('#tags').val();
     var file = $('#fileinput')[0].files[0];
     // basic format check
-    var titleexp = /^\D[^><\n\f\r\t\v]{6,50}/;
+    var titleexp = /^\D[^><\n\f\r\t\v]{2,50}/;
     var tagexp = /^\D[^><\n\f\r\t\v]{0,255}/;
 
     if(!titleexp.test(title)) {
@@ -128,8 +139,7 @@ function onpost() {
         var filetype = filename.substring(filename.lastIndexOf('.') + 1, filename.length);
         if(filetype === 'obj') {
             // upload thumbnail
-            var canvas = $('#selectedfile canvas');
-            canvas[0].toBlob(function(blob) {
+            gems_renderer.domElement.toBlob(function(blob) {
                 form.append('thumbnail', blob);
                 postdata(form, file);
             })

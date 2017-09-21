@@ -38,10 +38,14 @@ var fn_uploadFiles = async(ctx, next) => {
         if(ctx.request.body.files.thumbnail !== undefined) {
             // there is thumbnail picture
             var thumbnailid = await fileManager.imageUploadGetId(user.user_id, ctx.request.body.files.thumbnail);
-            console.log(thumbnailid);
         }
 
         var fileid = await fileManager.singleFileUpload(user.user_id, ctx.request.body.files.file);
+        if(thumbnailid === undefined) {
+            thumbnailid = fileManager.getDefaultThumbnail(ctx.request.body.files.file);
+            if(thumbnailid === -1)
+                thumbnailid = fileid;
+        }
         
         ctx.response.body = {thumbnail:thumbnailid,file:fileid};
     } else {
@@ -69,9 +73,33 @@ var fn_uploadMaterial = async(ctx, next) => {
     }
 }
 
+var fn_libraryNew = async(ctx, next) => {
+    var user = ctrl_user.getCurrentUser(ctx.request);
+    if(user === null) {
+        ctx.response.redirect('/materials');
+    }
+    else {
+        ctx.response.body = nunjucks_control.env.render('uploadmaterials.html');
+    }
+}
+
+var fn_librarymy = async(ctx, next) => {
+    var user = ctrl_user.getCurrentUser(ctx.request);
+    if(user === null) {
+        ctx.response.redirect('/materials');
+    }
+    else {
+        var items = await ctrl_library.getLibraryFilesByUserID(user.user_id);
+        var s = nunjucks_control.env.render('sucai_mine.html',{items:items});
+        ctx.response.body = s;
+    }
+}
+
 
 module.exports = {
     'GET /materials': fn_librarylist,
+    'GET /materials/new': fn_libraryNew, 
+    'GET /materials/my' : fn_librarymy,
     'GET /materials/details/:id': fn_initDetails,
     'POST /materials/upload': fn_uploadFiles,
     'POST /materials/materialupload': fn_uploadMaterial
