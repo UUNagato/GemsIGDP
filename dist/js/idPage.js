@@ -231,6 +231,7 @@ function changeInfo(){
 
     var popUp = document.getElementById("changeInfo");
     popUp.style.visibility = "hidden";
+    window.location.reload();
 }
 
 
