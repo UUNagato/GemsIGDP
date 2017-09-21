@@ -327,9 +327,7 @@ var getArticleListfunc = async function(page){
             attributes : ['nickname'],
             where : { id : Sequelize.col('article.user_id') } //use the user_id to find nickname in user_info table
         }],
-        where :{
-            id : { $gt : p} //id > p
-        }
+        offset : p
     });
 
     if(a === null)
