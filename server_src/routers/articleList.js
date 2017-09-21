@@ -31,6 +31,8 @@ var fn_initList = async(ctx, next) => {
     //count the pages
     if(count % 5 !== 0)
         page = Math.floor(count /5) + 1;
+    else if(count === 0)
+        page = 1;
     else
         page = Math.floor(count /5);
 
