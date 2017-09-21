@@ -187,12 +187,10 @@ var addCommentfunc = async function(article_id,content) {
         }catch(error){
             console.log('add comment, errors happen: '+error);
             throw(error);
-            return false;
         }
     }else{
         console.log('add comment, the article_id is not an integer!');
         throw('the article_id is not an integer!');
-        return false;
     }
 
     return true;
@@ -224,12 +222,10 @@ var addCommentWithCitefunc = async function(article_id, cite_id, content){
         }catch(error){
             console.log('add comment, errors happen: '+error);
             throw(error);
-            return false;
         }
     }else{
         console.log('add comment, the article_id is not an integer!');
         throw('the article_id is not an integer!');
-        return false;
     }
 
     return true;
@@ -336,7 +332,7 @@ var getArticleListfunc = async function(page){
         }
     });
 
-    if(articles === null)
+    if(a === null)
     {
         console.log('get not articles to show in list....');
         return null;

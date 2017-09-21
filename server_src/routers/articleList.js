@@ -51,7 +51,6 @@ var fn_initList = async(ctx, next) => {
             commentcount : count
         };
     }
-
     
     //render the page
     var s = nunjucks_control.env.render('articleList.html', {articles:articles, sumpage:page, currentpage:currentPage} );
