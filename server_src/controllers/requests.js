@@ -115,7 +115,7 @@ var getRequestListfunc = async function(currentPage){
             where: { id: Sequelize.col('request.user_id') },//include the user's nickname
             required: true
         }],
-        where : {id : {$gt : c}}
+        offset : c
     });
 
     var i;
