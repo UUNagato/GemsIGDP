@@ -44,7 +44,7 @@ $(document).ready(function(){
 function onSubmitClick() {
     $('#informwindow').hide();
     var title = $('#articletitle').val();
-    var titleexp = /^\D[^><\n\f\r\t\v]{6,50}/;
+    var titleexp = /^\D[^><\n\f\r\t\v]{3,50}/;
     if(!titleexp.test(title)) {
         $('#informwindow').html('标题不符合格式（长度不符或包含敏感字符）').show();
         return;

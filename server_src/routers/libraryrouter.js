@@ -1,5 +1,7 @@
 'use strict'
 const ctrl_library = require('../controllers/librarys.js');
+const ctrl_user = require('../controllers/users.js');
+const fileManager = require('../controllers/filemanager.js')
 var nunjucks_control = require('../controllers/nunjucks.js');
 
 //init sucai.html
@@ -31,13 +33,74 @@ var fn_initDetails = async(ctx, next) => {
 };
 
 var fn_uploadFiles = async(ctx, next) => {
-    console.log(ctx.request.body.files);
+    var user = ctrl_user.getValidatedUser(ctx.request);
+    if(user !== null && ctx.request.body.files.file !== undefined) {
+        if(ctx.request.body.files.thumbnail !== undefined) {
+            // there is thumbnail picture
+            var thumbnailid = await fileManager.imageUploadGetId(user.user_id, ctx.request.body.files.thumbnail);
+        }
+
+        var fileid = await fileManager.singleFileUpload(user.user_id, ctx.request.body.files.file);
+        if(thumbnailid === undefined) {
+            thumbnailid = fileManager.getDefaultThumbnail(ctx.request.body.files.file);
+            if(thumbnailid === -1)
+                thumbnailid = fileid;
+        }
+        
+        ctx.response.body = {thumbnail:thumbnailid,file:fileid};
+    } else {
+        ctx.response.body = {error:'illegal user'};
+    }
 };
 
+var fn_uploadMaterial = async(ctx, next) => {
+    var user = ctrl_user.getValidatedUser(ctx.request);
+    console.log(user);
+    if(user !== null) {
+        var name = ctx.request.body.name;
+        var tags = ctx.request.body.tags;
+        var thumbnail = ctx.request.body.thumbnailid;
+        var file = ctx.request.body.fileid;
+
+        var ret = await ctrl_library.uploadAMaterial(name, tags, user.user_id, file, thumbnail);
+        if(ret) {
+            ctx.response.body = {success:true};
+        } else {
+            ctx.response.body = {error:'发生未知错误'};
+        }
+    } else {
+        ctx.response.body = {error:'illegal user'};
+    }
+}
+
+var fn_libraryNew = async(ctx, next) => {
+    var user = ctrl_user.getCurrentUser(ctx.request);
+    if(user === null) {
+        ctx.response.redirect('/materials');
+    }
+    else {
+        ctx.response.body = nunjucks_control.env.render('uploadmaterials.html');
+    }
+}
+
+var fn_librarymy = async(ctx, next) => {
+    var user = ctrl_user.getCurrentUser(ctx.request);
+    if(user === null) {
+        ctx.response.redirect('/materials');
+    }
+    else {
+        var items = await ctrl_library.getLibraryFilesByUserID(user.user_id);
+        var s = nunjucks_control.env.render('sucai_mine.html',{items:items});
+        ctx.response.body = s;
+    }
+}
 
 
 module.exports = {
     'GET /materials': fn_librarylist,
+    'GET /materials/new': fn_libraryNew, 
+    'GET /materials/my' : fn_librarymy,
     'GET /materials/details/:id': fn_initDetails,
-    'POST /materials/upload': fn_uploadFiles
+    'POST /materials/upload': fn_uploadFiles,
+    'POST /materials/materialupload': fn_uploadMaterial
 };

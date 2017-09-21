@@ -26,6 +26,9 @@ var uploadPluginfunc = function(ctx, userid) {
         var file = ctx.request.body.files.file;
         if(file) {
             var filetype = file.type.substring(file.type.lastIndexOf('/') + 1,file.type.length);
+            var filetype2 = file.name.substring(file.name.lastIndexOf('.') + 1, file.name.length);
+            if(uploadconfig[filetype] === undefined && uploadconfig[filetype2] !== undefined)
+                filetype = filetype2;
             // check size and type
             if(uploadconfig[filetype] !== undefined) {
                 if(file.size > uploadconfig[filetype].size) {
@@ -106,6 +109,9 @@ var imageUploadfunc = function(userid, file) {
     var promiseFunc = function(resolve, reject) {
         if(file) {
             var filetype = file.type.substring(file.type.lastIndexOf('/') + 1,file.type.length);
+            var filetype2 = file.name.substring(file.name.lastIndexOf('.') + 1, file.name.length);
+            if(uploadconfig[filetype] === undefined && uploadconfig[filetype2] !== undefined)
+                filetype = filetype2;
             // check size and type
             if(uploadconfig[filetype] !== undefined) {
                 if(file.size > uploadconfig[filetype].size) {
@@ -179,6 +185,9 @@ var imageUploadGetIdfunc = function(userid, file) {
     var promiseFunc = function(resolve, reject) {
         if(file) {
             var filetype = file.type.substring(file.type.lastIndexOf('/') + 1,file.type.length);
+            var filetype2 = file.name.substring(file.name.lastIndexOf('.') + 1, file.name.length);
+            if(uploadconfig[filetype] === undefined && uploadconfig[filetype2] !== undefined)
+                filetype = filetype2;
             // check size and type
             if(uploadconfig[filetype] !== undefined) {
                 if(file.size > uploadconfig[filetype].size) {
@@ -253,6 +262,9 @@ var imageUploadGetFilefunc = function(userid, file) {
     var promiseFunc = function(resolve, reject) {
         if(file) {
             var filetype = file.type.substring(file.type.lastIndexOf('/') + 1,file.type.length);
+            var filetype2 = file.name.substring(file.name.lastIndexOf('.') + 1, file.name.length);
+            if(uploadconfig[filetype] === undefined && uploadconfig[filetype2] !== undefined)
+                filetype = filetype2;
             // check size and type
             if(uploadconfig[filetype] !== undefined) {
                 if(file.size > uploadconfig[filetype].size) {
@@ -316,10 +328,22 @@ var imageUploadGetFilefunc = function(userid, file) {
     return(new Promise(promiseFunc));
 }
 
+/**
+ * 
+ * @param {File} file 
+ */
+var getDefaultThumbnailfunc = function(file) {
+    var filename = file.name;
+    var filetype = filename.substring(filename.lastIndexOf('.') + 1, filename.length);
+    return uploadconfig[filetype].defaultThumbnail;
+}
+
 
 module.exports = {
     uploadPlugin : uploadPluginfunc,
     singleImageUpload : imageUploadfunc,
     imageUploadGetId : imageUploadGetIdfunc,
-    imageUploadGetFile : imageUploadGetFilefunc
+    imageUploadGetFile : imageUploadGetFilefunc,
+    singleFileUpload : imageUploadGetIdfunc,
+    getDefaultThumbnail : getDefaultThumbnailfunc
 };

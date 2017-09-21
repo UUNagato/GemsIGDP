@@ -12,12 +12,15 @@
     <script type="text/javascript" src="/js/global.js"></script>
     <link href="/css/sucai_detail.css" rel="stylesheet">
     <script type="text/javascript" src="/js/sucai_detail.js"></script>
+    <script type="text/javascript" src="/components/threejs/three.min.js"></script>
+    <script type="text/javascript" src="/components/threejs/TrackballControls.js"></script>
+    <script type="text/javascript" src="/components/threejs/obj-loader.js"></script>
   </head>
   <body>
       <nav class="navbar navbar-inverse navbar-fixed-top">
           <div class="container">
             <div class="narbar-header">
-              <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
+              <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">GG</a>
             </div>
             <div class="collapse navbar-collapse" id="navbarul">
               <ul class="nav navbar-nav navbar-left">
@@ -51,7 +54,7 @@
     <div class="showwindow">
       <div class="show_left">
         <div class="main">
-          <div class="viewer_wrapper"><img class="card" src="{{model.src}}"></div>
+          <div id="view_container" class="viewer_wrapper" filesrc="{{model.src}}"></div>
           <div class="content_wrapper">
             <div class="vieweradditional">
               <div class="model_name"><span class="model_name">{{model.name}}</span></div>
@@ -113,7 +116,7 @@
         <div class="items">
           {% for item in items %}
           <div class="item">
-            <div class="main_card"><a href="#" target="_blank" title="page"><img class="card" src="{{item.src}}"></a></div>
+            <div class="main_card"><a href="/materials/details/{{item.id}}" target="_blank" title="page"><img class="card" src="{{item.src}}"></a></div>
             <div class="main_footer">
               <div class="card_name"><span class="card_name">{{item.name}}</span></div>
               <div class="user_name"><span class="user_name">{{item.author_name}}</span></div>

@@ -53,7 +53,7 @@ var rt_loginchecker = async function(ctx, next) {
     if(token !== null && token.token !== null && token.csrf !== null) {
         ctx.body = token;
     } else {
-        ctx.body = {error:0};
+        ctx.body = {error:2};
     }
 };
 

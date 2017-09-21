@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head> 
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
@@ -9,11 +9,12 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
-    <title>发布文章</title>
-    <link rel="stylesheet" href="/css/writearticle.css" type="text/css">
-    <link rel="stylesheet" href="/components/summernote/summernote.css">
-    <script type="text/javascript" src="/components/summernote/summernote.min.js"></script>
-    <script type="text/javascript" src="/js/writearticle.js"></script>
+    <link href="/css/uploadmaterials.css" rel="stylesheet">
+    <script src="/components/threejs/three.min.js" type="text/javascript"></script>
+    <script src="/components/threejs/obj-loader.js" type="text/javascript"></script>
+    <script src="/components/threejs/TrackballControls.js" type="text/javascript"></script>
+    <script src="/js/uploadmaterials.js" type="text/javascript"></script>
+    <title>上传素材</title>
   </head>
   <body>
     <nav class="navbar navbar-inverse">
@@ -36,6 +37,13 @@
           <ul class="nav navbar-nav navbar-right navbar-hide" id="login">
             <li class="navbar-leftborder"></li>
             <li class="navbar-middleondrop"><img class="navbar-profile" id="userprofile"></li>
+            <li><a class="dropdown-toggle" id="usernick" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+              <ul class="dropdown-menu dropdown-inverse">
+                <li><a id="personalpage" href="#">个人页面</a></li>
+                <li class="divider" role="separator"></li>
+                <li><a class="btn btn-danger" onclick="logOut()">注销</a></li>
+              </ul>
+            </li>
             <li class="navbar-hideondrop"> 
               <p class="navbar-text">消息<span class="badge"></span></p>
             </li>
@@ -44,19 +52,26 @@
       </div>
     </nav>
     <div class="container-fluid">
-      <div class="row" style="background-color:rgb(34,34,34);">
-        <h1 class="boldwhitetext">编辑文章</h1>
+      <div class="row grey-background">
+        <input id="fileinput" name="file" type="file" style="display:none;" onchange="onfileselect()">
+        <div class="uploaddiv" id="preupload">
+          <button class="btn btn-info" id="uploadbtn" type="button" onclick="uploadfile()">浏览</button>
+          <h3>models(obj),audio(mp3,ogg),sprites(png,jpg,gif)</h3>
+        </div>
+        <div class="uploaddiv" id="selectedfile" style="display:none;">
+          <p id="infop">选择一个角度作为缩略图（3d model)</p>
+        </div>
       </div>
     </div>
-    <div class="container articlewriting">
-      <div class="alert alert-danger" id="informwindow"></div>
-      <div class="form-group">
-        <label for="articletitle">标题：</label>
-        <input class="form-control" id="articletitle" type="text" placeholder="在此输入标题">
+    <div class="container">
+      <div class="form-container">
+        <input id="title" name="title" type="text" placeholder="素材名">
+        <input id="tags" name="tag" type="text" placeholder="输入以逗号为分割的标签">
+        <center>
+          <div class="alert alert-danger" id="alertinfo" style="display:none;"></div>
+          <button class="btn btn-lg btn-success" id="onpost" type="button" onclick="onpost()" disabled="disabled">发布</button>
+        </center>
       </div>
-      <label>正文：</label>
-      <div id="summernote"></div>
-      <button class="btn btn-lg btn-success" id="submit-btn" onclick="onSubmitClick()">完成提交</button>
     </div>
   </body>
 </html>

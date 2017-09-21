@@ -40,7 +40,7 @@ var fn_initPage = async(ctx,next) => {
 
     //render
     var s;
-    if( id === currentUser.user_id )
+    if( currentUser !== null && id === currentUser.user_id )
     {
         s = await nunjucks_control.env.render('individualPage.html',{user:user, articles:articles});//idPage-self
     }

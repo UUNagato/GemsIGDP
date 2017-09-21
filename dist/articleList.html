@@ -17,7 +17,7 @@
   <nav class="navbar navbar-inverse">
     <div class="container">
       <div class="narbar-header">
-        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">GG</a>
       </div>
       <div class="collapse navbar-collapse" id="navbarul">
         <ul class="nav navbar-nav navbar-left">
@@ -51,9 +51,9 @@
   <div class="container" style="background-color:#a1a1a1;text-align:center;">
     <div class="row" style="background-color:#737373;">
       <h1 class="articlelisttitle">文章列表</h1>
-      <button style="float:right;background-color:#737373;margin-right:5px;margin-bottom:5px;" class="btn" id="fabubtn" >
-        <a class="glyphicon glyphicon-pencil" style="font-size:20px;font-family:'微软雅黑';" href="/articleList/writenew/new">发布</a>
-      </button>
+      
+      <a id="fabubtn" class="glyphicon glyphicon-pencil" style="font-size:20px;font-family:'微软雅黑';float:right;background-color:#737373;margin-right:5px;margin-bottom:5px;" href="/articleList/writenew/new">发布</a>
+     
     </div>
     
     <div class="fengexian"></div>
@@ -112,8 +112,12 @@
   <div class="container" style="text-align:center;">
     <div class="row pagerow">
         <a  href="/articleList/1" style="color:white;margin-left:5px;">|&lt</a>
-        <a  href="/articleList/{{currentpage-1}}" style="color:white;margin-left:5px;">←</a>
-        
+
+        {% if currentpage == 1 %}
+        <a href="/articleList/1" style="color:white;margin-left:5px;">←</a>
+        {% else %}
+        <a href="/articleList/{{currentpage-1}}" style="color:white;margin-left:5px;">←</a>
+        {% endif %}
         
           {% if sumpage > 10 %}
           {% if currentpage < 5 %}
@@ -162,7 +166,13 @@
         <a  href="/articleList/{{i}}" style="color:white;margin-left:5px;">{{i}}</a>
           {% endfor %}
         {% endif %}
-        <a  href="/articleList/{{currentpage+1}}" style="color:white;margin-left:5px;">→</a>
+
+        {% if currentpage == sumpage %}
+        <a href="/articleList/{{sumpage}}" style="color:white;margin-left:5px;">→</a>
+        {% else %}
+        <a href="/articleList/{{currentpage+1}}" style="color:white;margin-left:5px;">→</a>
+        {% endif %}
+        
         <a  href="/articleList/{{sumpage}}" style="color:white;margin-left:5px;">&gt|</a>
     </div>
   </div>

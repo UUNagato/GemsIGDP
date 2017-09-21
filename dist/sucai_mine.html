@@ -17,7 +17,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="narbar-header">
-          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="#">GG</a>
+          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarul" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">GG</a>
         </div>
         <div class="collapse navbar-collapse" id="navbarul">
           <ul class="nav navbar-nav navbar-left">
@@ -79,7 +79,7 @@
         <div class="items">
             {% for item in items %}
             <div class="item">
-              <div class="card_main"><a href="#" target="_blank" title="page"><img class="card" src="{{item.thumbnail_src}}"></a>
+              <div class="card_main"><a href="/materials/details/{{item.id}}" target="_blank" title="page"><img class="card" src="{{item.thumbnail_src}}"></a>
               </div>
               <div class="card_footer"> 
                 <div class="card_footer_left">
