@@ -334,7 +334,7 @@ var getArticleListfunc = async function(page){
         offset : p
     });
 
-    if(articles === null)
+    if(a === null)
     {
         console.log('get not articles to show in list....');
         return null;
